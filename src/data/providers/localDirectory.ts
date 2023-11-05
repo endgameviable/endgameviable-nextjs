@@ -4,7 +4,7 @@ import * as path from 'path';
 import FileInfo from '@/data/interfaces/fileInfo'
 import DataProvider from '@/data/interfaces/dataProvider';
 import FileTransformer from '@/data/interfaces/fileTransformer';
-import EntryModel from '@/models/entry';
+import Entry from '@/data/interfaces/entry';
 
 // ChatGPT basically wrote this function for me so blame it :)
 async function walkDirectory(dirPath: string, filePattern: string): Promise<FileInfo[]> {
@@ -41,9 +41,9 @@ export default class LocalDirectoryDataProvider implements DataProvider {
     this.transformer = transformer;
   }
 
-  async getEntries(): Promise<EntryModel[]> {
+  async getEntries(): Promise<Entry[]> {
     const results = await walkDirectory(this.directoryPath, "*");
-    const entries: EntryModel[] = [];
+    const entries: Entry[] = [];
     var index = 0
     for (const result of results) {
       if (this.transformer) {

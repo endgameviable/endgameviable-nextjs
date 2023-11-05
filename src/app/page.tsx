@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import EntryModel from '@/models/entry'
+import Entry from '@/data/interfaces/entry'
 import EntryListLayout from '@/layouts/entryList'
 
 export default function Home() {
-  const list : EntryModel[] = [
+  const list : Entry[] = [
     {
       key: "1",
       date: "2023-01-01 15:00:00",

@@ -1,4 +1,4 @@
-export default interface EntryModel {
+export default interface Entry {
     key: string
     title?: string
     summary?: string

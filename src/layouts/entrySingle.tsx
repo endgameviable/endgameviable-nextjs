@@ -1,6 +1,6 @@
-import EntryModel from '@/models/entry'
+import Entry from '@/data/interfaces/entry'
 
-export default function SingleEntryLayout( { entry }: { entry: EntryModel } ) {
+export default function SingleEntryLayout( { entry }: { entry: Entry } ) {
     return (
         <>
             <section>

@@ -1,6 +1,6 @@
-import EntryModel from '@/models/entry'
+import Entry from '@/data/interfaces/entry'
 
-export default function EntryListLayout({ content, list }: { content: string, list: EntryModel[] } ) {
+export default function EntryListLayout({ content, list }: { content: string, list: Entry[] } ) {
     return (
         <>
             <header><p>{content}</p></header>
