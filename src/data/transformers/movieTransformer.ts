@@ -8,7 +8,7 @@ import Entry from '@/data/interfaces/entry'
 export default class MovieTransformer implements FileTransformer {
 
     async transform(file: FileInfo): Promise<Entry[]> {
-        const data: any = yaml.load(file.content)
+        const data: any = yaml.load(await file.getContent())
         const entries: Entry[] = []
         if (Array.isArray(data.movies)) {
             let index = 0

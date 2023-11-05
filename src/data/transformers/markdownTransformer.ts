@@ -10,7 +10,7 @@ export default class MarkdownTransformer implements FileTransformer {
             key: file.path,
             date: file.stats.mtime.toISOString(),
             title: file.path,
-            content: file.content
+            content: await file.getContent()
           }];
     }
 

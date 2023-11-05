@@ -14,7 +14,6 @@ async function walkDirectory(dirPath: string, filePattern: string): Promise<File
   async function traverse(currentDir: string) {
     const items = await fs.readdir(currentDir);
 
-    // TODO: probably should get file timestamp
     for (const item of items) {
       const itemPath = path.join(currentDir, item);
       const itemStats = await fs.stat(itemPath);
@@ -22,8 +21,7 @@ async function walkDirectory(dirPath: string, filePattern: string): Promise<File
       if (itemStats.isDirectory()) {
         await traverse(itemPath);
       } else if (itemStats.isFile()) {
-        const itemContent = await fs.readFile(itemPath, 'utf8');
-        files.push({path: itemPath, stats: itemStats, content: itemContent});
+        files.push(new FileInfo(itemPath, itemStats));
       }
     }
   }
@@ -32,33 +30,40 @@ async function walkDirectory(dirPath: string, filePattern: string): Promise<File
   return files;
 }
 
+// A DataProvider to scan a local directory and generate Entries from the files there.
 export default class LocalDirectoryDataProvider implements DataProvider {
   private directoryPath: string;
   private transformer: FileTransformer;
+  private files: FileInfo[];
 
   constructor(directoryPath: string, transformer: FileTransformer) {
     this.directoryPath = path.join(process.cwd(), directoryPath);
     this.transformer = transformer;
+    this.files = []
+  }
+
+  async query(): Promise<void> {
+    this.files = await walkDirectory(this.directoryPath, "*")
   }
 
   async getEntries(): Promise<Entry[]> {
-    const results = await walkDirectory(this.directoryPath, "*");
     const entries: Entry[] = [];
     var index = 0
-    for (const result of results) {
+    for (const file of this.files) {
       if (this.transformer) {
         try {
-          const transformed = await this.transformer.transform(result);
+          const transformed = await this.transformer.transform(file);
           entries.push(...transformed);
+          index += transformed.length
         } catch (error) {
           console.log("error reading file:", error);
         }
       } else {
         entries.push({
           key: index.toString(),
-          date: result.stats.mtime.toISOString(),
+          date: file.stats.mtime.toISOString(),
           title: "File " + index.toString(),
-          content: result.content
+          content: await file.getContent()
         });
       }
       index++;
