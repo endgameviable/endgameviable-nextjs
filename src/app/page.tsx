@@ -6,13 +6,13 @@ export default function Home() {
   const list : Entry[] = [
     {
       key: "1",
-      date: "2023-01-01 15:00:00",
+      date: new Date(2023, 1, 1, 15, 0, 0),
       title: "Entry the First",
       content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     },
     {
       key: "2",
-      date: "2023-01-02 16:00:00",
+      date: new Date(2023, 1, 2, 16, 0, 0),
       title: "Entry the Second",
       content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     }

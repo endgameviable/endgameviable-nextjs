@@ -34,22 +34,17 @@ async function walkDirectory(dirPath: string, filePattern: string): Promise<File
 export default class LocalDirectoryDataProvider implements DataProvider {
   private directoryPath: string;
   private transformer: FileTransformer;
-  private files: FileInfo[];
 
   constructor(directoryPath: string, transformer: FileTransformer) {
     this.directoryPath = path.join(process.cwd(), directoryPath);
     this.transformer = transformer;
-    this.files = []
-  }
-
-  async query(): Promise<void> {
-    this.files = await walkDirectory(this.directoryPath, "*")
   }
 
   async getEntries(): Promise<Entry[]> {
+    const files = await walkDirectory(this.directoryPath, "*")
     const entries: Entry[] = [];
     var index = 0
-    for (const file of this.files) {
+    for (const file of files) {
       if (this.transformer) {
         try {
           const transformed = await this.transformer.transform(file);
@@ -61,13 +56,14 @@ export default class LocalDirectoryDataProvider implements DataProvider {
       } else {
         entries.push({
           key: index.toString(),
-          date: file.stats.mtime.toISOString(),
+          date: file.stats.mtime,
           title: "File " + index.toString(),
           content: await file.getContent()
         });
       }
       index++;
     }
+    console.log("entries read:", entries.length)
     return entries;
   }
 }

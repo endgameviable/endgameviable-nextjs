@@ -8,7 +8,7 @@ export default class MarkdownTransformer implements FileTransformer {
     async transform(file: FileInfo): Promise<Entry[]> {
         return [{
             key: file.path,
-            date: file.stats.mtime.toISOString(),
+            date: file.stats.mtime,
             title: file.path,
             content: await file.getContent()
           }];

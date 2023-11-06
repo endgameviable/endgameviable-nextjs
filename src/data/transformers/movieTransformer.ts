@@ -13,9 +13,11 @@ export default class MovieTransformer implements FileTransformer {
         if (Array.isArray(data.movies)) {
             let index = 0
             for (const movie of data.movies) {
+                const parsedMillis = Date.parse(movie.last_seen)
+                const localDate = new Date(parsedMillis)
                 const entry = {
                     key: index.toString(),
-                    date: movie.last_seen,
+                    date: localDate,
                     title: movie.title,
                     content: movie.review
                 }

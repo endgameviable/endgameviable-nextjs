@@ -8,7 +8,7 @@ export default function EntryListLayout({ content, list }: { content: string, li
                 return (
                     <section key={entry.key}>
                         <article>
-                            <header><h1>{entry.title}</h1><h2>{entry.date}</h2></header>
+                            <header><h1>{entry.title}</h1><h2>{entry.date.toString()}</h2></header>
                             <p>{entry.content}</p>
                             <footer><p>Metadata</p></footer>
                         </article>

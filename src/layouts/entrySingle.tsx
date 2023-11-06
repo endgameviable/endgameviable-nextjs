@@ -5,7 +5,7 @@ export default function SingleEntryLayout( { entry }: { entry: Entry } ) {
         <>
             <section>
                 <article>
-                <header><h1>{entry.title}</h1><h2>{entry.date}</h2></header>
+                <header><h1>{entry.title}</h1><h2>{entry.date.toISOString()}</h2></header>
                 <p>{entry.content}</p>
                 <footer><p>Metadata</p></footer>
                 </article>

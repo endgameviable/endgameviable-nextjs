@@ -17,10 +17,11 @@ export default async function Page({ params }: { params: { source: string } }) {
     const sectionInfo = getSectionInfo(params.source)
     const content = 'List of the most recent content from the source "' + params.source + '". Sources can be things like blog posts from different categories (gaming, music, reviews, etc.) or a data sources such as a movie or book database. There might be filters and search.'
 
-    const entryProvider = new LocalDirectoryDataProvider('content/' + params.source, sectionInfo.contentTransformer)
-    await entryProvider.query()
-    const entries = await entryProvider.getEntries()
+    const provider = new LocalDirectoryDataProvider('content/' + params.source, sectionInfo.contentTransformer)
+    const entries = await provider.getEntries()
 
+    // Sort by date descending
+    entries.sort((a, b) => b.date.getTime() - a.date.getTime())
     return (
       <main>
           <EntryListLayout 

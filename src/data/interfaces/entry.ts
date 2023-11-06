@@ -3,6 +3,6 @@ export default interface Entry {
     title?: string
     summary?: string
     content: string
-    date: string
+    date: Date
     image?: string
 }
