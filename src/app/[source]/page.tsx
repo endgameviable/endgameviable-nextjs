@@ -1,6 +1,5 @@
 import EntryListLayout from '@/layouts/entryList'
-import LocalDirectoryDataProvider from '@/data/providers/localDirectory'
-import MarkdownTransformer from '@/data/transformers/markdownTransformer'
+import ContentDirectoryProvider from '@/data/providers/contentDirectory'
 import { PAGE_SIZE, SITE_SECTIONS, getSectionInfo } from '@/site-config'
 
 export const generateStaticParams = async () => {
@@ -11,17 +10,22 @@ export const generateStaticParams = async () => {
   return params
 }
 
-/* List of most recent entries in the category */
-/* All you have to do is add "async" to the function declaration ugh */
+/* Query page for this category, showing the most recent entries by default */
+/* Note to self: Ugh all you have to do is add "async" to the function declaration */
 export default async function Page({ params }: { params: { source: string } }) {
+    const startTime = performance.now()
     const sectionInfo = getSectionInfo(params.source)
     const content = 'List of the most recent content from the source "' + params.source + '". Sources can be things like blog posts from different categories (gaming, music, reviews, etc.) or a data sources such as a movie or book database. There might be filters and search.'
 
-    const provider = new LocalDirectoryDataProvider('content/' + params.source, sectionInfo.contentTransformer)
-    const entries = await provider.getEntries()
+    // Get all available entries
+    const entries = await sectionInfo.provider.getAllEntries()
 
     // Sort by date descending
     entries.sort((a, b) => b.date.getTime() - a.date.getTime())
+
+    const elapsed = (performance.now() - startTime).toFixed(2)
+    console.log(`${params.source} page generated in: ${elapsed}ms`)
+
     return (
       <main>
           <EntryListLayout 

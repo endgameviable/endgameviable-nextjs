@@ -1,13 +1,14 @@
 import * as yaml from 'js-yaml';
 
 import FileInfo from '@/data/interfaces/fileInfo';
-import FileTransformer from '@/data/interfaces/fileTransformer'
+import FileDecoder from '@/data/interfaces/fileDecoder'
 import Entry from '@/data/interfaces/entry'
+import { markdownToHTML } from './html';
 
 // Parse movie entries from a single YAML file into view models
-export default class MovieTransformer implements FileTransformer {
+export default class MovieDecoder implements FileDecoder {
 
-    async transform(file: FileInfo): Promise<Entry[]> {
+    async decode(file: FileInfo): Promise<Entry[]> {
         const data: any = yaml.load(await file.getContent())
         const entries: Entry[] = []
         if (Array.isArray(data.movies)) {
@@ -15,11 +16,12 @@ export default class MovieTransformer implements FileTransformer {
             for (const movie of data.movies) {
                 const parsedMillis = Date.parse(movie.last_seen)
                 const localDate = new Date(parsedMillis)
-                const entry = {
+                const entry: Entry = {
                     key: index.toString(),
                     date: localDate,
                     title: movie.title,
-                    content: movie.review
+                    content: movie.review,
+                    renderContentAsHTML: markdownToHTML
                 }
                 entries.push(entry)
                 index++

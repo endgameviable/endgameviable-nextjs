@@ -1,20 +1,20 @@
-import DataProvider from '@/data/interfaces/dataProvider';
-import FileTransformer from '@/data/interfaces/fileTransformer';
+import EntryProvider from '@/data/interfaces/entryProvider';
+import FileDecoder from '@/data/interfaces/fileDecoder';
 import Entry from '@/data/interfaces/entry';
 
 // A DataProvider to scan an S3 bucket and generate Entries from the results.
 // The idea is to find a way to disconnect the actual content
 // from the site source code so they aren't in the same repo.
-export default class S3BucketDataProvider implements DataProvider {
-    private transformer: FileTransformer;
+export default class S3BucketProvider implements EntryProvider {
+    private transformer: FileDecoder;
 
-    constructor(transformer: FileTransformer) {
+    constructor(transformer: FileDecoder) {
         this.transformer = transformer;
     }
 
     async query(): Promise<void> {}
 
-    async getEntries(): Promise<Entry[]> {
+    async getAllEntries(): Promise<Entry[]> {
         // TODO: read data from an S3 bucket
         return []
     }

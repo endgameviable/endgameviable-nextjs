@@ -1,3 +1,17 @@
+This is an application to present dated content in a user-friendly HTML page. It's a blog, basically, but it can display more than just posts. Content can come from Markdown files in the traditional manner of a static site generator, or it can be extracted from structured data files like YAML.
+
+These things can be done with a static site generator, but this project aims to add some additional functionality that's difficult or impossible with static generators. (Mainly robust searching, but there's some future potential for ActivityPub integration.)
+
+## Inspiration
+
+I searched for a way to do this _without_ writing something of my own, but everything fell short of my requirements.
+
+Inspiration has been taken from numerous similar Next.js blog projects on github and blog samples in the Next.js docs. Some concepts loosely based on ideas in Blot https://github.com/davidmerfield/Blot.
+
+And, of course, since we live in 2023, ChatGPT patiently explained numerous Typescript concepts to me, and who knows where _that_ information came from.
+
+## Next.js
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -34,3 +48,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+

@@ -1,12 +1,14 @@
-import FileTransformer from "@/data/interfaces/fileTransformer"
-import MarkdownTransformer from "@/data/transformers/markdownTransformer"
-import MovieTransformer from "@/data/transformers/movieTransformer"
+import EntryProvider from "@/data/interfaces/entryProvider"
+import FileDecoder from "@/data/interfaces/fileDecoder"
+import MarkdownFileDecoder from "@/data/transformers/markdownDecoder"
+import MovieDecoder from "@/data/transformers/movieDecoder"
+import ContentDirectoryProvider from "./data/providers/contentDirectory"
 
 export const PAGE_SIZE: number = 10
 
 interface sectionInfo {
     name: string
-    contentTransformer: FileTransformer
+    provider: EntryProvider
 }
 
 type sections = {
@@ -16,11 +18,13 @@ type sections = {
 export const SITE_SECTIONS: sections = {
     blog: {
         name: "blog",
-        contentTransformer: new MarkdownTransformer()
+        provider: new ContentDirectoryProvider("blog", 
+            new MarkdownFileDecoder())
     },
     movies: {
         name: "movies",
-        contentTransformer: new MovieTransformer()
+        provider: new ContentDirectoryProvider("movies",
+            new MovieDecoder())
     }
 }
 

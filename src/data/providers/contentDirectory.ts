@@ -2,9 +2,10 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 
 import FileInfo from '@/data/interfaces/fileInfo'
-import DataProvider from '@/data/interfaces/dataProvider';
-import FileTransformer from '@/data/interfaces/fileTransformer';
+import EntryProvider from '@/data/interfaces/entryProvider';
+import FileDecoder from '@/data/interfaces/fileDecoder';
 import Entry from '@/data/interfaces/entry';
+import { plainToHTML } from '../transformers/html';
 
 // ChatGPT basically wrote this function for me so blame it :)
 async function walkDirectory(dirPath: string, filePattern: string): Promise<FileInfo[]> {
@@ -30,24 +31,28 @@ async function walkDirectory(dirPath: string, filePattern: string): Promise<File
   return files;
 }
 
-// A DataProvider to scan a local directory and generate Entries from the files there.
-export default class LocalDirectoryDataProvider implements DataProvider {
+// A provider to scan a local directory and generate Entries from the files there.
+export default class ContentDirectoryProvider implements EntryProvider {
   private directoryPath: string;
-  private transformer: FileTransformer;
+  private transformer: FileDecoder;
 
-  constructor(directoryPath: string, transformer: FileTransformer) {
-    this.directoryPath = path.join(process.cwd(), directoryPath);
+  constructor(directoryPath: string, transformer: FileDecoder) {
+    this.directoryPath = path.join(process.cwd(), 'content', directoryPath);
     this.transformer = transformer;
   }
 
-  async getEntries(): Promise<Entry[]> {
+  async getAllEntries(): Promise<Entry[]> {
+    var transformElapsed: number = 0
+    const startTime = performance.now()
     const files = await walkDirectory(this.directoryPath, "*")
     const entries: Entry[] = [];
     var index = 0
     for (const file of files) {
       if (this.transformer) {
         try {
-          const transformed = await this.transformer.transform(file);
+          const transformStartTime = performance.now()
+          const transformed = await this.transformer.decode(file);
+          transformElapsed += performance.now() - transformStartTime
           entries.push(...transformed);
           index += transformed.length
         } catch (error) {
@@ -58,12 +63,14 @@ export default class LocalDirectoryDataProvider implements DataProvider {
           key: index.toString(),
           date: file.stats.mtime,
           title: "File " + index.toString(),
-          content: await file.getContent()
+          content: await file.getContent(),
+          renderContentAsHTML: plainToHTML
         });
       }
       index++;
     }
-    console.log("entries read:", entries.length)
+    const elapsed = performance.now() - startTime
+    console.log(`entries read: ${entries.length}, from: ${this.directoryPath}, in: ${elapsed.toFixed(2)}ms, transformations: ${transformElapsed.toFixed(2)}ms`)
     return entries;
   }
 }

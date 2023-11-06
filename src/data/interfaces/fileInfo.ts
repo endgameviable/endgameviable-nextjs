@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import { Stats } from 'fs'
 
+// Information about a single local file
 export default class FileInfo {
     public path: string
     public stats: Stats
