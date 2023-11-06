@@ -1,27 +1,12 @@
 movies:
-  - title: 
-    genre: 
-    director: 
-    music:
-    year: 
-    language: 
-    tags: 
-    to_watch: false
-    first_seen: '2023-10-16'
-    last_seen: '2023-10-16'
-    last_seen_source: 
-    rank: 
-    links:
-    emoji_review: 
-    review: 
   - title: Psycho
     genre: Horror
     director: Alfred Hitchcock
     music: Bernard Herrmann
     year: 1960
     tags: blackandwhite
-    first_seen: '2023-11-02 18:00:00'
-    last_seen: '2023-11-02 18:00:00'
+    first_seen: '2023-11-02T18:00:00-0400'
+    last_seen: '2023-11-02T18:00:00-0400'
     last_seen_source: Amazon Video
     canonical: true
     links:
@@ -33,8 +18,8 @@ movies:
     genre: Horror
     director: Alfred Hitchcock
     year: 1963
-    first_seen: '2023-11-01 18:00:00'
-    last_seen: '2023-11-01 18:00:00'
+    first_seen: '2023-11-01T18:00:00-0400'
+    last_seen: '2023-11-01T18:00:00-0400'
     last_seen_source: Amazon Video
     rank: 1
     canonical: true
@@ -50,7 +35,7 @@ movies:
     year: 2002
     canonical: true
     first_seen: 2003
-    last_seen: '2023-10-31 22:10:00'
+    last_seen: '2023-10-31T22:10:00-0400'
     last_seen_source: Paramount+
     links:
       - https://en.wikipedia.org/wiki/The_Ring_(2002_film)
@@ -65,8 +50,8 @@ movies:
     year: 1998
     language: Japanese
     tags: 
-    first_seen: '2023-10-31 20:15:00'
-    last_seen: '2023-10-31 20:15:00'
+    first_seen: '2023-10-31T20:15:00-0400'
+    last_seen: '2023-10-31T20:15:00-0400'
     last_seen_source: Amazon Video
     canonical: true
     rank:
@@ -81,7 +66,7 @@ movies:
     music: Ennio Morricone
     year: 1982
     first_seen: 2001
-    last_seen: '2023-10-31 17:45:00'
+    last_seen: '2023-10-31T17:45:00-0400'
     last_seen_source: Amazon Video
     canonical: true
     rank: 2
@@ -96,8 +81,8 @@ movies:
     music: Paul Sawtell
     year: 1958
     tags: 
-    first_seen: '2023-10-30 21:00:00'
-    last_seen: '2023-10-30 21:00:00'
+    first_seen: '2023-10-30T21:00:00-0400'
+    last_seen: '2023-10-30T21:00:00-0400'
     last_seen_source: Max
     canonical: true 
     rank: 1
@@ -112,8 +97,8 @@ movies:
     music: Javier Navarrete
     year: 2022
     tags: stephen-king
-    first_seen: '2023-10-30 19:00:00'
-    last_seen: '2023-10-30 19:00:00'
+    first_seen: '2023-10-30T19:00:00-0400'
+    last_seen: '2023-10-30T19:00:00-0400'
     last_seen_source: Netflix
     links:
       - https://en.wikipedia.org/wiki/Mr._Harrigan%27s_Phone
@@ -126,8 +111,8 @@ movies:
     music: Gordon Goodwin, Paul Sundfor, John DeBello
     year: 1977
     tags: satire, monsters
-    first_seen: '2023-10-30 17:30:00'
-    last_seen: '2023-10-30 17:30:00'
+    first_seen: '2023-10-30T17:30:00-0400'
+    last_seen: '2023-10-30T17:30:00-0400'
     last_seen_source: Tubi
     links:
       - https://en.wikipedia.org/wiki/Attack_of_the_Killer_Tomatoes
@@ -139,8 +124,8 @@ movies:
     director: Quentin Dupieux
     music: Gaspard Augé, Mr. Oizo
     year: 2010
-    first_seen: '2023-10-29 20:40:00'
-    last_seen: '2023-10-29 20:40:00'
+    first_seen: '2023-10-29T20:40:00-0400'
+    last_seen: '2023-10-29T20:40:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/Rubber_(2010_film)
@@ -153,8 +138,8 @@ movies:
     music: John Carpenter
     year: 1980
     tags: ghosts
-    first_seen: '2023-10-29 18:30:00'
-    last_seen: '2023-10-29 18:30:00'
+    first_seen: '2023-10-29T18:30:00-0400'
+    last_seen: '2023-10-29T18:30:00-0400'
     last_seen_source: Tubi
     links:
       - https://en.wikipedia.org/wiki/The_Fog
@@ -167,8 +152,8 @@ movies:
     music: Norman Orenstein
     year: 2007
     tags: zombies, apocalypse, found-footage
-    first_seen: '2023-10-29 12:00:00'
-    last_seen: '2023-10-29 12:00:00'
+    first_seen: '2023-10-29T12:00:00-0400'
+    last_seen: '2023-10-29T12:00:00-0400'
     last_seen_source: Tubi
     rank: 1
     links:
@@ -182,8 +167,8 @@ movies:
     music: Reinhold Heil, Johnny Klimek
     year: 2005
     tags: zombies, apocalypse
-    first_seen: '2023-10-29 09:30:00'
-    last_seen: '2023-10-29 09:30:00'
+    first_seen: '2023-10-29T09:30:00-0400'
+    last_seen: '2023-10-29T09:30:00-0400'
     last_seen_source: Amazon Video
     rank: 1
     links:
@@ -196,8 +181,8 @@ movies:
     director: Dario Argento
     music: Giorgio Gaslini, Goblin
     year: 1975
-    first_seen: '2023-10-28 20:35:00'
-    last_seen: '2023-10-28 20:35:00'
+    first_seen: '2023-10-28T20:35:00-0400'
+    last_seen: '2023-10-28T20:35:00-0400'
     last_seen_source: PlutoTV
     links:
       - https://en.wikipedia.org/wiki/Deep_Red
@@ -210,8 +195,8 @@ movies:
     music:
     year: 1978
     tags: zombies, apocalypse
-    first_seen: '2023-10-28 17:15:00'
-    last_seen: '2023-10-28 17:15:00'
+    first_seen: '2023-10-28T17:15:00-0400'
+    last_seen: '2023-10-28T17:15:00-0400'
     last_seen_source: ReDiscover Television
     rank: 1
     links:
@@ -227,8 +212,8 @@ movies:
     canonical: true
     language: 
     tags: zombies, apocalypse
-    first_seen: '2023-10-28 15:10:00'
-    last_seen: '2023-10-28 15:10:00'
+    first_seen: '2023-10-28T15:10:00-0400'
+    last_seen: '2023-10-28T15:10:00-0400'
     last_seen_source: Max
     rank: 1
     links:
@@ -241,8 +226,8 @@ movies:
     director: Edgar Wright
     music: Steven Price
     year: 2013
-    first_seen: '2023-10-28 09:45:00'
-    last_seen: '2023-10-28 09:45:00'
+    first_seen: '2023-10-28T09:45:00-0400'
+    last_seen: '2023-10-28T09:45:00-0400'
     last_seen_source: Amazon Video
     rank: 1
     links:
@@ -255,8 +240,8 @@ movies:
     director: Edgar Wright
     music: David Arnold
     year: 2007
-    first_seen: '2023-10-27 23:15:00'
-    last_seen: '2023-10-27 23:15:00'
+    first_seen: '2023-10-27T23:15:00-0400'
+    last_seen: '2023-10-27T23:15:00-0400'
     last_seen_source: Amazon Video
     links:
       - https://en.wikipedia.org/wiki/Hot_Fuzz
@@ -270,7 +255,7 @@ movies:
     year: 2004
     tags: zombies
     first_seen: '2005'
-    last_seen: '2023-10-27 21:30:00'
+    last_seen: '2023-10-27T21:30:00-0400'
     last_seen_source: Hulu
     rank: 1
     links:
@@ -284,8 +269,8 @@ movies:
     music: Nathan Barr
     year: 2010
     tags: demons, found-footage
-    first_seen: '2023-10-27 18:00:00'
-    last_seen: '2023-10-27 18:00:00'
+    first_seen: '2023-10-27T18:00:00-0400'
+    last_seen: '2023-10-27T18:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/The_Last_Exorcism
@@ -298,8 +283,8 @@ movies:
     music: Javier Navarrete
     year: 2012
     tags: vampires, gothic
-    first_seen: '2023-10-26 18:50:00'
-    last_seen: '2023-10-26 18:50:00'
+    first_seen: '2023-10-26T18:50:00-0400'
+    last_seen: '2023-10-26T18:50:00-0400'
     last_seen_source: PlutoTV
     rank: 2
     links:
@@ -312,8 +297,8 @@ movies:
     music: Marco Beltrami
     genre: Horror, Drama, Mystery
     year: 2012
-    first_seen: '2023-10-26 18:00:00'
-    last_seen: '2023-10-26 18:00:00'
+    first_seen: '2023-10-26T18:00:00-0400'
+    last_seen: '2023-10-26T18:00:00-0400'
     last_seen_source: Paramount+
     links:
       - https://en.wikipedia.org/wiki/The_Woman_in_Black_(2012_film)
@@ -325,7 +310,7 @@ movies:
     genre: Horror, Comedy
     year: 2010
     first_seen: '2011'
-    last_seen: '2023-10-25 19:40:00'
+    last_seen: '2023-10-25T19:40:00-0400'
     last_seen_source: Amazon Prime
     rank: 1
     links:
@@ -338,8 +323,8 @@ movies:
     genre: Horror, Drama
     tags: apocalypse
     year: 2019
-    first_seen: '2023-10-25 17:30:00'
-    last_seen: '2023-10-25 17:30:00'
+    first_seen: '2023-10-25T17:30:00-0400'
+    last_seen: '2023-10-25T17:30:00-0400'
     last_seen_source: Netflix
     links:
       - https://en.wikipedia.org/wiki/Us_(2019_film)
@@ -351,8 +336,8 @@ movies:
     director: Bryan Forbes
     music: Michael Small
     year: 1975
-    first_seen: '2023-10-25 00:45:00'
-    last_seen: '2023-10-25 00:45:00'
+    first_seen: '2023-10-25T00:45:00-0400'
+    last_seen: '2023-10-25T00:45:00-0400'
     last_seen_source: Tubi
     links:
       - https://en.wikipedia.org/wiki/The_Stepford_Wives_(1975_film)
@@ -365,8 +350,8 @@ movies:
     music: Jed Kurzel
     year: 2017
     tags: aliens
-    first_seen: '2023-10-24 18:00:00'
-    last_seen: '2023-10-24 18:00:00'
+    first_seen: '2023-10-24T18:00:00-0400'
+    last_seen: '2023-10-24T18:00:00-0400'
     last_seen_source: Amazon Video
     links:
       - https://en.wikipedia.org/wiki/Alien:_Covenant
@@ -378,8 +363,8 @@ movies:
     music: Adam Janota Bzowski
     genre: Horror, Drama
     year: 2019
-    first_seen: '2023-10-23 20:00:00'
-    last_seen: '2023-10-23 20:00:00'
+    first_seen: '2023-10-23T20:00:00-0400'
+    last_seen: '2023-10-23T20:00:00-0400'
     last_seen_source: Amazon Prime
     rank: 2
     links:
@@ -393,8 +378,8 @@ movies:
     genre: Horror, Drama
     year: 2021
     tags: dnf, curses, werewolves, gothic
-    first_seen: '2023-10-23 18:00:00'
-    last_seen: '2023-10-23 18:00:00'
+    first_seen: '2023-10-23T18:00:00-0400'
+    last_seen: '2023-10-23T18:00:00-0400'
     last_seen_source: Hulu
     emoji_review: 🪖⛺️🔥🦷🧌⏩⏩🤷😐
     links:
@@ -410,8 +395,8 @@ movies:
     tags: blackandwhite
     links:
       - https://en.wikipedia.org/wiki/Cat_People_(1942_film)
-    first_seen: '2023-10-22 19:55:00'
-    last_seen: '2023-10-22 19:55:00'
+    first_seen: '2023-10-22T19:55:00-0400'
+    last_seen: '2023-10-22T19:55:00-0400'
     last_seen_source: Max
     emoji_review: 👩👨🐈💕👰‍♀️🦜🚍🏊‍♀️🐈‍⬛🧐
     summary: Surprisingly watchable psychological drama, and the origin of the jump scare.
@@ -422,8 +407,8 @@ movies:
     tags: dnf, vampires
     language: Spanish, English
     year: 1992
-    first_seen: '2023-10-22 18:45:00'
-    last_seen: '2023-10-22 18:45:00'
+    first_seen: '2023-10-22T18:45:00-0400'
+    last_seen: '2023-10-22T18:45:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/Cronos_(film)
@@ -436,8 +421,8 @@ movies:
     music: Mark Korven
     year: 2019
     tags: dnf, stephen-king
-    first_seen: '2023-10-22 16:30:00'
-    last_seen: '2023-10-22 16:30:00'
+    first_seen: '2023-10-22T16:30:00-0400'
+    last_seen: '2023-10-22T16:30:00-0400'
     last_seen_source: Netflix
     links:
       - https://en.wikipedia.org/wiki/In_the_Tall_Grass_(film)
@@ -450,8 +435,8 @@ movies:
     music: Michael Giacchino
     year: 2010
     tags: dnf, hammer, vampires
-    first_seen: '2023-10-22 09:50:00'
-    last_seen: '2023-10-22 09:50:00'
+    first_seen: '2023-10-22T09:50:00-0400'
+    last_seen: '2023-10-22T09:50:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/Let_Me_In_(film)
@@ -465,8 +450,8 @@ movies:
     director: S. Craig Zahler
     music: Jeff Herriott, S. Craig Zahler
     year: 2015
-    first_seen: '2023-10-21 21:30:00'
-    last_seen: '2023-10-21 21:30:00'
+    first_seen: '2023-10-21T21:30:00-0400'
+    last_seen: '2023-10-21T21:30:00-0400'
     last_seen_source: PlutoTV
     rank: 2
     links:
@@ -479,8 +464,8 @@ movies:
     director: John Hyams
     music: Nima Fakhrara
     year: 2020
-    first_seen: '2023-10-21 18:45:00'
-    last_seen: '2023-10-21 18:45:00'
+    first_seen: '2023-10-21T18:45:00-0400'
+    last_seen: '2023-10-21T18:45:00-0400'
     last_seen_source: Hulu
     rank: 1
     links:
@@ -497,8 +482,8 @@ movies:
     tags: vampires
     links:
       - https://en.wikipedia.org/wiki/Let_the_Right_One_In_(film)
-    first_seen: '2023-10-21 16:15:00'
-    last_seen: '2023-10-21 16:15:00'
+    first_seen: '2023-10-21T16:15:00-0400'
+    last_seen: '2023-10-21T16:15:00-0400'
     last_seen_source: Amazon Prime
     rank: 1
     emoji_review: 👦👧🩸💕😀
@@ -509,8 +494,8 @@ movies:
     genre: Horror, Slasher
     year: 1980
     canonical: true
-    first_seen: '2023-10-21 10:45:00'
-    last_seen: '2023-10-21 10:45:00'
+    first_seen: '2023-10-21T10:45:00-0400'
+    last_seen: '2023-10-21T10:45:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/Friday_the_13th_(1980_film)
@@ -521,8 +506,8 @@ movies:
     director: David Cronenberg
     music: Howard Shore
     year: 1999
-    first_seen: '2023-10-20 20:30:00'
-    last_seen: '2023-10-20 20:30:00'
+    first_seen: '2023-10-20T20:30:00-0400'
+    last_seen: '2023-10-20T20:30:00-0400'
     last_seen_source: PlutoTV
     rank: 1
     links:
@@ -535,8 +520,8 @@ movies:
     director: David Koepp
     music: James Newton Howard
     year: 1999
-    first_seen: '2023-10-20 18:00:00'
-    last_seen: '2023-10-20 18:00:00'
+    first_seen: '2023-10-20T18:00:00-0400'
+    last_seen: '2023-10-20T18:00:00-0400'
     last_seen_source: Amazon Prime Freevee
     links:
       - https://en.wikipedia.org/wiki/Stir_of_Echoes
@@ -547,8 +532,8 @@ movies:
     tags: ghosts
     director: James Wan
     year: 2013
-    first_seen: '2023-10-19 18:00:00'
-    last_seen: '2023-10-19 18:00:00'
+    first_seen: '2023-10-19T18:00:00-0400'
+    last_seen: '2023-10-19T18:00:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/The_Conjuring
@@ -559,8 +544,8 @@ movies:
     tags: dnf, aliens
     director: Robert Rodriguez
     year: 1998
-    first_seen: '2023-10-18 21:00:00'
-    last_seen: '2023-10-18 21:00:00'
+    first_seen: '2023-10-18T21:00:00-0400'
+    last_seen: '2023-10-18T21:00:00-0400'
     last_seen_source: Paramount+
     links:
       - https://en.wikipedia.org/wiki/The_Faculty
@@ -571,8 +556,8 @@ movies:
     tags: ghosts
     director: Ari Aster
     year: 2018
-    first_seen: '2023-10-18 18:00:00'
-    last_seen: '2023-10-18 18:00:00'
+    first_seen: '2023-10-18T18:00:00-0400'
+    last_seen: '2023-10-18T18:00:00-0400'
     last_seen_source: Max
     rank: 1
     links:
@@ -583,8 +568,8 @@ movies:
     genre: Horror, Drama
     director: David Robert Mitchell
     year: 2014
-    first_seen: '2023-10-17 20:00:00'
-    last_seen: '2023-10-17 20:00:00'
+    first_seen: '2023-10-17T20:00:00-0400'
+    last_seen: '2023-10-17T20:00:00-0400'
     last_seen_source: Netflix
     rank: 1
     links:
@@ -595,8 +580,8 @@ movies:
     genre: Horror, Slasher
     director: Matt Bettinelli-Olpin, Tyler Gillett
     year: 2022
-    first_seen: '2023-10-17 17:00:00'
-    last_seen: '2023-10-17 17:00:00'
+    first_seen: '2023-10-17T17:00:00-0400'
+    last_seen: '2023-10-17T17:00:00-0400'
     last_seen_source: Paramount+
     links:
       - https://en.wikipedia.org/wiki/Scream_(2022_film)
@@ -608,7 +593,7 @@ movies:
     canonical: true
     director: Wes Craven
     first_seen: '2023-10-16'
-    last_seen: '2023-10-16 20:00:00'
+    last_seen: '2023-10-16T20:00:00-0400'
     last_seen_source: Max
     rank: 1
     links:
@@ -621,7 +606,7 @@ movies:
     year: 2023
     tags: dnf
     first_seen: '2023-10-16'
-    last_seen: '2023-10-16 18:00:00'
+    last_seen: '2023-10-16T18:00:00-0400'
     last_seen_source: Tubi
     rank: 0
     emoji_review: 👨✨🗿🔎🕵️⏩⏩😑
@@ -632,7 +617,7 @@ movies:
     year: 2023
     tags: dnf, aliens
     first_seen: '2023-10-16'
-    last_seen: '2023-10-16 16:00:00'
+    last_seen: '2023-10-16T16:00:00-0400'
     last_seen_source: Hulu
     rank: 0
     links:
@@ -645,7 +630,7 @@ movies:
     year: 1984
     canonical: true
     first_seen: '2023-10-15'
-    last_seen: '2023-10-15 20:00:00'
+    last_seen: '2023-10-15T20:00:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/A_Nightmare_on_Elm_Street
@@ -657,7 +642,7 @@ movies:
     year: 1981
     tags: ghosts
     first_seen: '2023-10-15'
-    last_seen: '2023-10-15 18:00:00'
+    last_seen: '2023-10-15T18:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Ghost_Story_(1981_film)
@@ -672,7 +657,7 @@ movies:
     engaging: true
     rank: 1
     first_seen: '2023-10-14'
-    last_seen: '2023-10-14 20:00:00'
+    last_seen: '2023-10-14T20:00:00-0400'
     last_seen_source: Paramount+
     links:
       - https://en.wikipedia.org/wiki/The_Host_(2006_film)
@@ -686,7 +671,7 @@ movies:
     language:
     tags:
     first_seen: '2023-10-14'
-    last_seen: '2023-10-14 18:00:00'
+    last_seen: '2023-10-14T18:00:00-0400'
     last_seen_source: Plex
     links:
       - https://en.wikipedia.org/wiki/Halloween_(1978_film)
@@ -701,7 +686,7 @@ movies:
     engaging: true
     rank: 1
     first_seen: '2023-10-14'
-    last_seen: '2023-10-14 16:00:00'
+    last_seen: '2023-10-14T16:00:00-0400'
     last_seen_source: Hulu
     links:
       - https://en.wikipedia.org/wiki/Day_of_the_Dead_(1985_film)
@@ -714,7 +699,7 @@ movies:
     year: 1985
     language:
     first_seen: '2023-10-14'
-    last_seen: '2023-10-14 14:00:00'
+    last_seen: '2023-10-14T14:00:00-0400'
     last_seen_source: Tubi
     links:
       - https://en.wikipedia.org/wiki/Lifeforce_(film)
@@ -727,7 +712,7 @@ movies:
     language:
     tags: dnf, curses
     first_seen: '2023-10-13'
-    last_seen: '2023-10-13 20:00:00'
+    last_seen: '2023-10-13T20:00:00-0400'
     last_seen_source: Hulu
     links:
       - https://en.wikipedia.org/wiki/The_Empty_Man_(film)
@@ -739,7 +724,7 @@ movies:
     year: 1977
     language:
     first_seen: '2023-10-13'
-    last_seen: '2023-10-13 18:00:00'
+    last_seen: '2023-10-13T18:00:00-0400'
     last_seen_source: Plex
     links:
       - https://en.wikipedia.org/wiki/The_Hills_Have_Eyes_(1977_film)
@@ -752,7 +737,7 @@ movies:
     tags: dnf, blackandwhite
     language:
     first_seen: '2023-10-13'
-    last_seen: '2023-10-13 16:00:00'
+    last_seen: '2023-10-13T16:00:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/Eraserhead
@@ -766,7 +751,7 @@ movies:
     language:
     tags: dnf, italian, witches
     first_seen: '2023-10-12'
-    last_seen: '2023-10-12 20:00:00'
+    last_seen: '2023-10-12T20:00:00-0400'
     last_seen_source: Paramount+
     links:
       - https://en.wikipedia.org/wiki/Suspiria
@@ -779,7 +764,7 @@ movies:
     language:
     tags: hammer, monsters
     first_seen: '2023-10-12'
-    last_seen: '2023-10-12 18:00:00'
+    last_seen: '2023-10-12T18:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Frankenstein_Must_Be_Destroyed
@@ -792,7 +777,7 @@ movies:
     language: Japanese
     tags: blackandwhite
     first_seen: '2023-10-12'
-    last_seen: '2023-10-12 16:00:00'
+    last_seen: '2023-10-12T16:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Blind_Beast
@@ -805,7 +790,7 @@ movies:
     language:
     tags: zombies, monsters
     first_seen: '2023-10-11'
-    last_seen: '2023-10-11 20:00:00'
+    last_seen: '2023-10-11T20:00:00-0400'
     last_seen_source: Paramount+
     links:
       - https://en.wikipedia.org/wiki/Pet_Sematary_(2019_film)
@@ -818,7 +803,7 @@ movies:
     language:
     tags: aliens
     first_seen: '2023-10-11'
-    last_seen: '2023-10-11 18:00:00'
+    last_seen: '2023-10-11T18:00:00-0400'
     last_seen_source: Paramount+
     links:
       - https://en.wikipedia.org/wiki/A_Quiet_Place
@@ -831,7 +816,7 @@ movies:
     language:
     tags: hammer, zombies
     first_seen: '2023-10-11'
-    last_seen: '2023-10-11 16:00:00'
+    last_seen: '2023-10-11T16:00:00-0400'
     last_seen_source: Plex
     links:
       - https://en.wikipedia.org/wiki/The_Oblong_Box_(film)
@@ -847,7 +832,7 @@ movies:
     favorite: true
     rank: 2
     first_seen: '2023-10-10'
-    last_seen: '2023-10-10 20:00:00'
+    last_seen: '2023-10-10T20:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Knock_at_the_Cabin
@@ -861,7 +846,7 @@ movies:
     tags:
     engaging: true
     first_seen: '2023-10-10'
-    last_seen: '2023-10-10 18:00:00'
+    last_seen: '2023-10-10T18:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Black_Swan_(film)
@@ -874,7 +859,7 @@ movies:
     language:
     tags: dnf, ghosts
     first_seen: '2023-10-10'
-    last_seen: '2023-10-10 16:00:00'
+    last_seen: '2023-10-10T16:00:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/Insidious_(film)
@@ -890,7 +875,7 @@ movies:
     favorite: true
     rank: 2
     first_seen: '2023-10-09'
-    last_seen: '2023-10-09 20:00:00'
+    last_seen: '2023-10-09T20:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Last_Night_in_Soho
@@ -904,7 +889,7 @@ movies:
     tags:
     engaging: true
     first_seen: '2023-10-09'
-    last_seen: '2023-10-09 18:00:00'
+    last_seen: '2023-10-09T18:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Old_(film)
@@ -919,7 +904,7 @@ movies:
     engaging: true
     rank: 1
     first_seen: '2023-10-09'
-    last_seen: '2023-10-09 16:00:00'
+    last_seen: '2023-10-09T16:00:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/The_Witch_(2015_film)
@@ -932,7 +917,7 @@ movies:
     language:
     tags: dnf, foundfootage, ghosts
     first_seen: '2023-10-08'
-    last_seen: '2023-10-08 20:00:00'
+    last_seen: '2023-10-08T20:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Paranormal_Activity
@@ -946,7 +931,7 @@ movies:
     language:
     tags: foundfootage, witches
     first_seen: '2023-10-08'
-    last_seen: '2023-10-08 18:00:00'
+    last_seen: '2023-10-08T18:00:00-0400'
     last_seen_source: Paramount+
     links:
       - https://en.wikipedia.org/wiki/The_Blair_Witch_Project
@@ -959,7 +944,7 @@ movies:
     language:
     tags: monsters
     first_seen: '2023-10-08'
-    last_seen: '2023-10-08 16:00:00'
+    last_seen: '2023-10-08T16:00:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/The_Descent
@@ -973,7 +958,7 @@ movies:
     language:
     tags:
     first_seen: '2023-10-08'
-    last_seen: '2023-10-08 14:00:00'
+    last_seen: '2023-10-08T14:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/The_Texas_Chain_Saw_Massacre
@@ -989,7 +974,7 @@ movies:
     favorite: true
     rank: 2
     first_seen: '2023-10-06'
-    last_seen: '2023-10-06 20:00:00'
+    last_seen: '2023-10-06T20:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Nope_(film)
@@ -1003,7 +988,7 @@ movies:
     language:
     tags: vampires, blackandwhite
     first_seen: '2023-10-06'
-    last_seen: '2023-10-06 18:00:00'
+    last_seen: '2023-10-06T18:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Dracula_(1931_English-language_film)
@@ -1017,7 +1002,7 @@ movies:
     language:
     tags: demons
     first_seen: '2023-10-04'
-    last_seen: '2023-10-04 20:00:00'
+    last_seen: '2023-10-04T20:00:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/The_Exorcist
@@ -1033,7 +1018,7 @@ movies:
     engaging: true
     rank: 1
     first_seen: '2023-10-04'
-    last_seen: '2023-10-04 18:00:00'
+    last_seen: '2023-10-04T18:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Train_to_Busan
@@ -1049,7 +1034,7 @@ movies:
     favorite: true
     rank: 2
     first_seen: '2023-10-01'
-    last_seen: '2023-10-01 20:00:00'
+    last_seen: '2023-10-01T20:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Get_Out
@@ -1065,7 +1050,7 @@ movies:
     favorite: true
     rank: 2
     first_seen: '2023-10-09'
-    last_seen: '2023-10-09 12:00:00'
+    last_seen: '2023-10-09T12:00:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/The_Menu_(2022_film)
@@ -1079,7 +1064,7 @@ movies:
     tags:
     engaging: true
     first_seen: '2023-10-09'
-    last_seen: '2023-10-09 10:00:00'
+    last_seen: '2023-10-09T10:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Freaky_(film)
@@ -1095,7 +1080,7 @@ movies:
     favorite: true
     rank: 2
     first_seen: 2006
-    last_seen: '2023-10-09 08:00:00'
+    last_seen: '2023-10-09T08:00:00-0400'
     last_seen_source: Hulu
     links:
       - https://en.wikipedia.org/wiki/The_Exorcism_of_Emily_Rose
@@ -1110,7 +1095,7 @@ movies:
     tags: stephen-king
     engaging: true
     first_seen: '2023-10-08'
-    last_seen: '2023-10-08 12:00:00'
+    last_seen: '2023-10-08T12:00:00-0400'
     last_seen_source: Amazon Prime Video
     links:
       - https://en.wikipedia.org/wiki/1408_(film)
@@ -1126,7 +1111,7 @@ movies:
       - https://en.wikipedia.org/wiki/Phantasm_(film)
       - http://www.containsmoderateperil.com/blog/2023/10/8/phantasm-1979
     first_seen: '2023-10-07'
-    last_seen: '2023-10-07 12:00:00'
+    last_seen: '2023-10-07T12:00:00-0400'
     last_seen_source: Amazon Prime
     emoji_review: 🪦⚰️👦🪩👉🪰🚗🤷🥱😑
     review: I lost interest in this after an hour. Supposedly a classic, but to me it's more of a testement to the perserverance of young filmmakers learning on the job, and evidence for the long-held studio belief that low-budget horror films sometimes turn into gold mines.
@@ -1137,7 +1122,7 @@ movies:
     language:
     tags: hammer, vampires
     first_seen: '2023-10-07'
-    last_seen: '2023-10-07 10:00:00'
+    last_seen: '2023-10-07T10:00:00-0400'
     last_seen_source: Max
     links:
       - https://en.wikipedia.org/wiki/Dracula_(1958_film)
@@ -1151,7 +1136,7 @@ movies:
     language:
     tags: dnf
     first_seen: '2023-10-07'
-    last_seen: '2023-10-07 08:00:00'
+    last_seen: '2023-10-07T08:00:00-0400'
     last_seen_source: Tubi
     links:
       - https://en.wikipedia.org/wiki/Maniac_Cop
@@ -1165,7 +1150,7 @@ movies:
     language:
     tags: dnf
     first_seen: '2023-10-07'
-    last_seen: '2023-10-07 06:00:00'
+    last_seen: '2023-10-07T06:00:00-0400'
     last_seen_source: Tubi
     links:
       - https://en.wikipedia.org/wiki/Resolution_(film)
@@ -1178,7 +1163,7 @@ movies:
     year: 2009
     rank: 2
     first_seen: '2023-10-07'
-    last_seen: '2023-10-07 04:00:00'
+    last_seen: '2023-10-07T04:00:00-0400'
     last_seen_source: Tubi
     links:
       - https://en.wikipedia.org/wiki/Triangle_(2009_British_film)
@@ -1191,7 +1176,7 @@ movies:
     language:
     tags: dnf
     first_seen: '2023-10-07'
-    last_seen: '2023-10-07 02:00:00'
+    last_seen: '2023-10-07T02:00:00-0400'
     last_seen_source: Plex
     links:
       - https://en.wikipedia.org/wiki/Hell_Fest
@@ -1206,7 +1191,7 @@ movies:
     tags: 
     engaging: true
     first_seen: '2023-10-06'
-    last_seen: '2023-10-06 12:00:00'
+    last_seen: '2023-10-06T12:00:00-0400'
     last_seen_source: Tubi
     links:
       - https://en.wikipedia.org/wiki/The_Caller_(1987_film)
@@ -1220,7 +1205,7 @@ movies:
     language:
     tags: demons
     first_seen: '2023-10-06'
-    last_seen: '2023-10-06 10:00:00'
+    last_seen: '2023-10-06T10:00:00-0400'
     last_seen_source: Netflix
     links:
       - https://en.wikipedia.org/wiki/The_Sentinel_(1977_film)
@@ -1234,7 +1219,7 @@ movies:
     language: Japanese
     tags: dnf, blackandwhite, demons
     first_seen: '2023-10-05'
-    last_seen: '2023-10-05 12:00:00'
+    last_seen: '2023-10-05T12:00:00-0400'
     last_seen_source: Criterion Channel
     links:
       - https://en.wikipedia.org/wiki/Jigoku_(film)
@@ -1248,7 +1233,7 @@ movies:
     language:
     tags: 
     first_seen: '2023-10-04'
-    last_seen: '2023-10-04 12:00:00'
+    last_seen: '2023-10-04T12:00:00-0400'
     last_seen_source: PlutoTV
     links:
       - https://en.wikipedia.org/wiki/The_Keep_(film)
@@ -1262,7 +1247,7 @@ movies:
     language:
     tags: 
     first_seen: '2023-10-03'
-    last_seen: '2023-10-03 12:00:00'
+    last_seen: '2023-10-03T12:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/A_Bay_of_Blood
@@ -1276,7 +1261,7 @@ movies:
     language:
     tags: 
     first_seen: '2023-10-03'
-    last_seen: '2023-10-03 10:00:00'
+    last_seen: '2023-10-03T10:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Devil_(2010_film)
@@ -1293,7 +1278,7 @@ movies:
     favorite: true
     rank: 2
     first_seen: '2023-10-02'
-    last_seen: '2023-10-02 12:00:00'
+    last_seen: '2023-10-02T12:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/The_Wailing_(2016_film)
@@ -1307,7 +1292,7 @@ movies:
     language:
     tags:
     first_seen: '2023-10-02'
-    last_seen: '2023-10-02 10:00:00'
+    last_seen: '2023-10-02T10:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Haunt_(2019_film)
@@ -1321,7 +1306,7 @@ movies:
     language:
     tags: blackandwhite, vampires, gothic
     first_seen: '2023-10-01'
-    last_seen: '2023-10-01 12:00:00'
+    last_seen: '2023-10-01T12:00:00-0400'
     last_seen_source: Amazon Prime
     links:
       - https://en.wikipedia.org/wiki/Black_Sunday_(1960_film)
@@ -1912,17 +1897,3 @@ movies:
     links:
       - https://en.wikipedia.org/wiki/Alien_Resurrection
     review: Huh, written by Joss Whedon. I only remember being disappointed.
-  - title: 
-    genre: Horror
-    director:
-    year: 
-    language:
-    tags: 
-    to_watch: false
-    engaging: false
-    favorite: false
-    first_seen: 
-    last_seen: '2023-10-14'
-    last_seen_source: 
-    emoji_review: 
-    review: 
