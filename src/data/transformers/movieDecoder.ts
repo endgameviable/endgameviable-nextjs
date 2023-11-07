@@ -4,6 +4,7 @@ import FileInfo from '@/data/interfaces/fileInfo';
 import FileDecoder from '@/data/interfaces/fileDecoder'
 import Entry from '@/data/interfaces/entry'
 import { TextType } from '@/data/interfaces/types';
+import { safeParseDate } from '@/typeConversion';
 
 // Parse movie entries from a single YAML file into view models
 export default class MovieDecoder implements FileDecoder {
@@ -14,8 +15,7 @@ export default class MovieDecoder implements FileDecoder {
         if (Array.isArray(data.movies)) {
             let index = 0
             for (const movie of data.movies) {
-                const parsedMillis = Date.parse(movie.last_seen)
-                const localDate = new Date(parsedMillis)
+                const localDate = safeParseDate(movie.last_seen)
                 const entry: Entry = {
                     key: index.toString(),
                     date: localDate,
