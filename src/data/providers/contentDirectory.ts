@@ -5,7 +5,7 @@ import FileInfo from '@/data/interfaces/fileInfo'
 import EntryProvider from '@/data/interfaces/entryProvider';
 import FileDecoder from '@/data/interfaces/fileDecoder';
 import Entry from '@/data/interfaces/entry';
-import { plainToHTML } from '../transformers/html';
+import { TextType } from '@/data/interfaces/types';
 
 // ChatGPT basically wrote this function for me so blame it :)
 async function walkDirectory(dirPath: string, filePattern: string): Promise<FileInfo[]> {
@@ -60,11 +60,11 @@ export default class ContentDirectoryProvider implements EntryProvider {
         }
       } else {
         entries.push({
+          // A default entry if there's no transform
           key: index.toString(),
           date: file.stats.mtime,
           title: "File " + index.toString(),
-          content: await file.getContent(),
-          renderContentAsHTML: plainToHTML
+          summary: new TextType(await file.getContent())
         });
       }
       index++;

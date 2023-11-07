@@ -3,7 +3,7 @@ import * as yaml from 'js-yaml';
 import FileInfo from '@/data/interfaces/fileInfo';
 import FileDecoder from '@/data/interfaces/fileDecoder'
 import Entry from '@/data/interfaces/entry'
-import { markdownToHTML } from './html';
+import { TextType } from '@/data/interfaces/types';
 
 // Parse movie entries from a single YAML file into view models
 export default class MovieDecoder implements FileDecoder {
@@ -20,8 +20,7 @@ export default class MovieDecoder implements FileDecoder {
                     key: index.toString(),
                     date: localDate,
                     title: movie.title,
-                    content: movie.review,
-                    renderContentAsHTML: markdownToHTML
+                    summary: new TextType(movie.review, "text/markdown")
                 }
                 entries.push(entry)
                 index++

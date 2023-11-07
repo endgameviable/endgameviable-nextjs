@@ -3,7 +3,7 @@ import grayMatter from 'gray-matter';
 import FileInfo from '@/data/interfaces/fileInfo';
 import FileDecoder from '@/data/interfaces/fileDecoder'
 import Entry from '@/data/interfaces/entry'
-import { markdownToHTML } from './html';
+import { TextType } from '@/data/interfaces/types';
 
 // Transform a Markdown post file to a view model
 export default class MarkdownFileDecoder implements FileDecoder {
@@ -19,8 +19,8 @@ export default class MarkdownFileDecoder implements FileDecoder {
             key: file.path,
             date: entryDate,
             title: file.path,
-            content: content,
-            renderContentAsHTML: markdownToHTML
+            summary: new TextType("summary"),
+            content: new TextType(content, "text/markdown")
           }];
     }
 

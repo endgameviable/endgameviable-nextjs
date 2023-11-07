@@ -5,7 +5,8 @@ export default function EntryListLayout({ content, list }: { content: string, li
         <>
             <header><p>{content}</p></header>
             {list.map((entry) => {
-                const htmlContent = entry.renderContentAsHTML(entry.content)
+                const htmlContent = entry.content != null 
+                    ? entry.content.toHTML() : entry.summary.toHTML()
                 return (
                     <section key={entry.key}>
                         <article>

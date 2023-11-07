@@ -1,6 +1,6 @@
 import Entry from '@/data/interfaces/entry'
 import SingleEntryLayout from '@/layouts/entrySingle'
-import { plainToHTML } from '@/data/transformers/html'
+import { TextType } from '@/data/interfaces/types'
 
 /* Single page display the content slug */
 export default function Page({ params }: { params: { source: string, id: string } }) {
@@ -9,8 +9,7 @@ export default function Page({ params }: { params: { source: string, id: string 
       key: '1',
       date: new Date(2023, 11, 3, 23, 20, 0),
       title: 'A single post',
-      content: content,
-      renderContentAsHTML: plainToHTML
+      summary: new TextType(content)
     }
     return (
       <main>

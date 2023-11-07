@@ -1,5 +1,4 @@
 import EntryListLayout from '@/layouts/entryList'
-import ContentDirectoryProvider from '@/data/providers/contentDirectory'
 import { PAGE_SIZE, SITE_SECTIONS, getSectionInfo } from '@/site-config'
 
 export const generateStaticParams = async () => {
@@ -10,7 +9,7 @@ export const generateStaticParams = async () => {
   return params
 }
 
-/* Query page for this category, showing the most recent entries by default */
+/* Static landing page for this category, showing the most recent entries */
 /* Note to self: Ugh all you have to do is add "async" to the function declaration */
 export default async function Page({ params }: { params: { source: string } }) {
     const startTime = performance.now()
