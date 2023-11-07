@@ -1,4 +1,5 @@
 import Entry from '@/data/interfaces/entry'
+import { contentToHTML } from '@/data/interfaces/types'
 
 export default function EntryListLayout({ content, list }: { content: string, list: Entry[] } ) {
     return (
@@ -6,7 +7,7 @@ export default function EntryListLayout({ content, list }: { content: string, li
             <header><p>{content}</p></header>
             {list.map((entry) => {
                 const htmlContent = entry.content != null 
-                    ? entry.content.toHTML() : entry.summary.toHTML()
+                    ? contentToHTML(entry.content) : contentToHTML(entry.summary)
                 return (
                     <section key={entry.key}>
                         <article>

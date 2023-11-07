@@ -1,4 +1,4 @@
-import { getSectionInfo } from "@/site-config"
+import { PAGE_SIZE, getSectionInfo } from "@/site-config"
 
 function searchText(s: any, search: string): boolean {
     // Yeesh why is it so hard to deal with strings
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const source = searchParams.get('source')
     const textFilter = searchParams.get('text')
-    console.log(`source=${source},text=${textFilter}`)
+    console.log(`querying source=${source}, text=${textFilter}`)
     if (source != null) {
         const startTime = performance.now()
         const sectionInfo = getSectionInfo(source)
@@ -39,8 +39,8 @@ export async function GET(request: Request) {
         entries.sort((a, b) => b.date.getTime() - a.date.getTime())
 
         const elapsed = performance.now() - startTime
-        console.log(`${source} entries queried in: ${elapsed}ms`)
-        return Response.json({ entries })
+        console.log(`returning ${entries.length} entries queried in ${elapsed}ms`)
+        return Response.json(entries.slice(0, PAGE_SIZE))
     }
     return
 }

@@ -10,14 +10,17 @@ export class TextType {
         this.contentType = contentType
     }
 
-    public toHTML(): string {
-        switch(this.contentType) {
-            case "text/plain":
-                return this.text
-            case "text/markdown":
-                return micromark(this.text)
-            default:
-                return ""
-        }
+    // Apparently can't include a toHTML() function
+    // or the class doesn't work as an api/json data type
+}
+
+export function contentToHTML(content: TextType): string {
+    switch(content.contentType) {
+        case "text/plain":
+            return content.text
+        case "text/markdown":
+            return micromark(content.text)
+        default:
+            return ""
     }
 }
