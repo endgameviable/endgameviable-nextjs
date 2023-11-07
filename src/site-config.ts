@@ -31,3 +31,7 @@ export const SITE_SECTIONS: sections = {
 export function getSectionInfo(name: string): sectionInfo {
     return SITE_SECTIONS[name]
 }
+
+export function getSections(): sectionInfo[] {
+    return Object.values(SITE_SECTIONS)
+}
