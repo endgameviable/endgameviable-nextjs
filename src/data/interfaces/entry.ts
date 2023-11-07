@@ -3,11 +3,10 @@ import { TextType } from "./types"
 // A single displayable content entry.
 // Presumably one of a list of entries,
 // which can be sorted by date.
+// TODO: add basic string metadata key/value pairs
 export default interface Entry {
-    key: string
-    title?: string
+    timestamp: number
     summary: TextType
-    content?: TextType
-    date: Date
-    image?: string
+    article?: TextType
+    title?: string
 }

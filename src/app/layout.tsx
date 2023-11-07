@@ -1,5 +1,12 @@
+import { Roboto_Mono } from 'next/font/google'
 import type { Metadata } from 'next'
 import './globals.css'
+
+const roboto = Roboto_Mono({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap'
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -12,12 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet" />
-      </head>
+    <html lang="en" className={roboto.className}>
       <body>{children}</body>
     </html>
   )

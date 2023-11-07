@@ -1,4 +1,5 @@
 import Entry from '@/data/interfaces/entry'
+import EntryQueryParams from '@/data/interfaces/queryFilter'
 
 export default interface EntryProvider {
     // This feels wasteful.
@@ -9,4 +10,7 @@ export default interface EntryProvider {
     // Something like, getCount(), getEntries(start,end)
     // And account for ascending and descending sort.
     getAllEntries(): Promise<Entry[]>
+
+    // Query for a subset of data entries.
+    queryEntries(filter: EntryQueryParams): Promise<Entry[]>
 }

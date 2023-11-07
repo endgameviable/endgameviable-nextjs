@@ -6,14 +6,14 @@ export default function EntryListLayout({ content, list }: { content: string, li
         <>
             <header><p>{content}</p></header>
             {list.map((entry) => {
-                const htmlContent = entry.content != null 
-                    ? contentToHTML(entry.content) : contentToHTML(entry.summary)
+                const htmlContent = entry.article != null 
+                    ? contentToHTML(entry.article) : contentToHTML(entry.summary)
                 return (
-                    <section key={entry.key}>
+                    <section key={entry.timestamp}>
                         <article>
                             <header>
                                 <h1>{entry.title}</h1>
-                                <h2>{entry.date.toString()}</h2>
+                                <h2>{new Date(entry.timestamp).toString()}</h2>
                             </header>
                             <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
                             <footer>

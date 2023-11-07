@@ -17,7 +17,6 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
-  font-family:'Roboto Mono', 'Courier New', Courier, monospace;
   font-size:12pt;
   margin:.3em;
 }
@@ -28,4 +27,9 @@ section {
 
 section p {
   margin:1em 0;
+}
+
+a {
+  color:#60a;
+  text-decoration: underline;
 }

@@ -6,8 +6,7 @@ import { TextType } from '@/data/interfaces/types'
 export default function Page({ params }: { params: { source: string, id: string } }) {
     const content = 'Content for the item with the unique slug "' + params.id + '". From the database source "' + params.source + '".'
     const entry : Entry = {
-      key: '1',
-      date: new Date(2023, 11, 3, 23, 20, 0),
+      timestamp: new Date(2023, 11, 3, 23, 20, 0).getTime(),
       title: 'A single post',
       summary: new TextType(content)
     }

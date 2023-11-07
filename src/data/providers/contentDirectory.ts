@@ -5,6 +5,7 @@ import FileInfo from '@/data/interfaces/fileInfo'
 import EntryProvider from '@/data/interfaces/entryProvider';
 import FileDecoder from '@/data/interfaces/fileDecoder';
 import Entry from '@/data/interfaces/entry';
+import EntryQueryParams, { MATCH_ALL, entryMatchesFilter } from '@/data/interfaces/queryFilter';
 import { TextType } from '@/data/interfaces/types';
 
 // ChatGPT basically wrote this function for me so blame it :)
@@ -42,35 +43,41 @@ export default class ContentDirectoryProvider implements EntryProvider {
   }
 
   async getAllEntries(): Promise<Entry[]> {
+    return this.queryEntries(MATCH_ALL)
+  }
+
+  async queryEntries(filter: EntryQueryParams): Promise<Entry[]> {
     var transformElapsed: number = 0
     const startTime = performance.now()
     const files = await walkDirectory(this.directoryPath, "*")
+    const scanElapsed = performance.now() - startTime
     const entries: Entry[] = [];
-    var index = 0
+    var numFiles: number = 0
+    var numEntries: number = 0
     for (const file of files) {
+      numFiles++
       if (this.transformer) {
         try {
           const transformStartTime = performance.now()
           const transformed = await this.transformer.decode(file);
           transformElapsed += performance.now() - transformStartTime
-          entries.push(...transformed);
-          index += transformed.length
+          numEntries += transformed.length
+          entries.push(...transformed.filter((entry) => entryMatchesFilter(entry, filter)))
         } catch (error) {
           console.log("error reading file:", error);
         }
       } else {
         entries.push({
           // A default entry if there's no transform
-          key: index.toString(),
-          date: file.stats.mtime,
-          title: "File " + index.toString(),
-          summary: new TextType(await file.getContent())
+          timestamp: file.stats.mtimeMs,
+          title: "File " + numEntries.toString(),
+          summary: new TextType("Contents of " + file.path)
         });
+        numEntries++;
       }
-      index++;
     }
-    const elapsed = performance.now() - startTime
-    console.log(`entries read: ${entries.length}, from: ${this.directoryPath}, in: ${elapsed.toFixed(2)}ms, transformations: ${transformElapsed.toFixed(2)}ms`)
+    const totalElapsed = performance.now() - startTime
+    console.log(`files scanned: ${numFiles}, entries scanned: ${numEntries}, entries returned: ${entries.length}, from: ${this.directoryPath}, files scanned in: ${scanElapsed.toFixed(2)}ms, files transformed in: ${transformElapsed.toFixed(2)}ms, total processed in: ${totalElapsed.toFixed(2)}ms`)
     return entries;
   }
 }

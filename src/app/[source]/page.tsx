@@ -20,7 +20,7 @@ export default async function Page({ params }: { params: { source: string } }) {
     const entries = await sectionInfo.provider.getAllEntries()
 
     // Sort by date descending
-    entries.sort((a, b) => b.date.getTime() - a.date.getTime())
+    entries.sort((b, a) => a.timestamp - b.timestamp)
 
     const elapsed = (performance.now() - startTime).toFixed(2)
     console.log(`${params.source} page generated in: ${elapsed}ms`)
@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { source: string } }) {
       <main>
           <EntryListLayout 
             content={content}
-            list={entries.slice(0, PAGE_SIZE-1)} />
+            list={entries.slice(0, PAGE_SIZE)} />
       </main>
     )
 }

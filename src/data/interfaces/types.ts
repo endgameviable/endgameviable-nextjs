@@ -10,6 +10,10 @@ export class TextType {
         this.contentType = contentType
     }
 
+    toString(): string {
+        return this.text
+    }
+
     // Apparently can't include a toHTML() function
     // or the class doesn't work as an api/json data type
 }
