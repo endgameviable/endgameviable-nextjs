@@ -17,4 +17,15 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
+  font-family:'Roboto Mono', 'Courier New', Courier, monospace;
+  font-size:12pt;
+  margin:.3em;
+}
+
+section {
+  margin:2em 0;
+}
+
+section p {
+  margin:1em 0;
 }

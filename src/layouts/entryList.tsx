@@ -11,9 +11,14 @@ export default function EntryListLayout({ content, list }: { content: string, li
                 return (
                     <section key={entry.key}>
                         <article>
-                            <header><h1>{entry.title}</h1><h2>{entry.date.toString()}</h2></header>
+                            <header>
+                                <h1>{entry.title}</h1>
+                                <h2>{entry.date.toString()}</h2>
+                            </header>
                             <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-                            <footer><p>Metadata</p></footer>
+                            <footer>
+                                <p>Footer</p>
+                            </footer>
                         </article>
                     </section>
                 )
