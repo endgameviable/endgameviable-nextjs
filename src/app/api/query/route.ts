@@ -1,5 +1,15 @@
 import { getSectionInfo } from "@/site-config"
 
+function searchText(s: any, search: string): boolean {
+    // Yeesh why is it so hard to deal with strings
+    if (s === null)
+        return false
+    if (s === undefined)
+        return false
+    const constantS: string = s.toString()
+    return constantS.indexOf(search) >= 0
+}
+
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const source = searchParams.get('source')
@@ -13,10 +23,15 @@ export async function GET(request: Request) {
         var entries = await sectionInfo.provider.getAllEntries()
 
         if (textFilter) {
-            entries = entries.filter((entry) =>
-                entry.title?.includes(textFilter)
-                || entry.summary.text.includes(textFilter)
-                || entry.content?.text.includes(textFilter)
+            entries = entries.filter((entry) => {
+                if (searchText(entry.title, textFilter))
+                    return true
+                if (entry.summary !== null && searchText(entry.summary.text, textFilter))
+                    return true
+                if (entry.content !== null && searchText(entry.content, textFilter))
+                    return true
+                return false
+            }
           )
         }
 
