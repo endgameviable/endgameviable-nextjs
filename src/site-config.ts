@@ -18,12 +18,16 @@ type sections = {
 export const SITE_SECTIONS: sections = {
     blog: {
         name: "blog",
-        provider: new ContentDirectoryProvider("blog", 
+        provider: new ContentDirectoryProvider(
+            "blog", 
+            ".md", 
             new MarkdownFileDecoder())
     },
     movies: {
         name: "movies",
-        provider: new ContentDirectoryProvider("movies",
+        provider: new ContentDirectoryProvider(
+            "movies",
+            ".yaml",
             new MovieDecoder())
     }
 }

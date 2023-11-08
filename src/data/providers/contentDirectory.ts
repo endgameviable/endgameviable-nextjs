@@ -33,12 +33,14 @@ async function walkDirectory(dirPath: string, fileExt: string): Promise<FileInfo
 
 // A provider to scan a local directory and generate Entries from the files there.
 export default class ContentDirectoryProvider implements EntryProvider {
-  private directoryPath: string;
-  private transformer: FileDecoder;
+  private directoryPath: string
+  private fileExtension: string
+  private transformer: FileDecoder
 
-  constructor(directoryPath: string, transformer: FileDecoder) {
-    this.directoryPath = path.join(process.cwd(), 'content', directoryPath);
-    this.transformer = transformer;
+  constructor(directoryPath: string, fileExt: string, transformer: FileDecoder) {
+    this.directoryPath = path.join(process.cwd(), 'content', directoryPath)
+    this.fileExtension = fileExt
+    this.transformer = transformer
   }
 
   async getAllEntries(): Promise<Entry[]> {
@@ -48,7 +50,7 @@ export default class ContentDirectoryProvider implements EntryProvider {
   async queryEntries(filter: EntryQueryParams): Promise<Entry[]> {
     var transformElapsed: number = 0
     const startTime = performance.now()
-    const files = await walkDirectory(this.directoryPath, ".md")
+    const files = await walkDirectory(this.directoryPath, this.fileExtension)
     const scanElapsed = performance.now() - startTime
     const entries: Entry[] = [];
     var numFiles: number = 0
@@ -63,7 +65,7 @@ export default class ContentDirectoryProvider implements EntryProvider {
           numEntries += transformed.length
           entries.push(...transformed.filter((entry) => entryMatchesFilter(entry, filter)))
         } catch (error) {
-          console.log("error reading file:", error);
+          console.log("error decoding file:", error);
         }
       } else {
         entries.push({
