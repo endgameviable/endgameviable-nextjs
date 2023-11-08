@@ -20,7 +20,7 @@ export default class MarkdownFileDecoder implements FileDecoder {
             return []
 
         return [{
-            route: path.join(file.pathname, safeStringify(frontMatter.slug, file.filename)),
+            route: path.join(file.pathname, safeStringify(frontMatter.slug, file.getBaseName())),
             timestamp: safeParseDateMillis(frontMatter.date),
             title: safeStringify(frontMatter.title, "Untitled"),
             summary: new TextType(summary, "text/plain"),
