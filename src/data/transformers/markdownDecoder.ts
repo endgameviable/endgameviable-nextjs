@@ -15,13 +15,15 @@ export default class MarkdownFileDecoder implements FileDecoder {
         // Decode front matter
         const { data: frontMatter, content } = grayMatter(data);
 
+        const summary = (frontMatter.summary !== "") ? frontMatter.summary : ""
+
         if (frontMatter.draft === true)
             return []
 
         return [{
             timestamp: safeParseDateMillis(frontMatter.date),
             title: safeStringify(frontMatter.title, "Untitled"),
-            summary: new TextType("summary"),
+            summary: new TextType(summary, "text/plain"),
             article: new TextType(content, "text/markdown")
           }];
     }

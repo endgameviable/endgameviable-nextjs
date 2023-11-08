@@ -7,13 +7,13 @@ export default async function Home() {
   const list : Entry[] = [
     {
       timestamp: new Date(2023, 1, 1, 15, 0, 0).getTime(),
-      title: "Entry the First",
-      summary: new TextType("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+      title: "Beta Testing A Next.js Blog Platform",
+      article: new TextType("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
     },
     {
       timestamp: new Date(2023, 1, 2, 16, 0, 0).getTime(),
       title: "Entry the Second",
-      summary: new TextType("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+      article: new TextType("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
     }
   ]
   const content = 'The site home page.'

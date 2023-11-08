@@ -4,6 +4,15 @@ import MarkdownFileDecoder from "@/data/transformers/markdownDecoder"
 import MovieDecoder from "@/data/transformers/movieDecoder"
 import ContentDirectoryProvider from "./data/providers/contentDirectory"
 
+type metaData = {
+    [key: string]: string
+}
+
+export const siteMetaData: metaData = {
+    siteName: "Endgame Viable Next.js Beta",
+    siteUrl: "https://beta.endgameviable.com",
+}
+
 export const PAGE_SIZE: number = 10
 
 interface sectionInfo {
@@ -20,7 +29,8 @@ export const SITE_SECTIONS: sections = {
         name: "blog",
         provider: new ContentDirectoryProvider(
             "blog", 
-            ".md", 
+            ".md",
+            ["movies"],
             new MarkdownFileDecoder())
     },
     movies: {
@@ -28,6 +38,7 @@ export const SITE_SECTIONS: sections = {
         provider: new ContentDirectoryProvider(
             "movies",
             ".yaml",
+            [],
             new MovieDecoder())
     }
 }

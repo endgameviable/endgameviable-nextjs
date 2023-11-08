@@ -19,7 +19,7 @@ export default class MovieDecoder implements FileDecoder {
                 const entry: Entry = {
                     timestamp: safeParseDateMillis(movie.last_seen),
                     title: movie.title,
-                    summary: new TextType(movie.review, "text/markdown")
+                    article: new TextType(movie.review, "text/markdown")
                 }
                 entries.push(entry)
                 index++

@@ -1,9 +1,7 @@
-import Entry from '@/data/interfaces/entry'
-import { contentToHTML } from '@/data/interfaces/types'
+import Entry, { renderArticleAsHTML } from '@/data/interfaces/entry'
 
 export default function SingleEntryLayout( { entry }: { entry: Entry } ) {
-    const htmlContent = entry.article != null 
-        ? contentToHTML(entry.article) : contentToHTML(entry.summary)
+    const htmlContent = renderArticleAsHTML(entry)
     return (
         <>
             <section>

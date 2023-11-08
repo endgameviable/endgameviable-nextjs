@@ -1,13 +1,11 @@
-import Entry from '@/data/interfaces/entry'
-import { contentToHTML } from '@/data/interfaces/types'
+import Entry, { renderArticleAsHTML } from '@/data/interfaces/entry'
 
 export default function EntryListLayout({ content, list }: { content: string, list: Entry[] } ) {
     return (
         <>
             <header><p>{content}</p></header>
             {list.map((entry) => {
-                const htmlContent = entry.article != null 
-                    ? contentToHTML(entry.article) : contentToHTML(entry.summary)
+                const htmlContent = renderArticleAsHTML(entry)
                 return (
                     <section key={entry.timestamp}>
                         <article>

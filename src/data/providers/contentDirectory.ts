@@ -9,7 +9,7 @@ import EntryQueryParams, { MATCH_ALL, entryMatchesFilter } from '@/data/interfac
 import { TextType } from '@/data/interfaces/types';
 
 // ChatGPT basically wrote this function for me so blame it :)
-async function walkDirectory(dirPath: string, fileExt: string): Promise<FileInfo[]> {
+async function walkDirectory(dirPath: string, fileExt: string, excludeDirs: string[]): Promise<FileInfo[]> {
   const files: FileInfo[] = [];
 
   async function traverse(currentDir: string) {
@@ -19,7 +19,7 @@ async function walkDirectory(dirPath: string, fileExt: string): Promise<FileInfo
       const itemPath = path.join(currentDir, item);
       const itemStats = await fs.stat(itemPath);
 
-      if (itemStats.isDirectory()) {
+      if (itemStats.isDirectory() && !excludeDirs.includes(item)) {
         await traverse(itemPath);
       } else if (itemStats.isFile() && item.endsWith(fileExt)) {
         files.push(new FileInfo(itemPath, itemStats));
@@ -35,11 +35,16 @@ async function walkDirectory(dirPath: string, fileExt: string): Promise<FileInfo
 export default class ContentDirectoryProvider implements EntryProvider {
   private directoryPath: string
   private fileExtension: string
+  private excludeDirs: string[]
   private transformer: FileDecoder
 
-  constructor(directoryPath: string, fileExt: string, transformer: FileDecoder) {
+  constructor(directoryPath: string,
+    fileExt: string,
+    excludeDirs: string[],
+    transformer: FileDecoder) {
     this.directoryPath = path.join(process.cwd(), 'content', directoryPath)
     this.fileExtension = fileExt
+    this.excludeDirs = excludeDirs
     this.transformer = transformer
   }
 
@@ -50,7 +55,9 @@ export default class ContentDirectoryProvider implements EntryProvider {
   async queryEntries(filter: EntryQueryParams): Promise<Entry[]> {
     var transformElapsed: number = 0
     const startTime = performance.now()
-    const files = await walkDirectory(this.directoryPath, this.fileExtension)
+    const files = await walkDirectory(this.directoryPath,
+      this.fileExtension,
+      this.excludeDirs)
     const scanElapsed = performance.now() - startTime
     const entries: Entry[] = [];
     var numFiles: number = 0
@@ -72,7 +79,7 @@ export default class ContentDirectoryProvider implements EntryProvider {
           // A default entry if there's no transform
           timestamp: file.stats.mtimeMs,
           title: "File " + numEntries.toString(),
-          summary: new TextType("Contents of " + file.path)
+          article: new TextType("Contents of " + file.path)
         });
         numEntries++;
       }
