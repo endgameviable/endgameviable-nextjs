@@ -1,4 +1,4 @@
-import { TextType } from "./types"
+import { TextType, contentToHTML } from "./types"
 
 // A single displayable content entry.
 // Presumably one of a list of entries,
@@ -9,4 +9,15 @@ export default interface Entry {
     summary: TextType
     article?: TextType
     title?: string
+}
+
+export function renderSummaryAsHTML(entry: Entry): string {
+    return contentToHTML(entry.summary)
+}
+
+export function renderArticleAsHTML(entry: Entry): string {
+    if (entry.article !== null && entry.article !== undefined)
+        return contentToHTML(entry.article)
+    else
+        return contentToHTML(entry.summary)
 }
