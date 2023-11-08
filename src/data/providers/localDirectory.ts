@@ -1,16 +1,21 @@
-import { promises as fs } from 'fs';
+import { Stats, promises as fs } from 'fs';
 import * as path from 'path';
 
-import FileInfo from '@/data/interfaces/fileInfo'
+import { LocalFileRoute } from '@/data/providers/localFile'
 import EntryProvider from '@/data/interfaces/entryProvider';
 import FileDecoder from '@/data/interfaces/fileDecoder';
-import Entry from '@/data/interfaces/entry';
+import Entry, { ERROR_ENTRY } from '@/data/interfaces/entry';
 import EntryQueryParams, { MATCH_ALL_ENTRIES, entryMatchesFilter } from '@/data/interfaces/queryFilter';
 import { TextType } from '@/data/interfaces/types';
+import { ContentRoute } from '../interfaces/contentRoute';
 
-// ChatGPT basically wrote this function for me so blame it :)
-async function walkDirectory(dirRoot: string, dirPath: string, fileExt: string, excludeDirs: string[]): Promise<FileInfo[]> {
-  const files: FileInfo[] = [];
+// Modified from a ChatGPT example
+async function walkDirectory(dirRoot: string, 
+  dirPath: string, 
+  fileExt: string, 
+  excludeDirs: string[]): Promise<LocalFileRoute[]> {
+
+  const files: LocalFileRoute[] = [];
 
   async function traverse(dirRoot: string, currentDir: string) {
     const items = await fs.readdir(path.join(dirRoot, currentDir));
@@ -22,7 +27,9 @@ async function walkDirectory(dirRoot: string, dirPath: string, fileExt: string, 
       if (itemStats.isDirectory() && !excludeDirs.includes(item)) {
         await traverse(dirRoot, itemPath);
       } else if (itemStats.isFile() && item.endsWith(fileExt)) {
-        files.push(new FileInfo(dirRoot, currentDir, item, itemStats));
+        files.push(
+          new LocalFileRoute(dirRoot, 
+            currentDir, item, itemStats))
       }
     }
   }
@@ -48,6 +55,22 @@ export default class ContentDirectoryProvider implements EntryProvider {
     this.fileExtension = fileExt
     this.excludeDirs = excludeDirs
     this.transformer = transformer
+  }
+
+  async getEntry(route: ContentRoute): Promise<Entry> {
+    if (this.transformer) {
+      try {
+        const transformed = await this.transformer.decode(route);
+        transformed.filter((entry) => entry.route == path.join(route.path, route.name))
+        // should only be one result
+        return transformed[0]
+      } catch (error) {
+        console.log("error decoding file:", error);
+      }
+    } else {
+      console.log("error, no decoder")
+    }
+    return ERROR_ENTRY
   }
 
   async getAllEntries(): Promise<Entry[]> {
@@ -84,7 +107,7 @@ export default class ContentDirectoryProvider implements EntryProvider {
           route: file.pathname,
           timestamp: new Date().getTime(),
           title: "Missing File Decoder",
-          article: new TextType(await file.getContent())
+          article: new TextType(await file.readContent())
         });
         numEntries++;
       }

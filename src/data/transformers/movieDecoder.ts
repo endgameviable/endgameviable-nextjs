@@ -1,10 +1,10 @@
+import * as path from 'path';
 import * as yaml from 'js-yaml';
-
-import FileInfo from '@/data/interfaces/fileInfo';
 import FileDecoder from '@/data/interfaces/fileDecoder'
 import Entry from '@/data/interfaces/entry'
 import { TextType } from '@/data/interfaces/types';
-import { safeParseDate, safeParseDateMillis } from '@/typeConversion';
+import { safeParseDateMillis, safeStringify } from '@/typeConversion';
+import { ContentRoute } from '../interfaces/contentRoute';
 
 // Parse movie entries from a single YAML file into view models
 export default class MovieDecoder implements FileDecoder {
@@ -14,15 +14,14 @@ export default class MovieDecoder implements FileDecoder {
         this.route = route
     }
 
-    async decode(file: FileInfo): Promise<Entry[]> {
-        const data: any = yaml.load(await file.getContent())
+    async decode(file: ContentRoute): Promise<Entry[]> {
+        const data: any = yaml.load(await file.readContent())
         const entries: Entry[] = []
         if (Array.isArray(data.movies)) {
             let index = 0
             for (const movie of data.movies) {
-                const localDate = safeParseDate(movie.last_seen)
                 const entry: Entry = {
-                    route: this.route,
+                    route: path.join(this.route, safeStringify(movie.year), safeStringify(movie.title)),
                     timestamp: safeParseDateMillis(movie.last_seen),
                     title: movie.title,
                     article: new TextType(movie.review, "text/markdown")

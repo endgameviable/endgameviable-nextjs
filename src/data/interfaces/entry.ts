@@ -5,11 +5,17 @@ import { TextType, contentToHTML } from "./types"
 // which can be sorted by date.
 // TODO: add basic string metadata key/value pairs
 export default interface Entry {
-    timestamp: number
-    route: string // route to the content entry
+    timestamp: number // UTC milliseconds from unix epoch
+    route: string // route to the content entry, essentially a unique identifier
     summary?: TextType
     article: TextType
     title?: string
+}
+
+export const ERROR_ENTRY: Entry = {
+    timestamp: 0,
+    route: "",
+    article: new TextType("Error")
 }
 
 export function renderSummaryAsHTML(entry: Entry): string {

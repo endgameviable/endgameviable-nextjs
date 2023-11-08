@@ -1,8 +1,7 @@
 import EntryProvider from "@/data/interfaces/entryProvider"
-import FileDecoder from "@/data/interfaces/fileDecoder"
 import MarkdownFileDecoder from "@/data/transformers/markdownDecoder"
 import MovieDecoder from "@/data/transformers/movieDecoder"
-import ContentDirectoryProvider from "./data/providers/contentDirectory"
+import ContentDirectoryProvider from "./data/providers/localDirectory"
 
 type metaData = {
     [key: string]: string

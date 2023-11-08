@@ -3,15 +3,10 @@ import Entry, { renderArticleAsHTML, renderSummaryAsHTML } from "../data/interfa
 import { PAGE_SIZE, getSections, siteMetaData } from "@/site-config";
 import { safeStringify } from "@/typeConversion";
 import { MATCH_ALL_ENTRIES } from "../data/interfaces/queryFilter";
+import { generateLatestEntries } from "./generateLatestEntries";
 
 export async function generateFeed(): Promise<Feed> {
-  // Query for matching entries
-  const entries: Entry[] = []
-  for (const section of getSections()) {
-      entries.push(...await section.provider.queryEntries(MATCH_ALL_ENTRIES))
-  }
-  entries.sort((b, a) => a.timestamp - b.timestamp)
-
+  const entries = await generateLatestEntries()
   const feed = new Feed({
     title: siteMetaData.siteName,
     description: `RSS feed for ${siteMetaData.siteName}`,
@@ -24,7 +19,7 @@ export async function generateFeed(): Promise<Feed> {
     updated: new Date(),
     copyright: "Copyright" // TODO
   });
-  entries.slice(0, PAGE_SIZE).map((entry) => {
+  entries.map((entry) => {
     feed.addItem({
       date: new Date(entry.timestamp),
       title: safeStringify(entry.title, "Untitled"),
