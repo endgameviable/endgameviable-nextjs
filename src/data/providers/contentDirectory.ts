@@ -9,9 +9,8 @@ import EntryQueryParams, { MATCH_ALL, entryMatchesFilter } from '@/data/interfac
 import { TextType } from '@/data/interfaces/types';
 
 // ChatGPT basically wrote this function for me so blame it :)
-async function walkDirectory(dirPath: string, filePattern: string): Promise<FileInfo[]> {
+async function walkDirectory(dirPath: string, fileExt: string): Promise<FileInfo[]> {
   const files: FileInfo[] = [];
-  //const pattern: RegExp = new RegExp(filePattern);
 
   async function traverse(currentDir: string) {
     const items = await fs.readdir(currentDir);
@@ -22,7 +21,7 @@ async function walkDirectory(dirPath: string, filePattern: string): Promise<File
 
       if (itemStats.isDirectory()) {
         await traverse(itemPath);
-      } else if (itemStats.isFile()) {
+      } else if (itemStats.isFile() && item.endsWith(fileExt)) {
         files.push(new FileInfo(itemPath, itemStats));
       }
     }
@@ -49,7 +48,7 @@ export default class ContentDirectoryProvider implements EntryProvider {
   async queryEntries(filter: EntryQueryParams): Promise<Entry[]> {
     var transformElapsed: number = 0
     const startTime = performance.now()
-    const files = await walkDirectory(this.directoryPath, "*")
+    const files = await walkDirectory(this.directoryPath, ".md")
     const scanElapsed = performance.now() - startTime
     const entries: Entry[] = [];
     var numFiles: number = 0
