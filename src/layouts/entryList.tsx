@@ -12,11 +12,10 @@ export default function EntryListLayout({ content, list }: { content: string, li
                             <header>
                                 <h1>{entry.title}</h1>
                                 <h2>{new Date(entry.timestamp).toString()}</h2>
+                                <h3>{entry.route}</h3>
                             </header>
                             <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-                            <footer>
-                                <p>Footer</p>
-                            </footer>
+                            <footer/>
                         </article>
                     </section>
                 )

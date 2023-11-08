@@ -5,57 +5,60 @@ import FileInfo from '@/data/interfaces/fileInfo'
 import EntryProvider from '@/data/interfaces/entryProvider';
 import FileDecoder from '@/data/interfaces/fileDecoder';
 import Entry from '@/data/interfaces/entry';
-import EntryQueryParams, { MATCH_ALL, entryMatchesFilter } from '@/data/interfaces/queryFilter';
+import EntryQueryParams, { MATCH_ALL_ENTRIES, entryMatchesFilter } from '@/data/interfaces/queryFilter';
 import { TextType } from '@/data/interfaces/types';
 
 // ChatGPT basically wrote this function for me so blame it :)
-async function walkDirectory(dirPath: string, fileExt: string, excludeDirs: string[]): Promise<FileInfo[]> {
+async function walkDirectory(dirRoot: string, dirPath: string, fileExt: string, excludeDirs: string[]): Promise<FileInfo[]> {
   const files: FileInfo[] = [];
 
-  async function traverse(currentDir: string) {
-    const items = await fs.readdir(currentDir);
+  async function traverse(dirRoot: string, currentDir: string) {
+    const items = await fs.readdir(path.join(dirRoot, currentDir));
 
     for (const item of items) {
       const itemPath = path.join(currentDir, item);
-      const itemStats = await fs.stat(itemPath);
+      const itemStats = await fs.stat(path.join(dirRoot, itemPath));
 
       if (itemStats.isDirectory() && !excludeDirs.includes(item)) {
-        await traverse(itemPath);
+        await traverse(dirRoot, itemPath);
       } else if (itemStats.isFile() && item.endsWith(fileExt)) {
-        files.push(new FileInfo(itemPath, itemStats));
+        files.push(new FileInfo(dirRoot, currentDir, item, itemStats));
       }
     }
   }
 
-  await traverse(dirPath);
+  await traverse(dirRoot, dirPath);
   return files;
 }
 
 // A provider to scan a local directory and generate Entries from the files there.
 export default class ContentDirectoryProvider implements EntryProvider {
+  private baseRoute: string
   private directoryPath: string
   private fileExtension: string
   private excludeDirs: string[]
   private transformer: FileDecoder
 
-  constructor(directoryPath: string,
+  constructor(baseRoute: string,
     fileExt: string,
     excludeDirs: string[],
     transformer: FileDecoder) {
-    this.directoryPath = path.join(process.cwd(), 'content', directoryPath)
+    this.baseRoute = baseRoute
+    this.directoryPath = path.join(process.cwd(), 'content')
     this.fileExtension = fileExt
     this.excludeDirs = excludeDirs
     this.transformer = transformer
   }
 
   async getAllEntries(): Promise<Entry[]> {
-    return this.queryEntries(MATCH_ALL)
+    return this.queryEntries(MATCH_ALL_ENTRIES)
   }
 
   async queryEntries(filter: EntryQueryParams): Promise<Entry[]> {
     var transformElapsed: number = 0
     const startTime = performance.now()
     const files = await walkDirectory(this.directoryPath,
+      this.baseRoute,
       this.fileExtension,
       this.excludeDirs)
     const scanElapsed = performance.now() - startTime
@@ -77,9 +80,11 @@ export default class ContentDirectoryProvider implements EntryProvider {
       } else {
         entries.push({
           // A default entry if there's no transform
-          timestamp: file.stats.mtimeMs,
-          title: "File " + numEntries.toString(),
-          article: new TextType("Contents of " + file.path)
+          // This is really a failure condition though
+          route: file.pathname,
+          timestamp: new Date().getTime(),
+          title: "Missing File Decoder",
+          article: new TextType(await file.getContent())
         });
         numEntries++;
       }

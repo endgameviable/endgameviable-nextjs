@@ -1,5 +1,5 @@
+import * as path from 'path';
 import grayMatter from 'gray-matter';
-
 import FileInfo from '@/data/interfaces/fileInfo';
 import FileDecoder from '@/data/interfaces/fileDecoder'
 import Entry from '@/data/interfaces/entry'
@@ -8,7 +8,6 @@ import { safeParseDate, safeParseDateMillis, safeStringify } from '@/typeConvers
 
 // Transform a Markdown post file to a view model
 export default class MarkdownFileDecoder implements FileDecoder {
-
     async decode(file: FileInfo): Promise<Entry[]> {
         // Read file contents
         const data = await file.getContent()
@@ -21,6 +20,7 @@ export default class MarkdownFileDecoder implements FileDecoder {
             return []
 
         return [{
+            route: path.join(file.pathname, safeStringify(frontMatter.slug, file.filename)),
             timestamp: safeParseDateMillis(frontMatter.date),
             title: safeStringify(frontMatter.title, "Untitled"),
             summary: new TextType(summary, "text/plain"),

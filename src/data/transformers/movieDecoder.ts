@@ -8,6 +8,11 @@ import { safeParseDate, safeParseDateMillis } from '@/typeConversion';
 
 // Parse movie entries from a single YAML file into view models
 export default class MovieDecoder implements FileDecoder {
+    private route: string
+
+    constructor(route: string) {
+        this.route = route
+    }
 
     async decode(file: FileInfo): Promise<Entry[]> {
         const data: any = yaml.load(await file.getContent())
@@ -17,6 +22,7 @@ export default class MovieDecoder implements FileDecoder {
             for (const movie of data.movies) {
                 const localDate = safeParseDate(movie.last_seen)
                 const entry: Entry = {
+                    route: this.route,
                     timestamp: safeParseDateMillis(movie.last_seen),
                     title: movie.title,
                     article: new TextType(movie.review, "text/markdown")

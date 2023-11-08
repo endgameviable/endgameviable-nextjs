@@ -6,6 +6,7 @@ import { TextType, contentToHTML } from "./types"
 // TODO: add basic string metadata key/value pairs
 export default interface Entry {
     timestamp: number
+    route: string // route to the content entry
     summary?: TextType
     article: TextType
     title?: string

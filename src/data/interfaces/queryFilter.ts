@@ -1,17 +1,19 @@
 import Entry from "./entry"
 import { safeTextSearch } from "@/typeConversion"
 
+// A standard set of filters for querying entries
 export default interface EntryQueryParams {
     source: string
     contains: string
 }
 
-export const MATCH_ALL: EntryQueryParams = {
+// A constant to match all entries
+export const MATCH_ALL_ENTRIES: EntryQueryParams = {
     source: "",
     contains: ""
 }
 
-// Check to see if an entry passes the filter parameters
+// Test to see if an entry passes the filter parameters
 export function entryMatchesFilter(entry: Entry, filter: EntryQueryParams): boolean {
     if (filter === null) return true
     if (filter.contains !== "") {

@@ -39,7 +39,7 @@ export const SITE_SECTIONS: sections = {
             "movies",
             ".yaml",
             [],
-            new MovieDecoder())
+            new MovieDecoder("movies"))
     }
 }
 
