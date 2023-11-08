@@ -15,10 +15,13 @@ export function safeParseDateMillis(s: string): number {
     return Date.parse(s)
 }
 
-export function safeStringify(s: any): string {
+export function safeStringify(s: any, defaultValue: string = ""): string {
     if (s === null || s === undefined)
-        return ""
-    return s.toString()
+        return defaultValue
+    const stringified: string = s.toString()
+    if (stringified === "")
+        return defaultValue
+    return stringified
 }
 
 export function safeTextSearch(s: any, searchFor: string): boolean {

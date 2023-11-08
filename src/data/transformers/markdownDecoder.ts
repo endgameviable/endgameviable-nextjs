@@ -4,7 +4,7 @@ import FileInfo from '@/data/interfaces/fileInfo';
 import FileDecoder from '@/data/interfaces/fileDecoder'
 import Entry from '@/data/interfaces/entry'
 import { TextType } from '@/data/interfaces/types';
-import { safeParseDate, safeParseDateMillis } from '@/typeConversion';
+import { safeParseDate, safeParseDateMillis, safeStringify } from '@/typeConversion';
 
 // Transform a Markdown post file to a view model
 export default class MarkdownFileDecoder implements FileDecoder {
@@ -17,10 +17,10 @@ export default class MarkdownFileDecoder implements FileDecoder {
 
         if (frontMatter.draft === true)
             return []
-        
+
         return [{
             timestamp: safeParseDateMillis(frontMatter.date),
-            title: file.path,
+            title: safeStringify(frontMatter.title, "Untitled"),
             summary: new TextType("summary"),
             article: new TextType(content, "text/markdown")
           }];
