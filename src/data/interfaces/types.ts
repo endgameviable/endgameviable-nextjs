@@ -23,7 +23,10 @@ export function contentToHTML(content: TextType): string {
         case "text/plain":
             return content.text
         case "text/markdown":
-            return micromark(content.text)
+            return micromark(content.text, 'utf8', 
+                {
+                    allowDangerousHtml: true
+                })
         default:
             return ""
     }
