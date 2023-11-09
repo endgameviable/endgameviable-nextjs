@@ -29,7 +29,7 @@ export const SITE_SECTIONS: sections = {
         provider: new ContentDirectoryProvider(
             "blog", 
             ".md",
-            ["movies"],
+            ["movies"], // exclude
             new MarkdownFileDecoder())
     },
     movies: {
