@@ -1,6 +1,6 @@
 import Entry from "@/data/interfaces/entry"
 import { MATCH_ALL_ENTRIES } from "@/data/interfaces/queryFilter"
-import { PAGE_SIZE, getSections } from "@/site-config"
+import { PAGE_SIZE, getSections } from "@config/site-config"
 
 export async function generateLatestEntries(): Promise<Entry[]> {
     const entries: Entry[] = []

@@ -1,6 +1,6 @@
 import { Feed } from "feed";
 import Entry, { renderArticleAsHTML, renderSummaryAsHTML } from "../data/interfaces/entry";
-import { PAGE_SIZE, getSections, siteMetaData } from "@/site-config";
+import { PAGE_SIZE, getSections, siteConfig } from "@config/site-config";
 import { safeStringify } from "@/typeConversion";
 import { MATCH_ALL_ENTRIES } from "../data/interfaces/queryFilter";
 import { generateLatestEntries } from "./generateLatestEntries";
@@ -8,13 +8,13 @@ import { generateLatestEntries } from "./generateLatestEntries";
 export async function generateFeed(): Promise<Feed> {
   const entries = await generateLatestEntries()
   const feed = new Feed({
-    title: siteMetaData.siteName,
-    description: `RSS feed for ${siteMetaData.siteName}`,
-    id: siteMetaData.siteUrl,
-    link: siteMetaData.siteUrl,
+    title: siteConfig.siteName,
+    description: `RSS feed for ${siteConfig.siteName}`,
+    id: siteConfig.siteUrl,
+    link: siteConfig.siteUrl,
     feedLinks: {
-      json: `${siteMetaData.siteUrl}/index.json`,
-      rss: `${siteMetaData.siteUrl}/index.xml`
+      json: `${siteConfig.siteUrl}/index.json`,
+      rss: `${siteConfig.siteUrl}/index.xml`
     },
     updated: new Date(),
     copyright: "Copyright" // TODO

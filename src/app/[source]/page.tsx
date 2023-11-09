@@ -1,5 +1,5 @@
 import EntryListLayout from '@/layouts/entryList'
-import { PAGE_SIZE, SITE_SECTIONS, getSectionInfo } from '@/site-config'
+import { PAGE_SIZE, SITE_SECTIONS, getSectionInfo } from '@config/site-config'
 
 export const generateStaticParams = async () => {
   const params = []
