@@ -1,6 +1,6 @@
 // Describes a path to a content entry,
 // and an interface to read the content there.
-export interface ContentRoute {
+export interface ContentFile {
     path: string // relative path to the content
     name: string // default name of the content (a "slug" or filename, without an extension)
     readContent(): Promise<string> // function to read content from source

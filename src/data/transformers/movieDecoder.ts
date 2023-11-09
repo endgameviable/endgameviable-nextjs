@@ -4,7 +4,7 @@ import FileDecoder from '@/data/interfaces/fileDecoder'
 import Entry from '@/data/interfaces/entry'
 import { TextType } from '@/data/interfaces/types';
 import { safeParseDateMillis, safeStringify } from '@/typeConversion';
-import { ContentRoute } from '../interfaces/contentRoute';
+import { ContentFile } from '../interfaces/contentFile';
 
 // Parse movie entries from a single YAML file into view models
 export default class MovieDecoder implements FileDecoder {
@@ -14,7 +14,7 @@ export default class MovieDecoder implements FileDecoder {
         this.route = route
     }
 
-    async decode(file: ContentRoute): Promise<Entry[]> {
+    async decode(file: ContentFile): Promise<Entry[]> {
         const data: any = yaml.load(await file.readContent())
         const entries: Entry[] = []
         if (Array.isArray(data.movies)) {

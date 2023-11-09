@@ -7,7 +7,7 @@ import FileDecoder from '@/data/interfaces/fileDecoder';
 import Entry, { ERROR_ENTRY } from '@/data/interfaces/entry';
 import EntryQueryParams, { MATCH_ALL_ENTRIES, entryMatchesFilter } from '@/data/interfaces/queryFilter';
 import { TextType } from '@/data/interfaces/types';
-import { ContentRoute } from '../interfaces/contentRoute';
+import { ContentFile } from '../interfaces/contentFile';
 
 // Modified from a ChatGPT example
 async function walkDirectory(dirRoot: string, 
@@ -57,7 +57,7 @@ export default class ContentDirectoryProvider implements EntryProvider {
     this.transformer = transformer
   }
 
-  async getEntry(route: ContentRoute): Promise<Entry> {
+  async getEntry(route: ContentFile): Promise<Entry> {
     if (this.transformer) {
       try {
         const transformed = await this.transformer.decode(route);

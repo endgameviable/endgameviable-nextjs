@@ -2,14 +2,14 @@ import * as path from 'path';
 import grayMatter from 'gray-matter';
 import { FileDataSource } from "../interfaces/fileDataSource"
 import Entry from "../interfaces/entry"
-import { ContentRoute } from '../interfaces/contentRoute';
+import { ContentFile } from '../interfaces/contentFile';
 import { safeParseDateMillis, safeStringify } from '@/typeConversion';
 import { TextType } from '../interfaces/types';
 
 export class MarkdownFileDataSource implements FileDataSource {
-    private contentFile: ContentRoute
+    private contentFile: ContentFile
 
-    constructor(contentFile: ContentRoute) {
+    constructor(contentFile: ContentFile) {
       this.contentFile = contentFile
     }
         

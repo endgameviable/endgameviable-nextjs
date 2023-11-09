@@ -4,11 +4,11 @@ import FileDecoder from '@/data/interfaces/fileDecoder'
 import Entry from '@/data/interfaces/entry'
 import { TextType } from '@/data/interfaces/types';
 import { safeParseDate, safeParseDateMillis, safeStringify } from '@/typeConversion';
-import { ContentRoute } from '../interfaces/contentRoute';
+import { ContentFile } from '../interfaces/contentFile';
 
 // Transform a Markdown post file to a view model
 export default class MarkdownFileDecoder implements FileDecoder {
-    async decode(file: ContentRoute): Promise<Entry[]> {
+    async decode(file: ContentFile): Promise<Entry[]> {
         // Read file contents
         const data = await file.readContent()
         // Decode front matter

@@ -1,9 +1,9 @@
 import * as path from 'path'
 import { promises as fs } from 'fs'
 import { Stats } from 'fs'
-import { ContentRoute, getBaseName } from '@/data/interfaces/contentRoute'
+import { ContentFile, getBaseName } from '@/data/interfaces/contentFile'
 
-export class LocalFileRoute implements ContentRoute {
+export class LocalFileRoute implements ContentFile {
     public path: string
     public name: string
     public rootPath: string
