@@ -8,6 +8,7 @@ export default async function Page({ params }: { params: { route: string[] } }) 
   const source = params.route[0]
   const route = params.route.join('/')
   const sectionInfo = getSectionInfo(source)
+  const startTime = performance.now()
   var component: JSX.Element
   if (params.route.length === 1) {
     const entries = await sectionInfo.provider2.getAllEntries()
@@ -32,6 +33,8 @@ export default async function Page({ params }: { params: { route: string[] } }) 
         list={entries.slice(0, PAGE_SIZE)} />
     }
   }
+  const elapsed = performance.now() - startTime
+  console.log(`genereated page in ${elapsed.toFixed(2)}ms`)
   return (
     <main>
       <p>Content source: {source}</p>

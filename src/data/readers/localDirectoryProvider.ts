@@ -1,5 +1,5 @@
-import { Stats, promises as fs } from 'fs';
-import * as path from 'path';
+import { Stats, promises as fs } from 'fs'
+import * as path from 'path'
 
 import { LocalFileRoute } from '@/data/providers/localFile'
 import Entry, { ERROR_ENTRY } from '@/data/interfaces/entry';
@@ -60,8 +60,10 @@ export default class LocalDirectoryProvider implements ContentProvider {
 
   public async getAllRoutes(): Promise<ContentRoute[]> {
     if (this.routes.length > 0) {
+      console.log(`getAllRoutes ${this.baseRoute}: returning ${this.routes.length} cached routes`)
       return this.routes
     }
+    const startTime = performance.now()
     const files = await walkDirectory(this.directoryPath,
       this.baseRoute,
       this.fileExtension,
@@ -73,6 +75,8 @@ export default class LocalDirectoryProvider implements ContentProvider {
     const routes: ContentRoute[] = []
     const nestedRoutes = await Promise.all(promises)
     nestedRoutes.forEach((r) => routes.push(...r))
+    const elapsed = performance.now() - startTime
+    console.log(`getAllRoutes ${this.baseRoute}: scanned ${routes.length} routes in ${elapsed.toFixed(2)}ms`)
     this.routes = routes
     return routes
   }

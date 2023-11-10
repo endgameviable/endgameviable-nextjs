@@ -9,12 +9,19 @@ import { ContentRoute } from '../interfaces/contentRoute';
 
 export class MarkdownFileReader implements ContentFileReader {
 
+  // TODO: ugh this is so slow and inefficient
+  // because it has to read the file content so often
+  
   // Returns all the content routes in the file
   public async getRoutes(file: ContentFile): Promise<ContentRoute[]> {
     // TODO: Need to actually load the markdown
     // We need to fetch the slug from the front matter
+    const data = await file.readContent()
+    // Decode front matter
+    const { data: frontMatter, content } = grayMatter(data);
+    if (frontMatter.draft === true) return []
     return [{
-      slug: file.name,
+      slug: safeStringify(frontMatter.slug, file.name),
       route: file.path,
       source: file,
       element: 0
