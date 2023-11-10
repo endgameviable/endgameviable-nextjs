@@ -1,3 +1,5 @@
+import { ContentFile } from "./contentFile"
+import { ContentRoute } from "./contentRoute"
 import Entry from "./entry"
 
 // An interface to index all the entry routes within a file,
@@ -11,8 +13,8 @@ import Entry from "./entry"
 // The first part of the route determines what kind of data.
 // The final part of the route is a unique slug.
 // All routes must be unique across the entire site.
-export interface FileDataSource {
-    //getEntry(route: string): Promise<Entry>
-    getRoutes(): Promise<string[]>
-    getEntries(): Promise<Entry[]>
+export interface ContentFileReader {
+    getRoutes(file: ContentFile): Promise<ContentRoute[]>
+    getEntry(route: ContentRoute): Promise<Entry>
+    //getEntries(file: ContentFile): Promise<Entry[]>
 }

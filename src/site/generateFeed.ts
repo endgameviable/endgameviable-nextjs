@@ -1,12 +1,12 @@
 import { Feed } from "feed";
-import Entry, { renderArticleAsHTML, renderSummaryAsHTML } from "../data/interfaces/entry";
-import { PAGE_SIZE, getSections, siteConfig } from "@config/site-config";
+import { renderArticleAsHTML, renderSummaryAsHTML } from "../data/interfaces/entry";
+import { PAGE_SIZE, siteConfig } from "@config/site-config";
 import { safeStringify } from "@/typeConversion";
-import { MATCH_ALL_ENTRIES } from "../data/interfaces/queryFilter";
 import { generateLatestEntries } from "./generateLatestEntries";
 
 export async function generateFeed(): Promise<Feed> {
   const entries = await generateLatestEntries()
+  entries.sort((b, a) => a.timestamp - b.timestamp)
   const feed = new Feed({
     title: siteConfig.siteName,
     description: `RSS feed for ${siteConfig.siteName}`,
@@ -19,7 +19,7 @@ export async function generateFeed(): Promise<Feed> {
     updated: new Date(),
     copyright: "Copyright" // TODO
   });
-  entries.map((entry) => {
+  entries.slice(0, PAGE_SIZE).map((entry) => {
     feed.addItem({
       date: new Date(entry.timestamp),
       title: safeStringify(entry.title, "Untitled"),

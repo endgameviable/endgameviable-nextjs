@@ -1,6 +1,6 @@
 import Entry from "@/data/interfaces/entry"
 import EntryQueryParams from "@/data/interfaces/queryFilter"
-import { PAGE_SIZE, getSectionInfo, getSections } from "@config/site-config"
+import { PAGE_SIZE, getSections } from "@config/site-config"
 import { safeStringify } from "@/typeConversion"
 
 export async function GET(request: Request) {
@@ -10,7 +10,7 @@ export async function GET(request: Request) {
 
     const startTime = performance.now()
     const filter: EntryQueryParams = {
-        source: "",
+        routeStartsWith: "",
         contains: textFilter
     }
     console.log(filter)
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
     // Query for matching entries
     const allEntries: Entry[] = []
     for (const section of getSections()) {
-        var entries = await section.provider.queryEntries(filter)
+        var entries = await section.provider1.queryEntries(filter)
         allEntries.push(...entries)
     }
 

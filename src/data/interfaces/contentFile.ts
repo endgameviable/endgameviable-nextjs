@@ -6,6 +6,11 @@ export interface ContentFile {
     readContent(): Promise<string> // function to read content from source
 }
 
+export interface ContentSource {
+    name: string // hopefully unique name of the content
+    readContent(): Promise<string> // function to read content from source
+}
+
 // Thanks ChatGPT
 export function getBaseName(filename: string): string {
     const lastIndex = filename.lastIndexOf(".")

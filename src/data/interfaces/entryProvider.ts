@@ -1,6 +1,7 @@
 import Entry from '@/data/interfaces/entry'
 import EntryQueryParams from '@/data/interfaces/queryFilter'
 import { ContentFile } from './contentFile'
+import { ContentRoute } from './contentRoute'
 
 export default interface EntryProvider {
     // TODO: Update to paged interfaces.

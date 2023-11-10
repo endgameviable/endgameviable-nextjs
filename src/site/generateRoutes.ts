@@ -12,7 +12,7 @@ export async function generateRouteDictionary(): Promise<RouteDictionary> {
     const promises: Promise<Entry[]>[] = []
     for (const section of getSections()) {
         promises.push(
-            section.provider.queryEntries(MATCH_ALL_ENTRIES)
+            section.provider2.getAllEntries()
         )
     }
     const routeMap: RouteDictionary = {}

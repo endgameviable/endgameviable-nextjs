@@ -6,9 +6,12 @@ export default function SingleEntryLayout( { entry }: { entry: Entry } ) {
         <>
             <section>
                 <article>
-                <header><h1>{entry.title}</h1>
-                <h2>{entry.timestamp}</h2></header>
-                <p>{htmlContent}</p>
+                <header>
+                    <h1>{entry.title}</h1>
+                    <h2>{new Date(entry.timestamp).toString()}</h2>
+                    <h3>{entry.route}</h3>
+                </header>
+                <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
                 <footer><p>Metadata</p></footer>
                 </article>
             </section>
