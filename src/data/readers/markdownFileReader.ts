@@ -11,6 +11,8 @@ export class MarkdownFileReader implements ContentFileReader {
 
   // Returns all the content routes in the file
   public async getRoutes(file: ContentFile): Promise<ContentRoute[]> {
+    // TODO: Need to actually load the markdown
+    // We need to fetch the slug from the front matter
     return [{
       slug: file.name,
       route: file.path,
@@ -31,7 +33,7 @@ export class MarkdownFileReader implements ContentFileReader {
     if (frontMatter.draft === true) return ERROR_ENTRY
 
     return {
-      route: [route.route, route.slug].join('/'),
+      route: [route.route, safeStringify(frontMatter.slug, route.slug)].join('/'),
       timestamp: safeParseDateMillis(frontMatter.date),
       title: safeStringify(frontMatter.title, "Untitled"),
       summary: new TextType(summary, "text/plain"),

@@ -5,7 +5,7 @@ import Entry, { ERROR_ENTRY } from "../interfaces/entry"
 import { ContentFile } from '../interfaces/contentFile';
 import { safeParseDateMillis, safeStringify } from '@/typeConversion';
 import { TextType } from '../interfaces/types';
-import { ContentRoute } from '../interfaces/contentRoute';
+import { ContentRoute, getFullRoute, slugifyTitle } from '../interfaces/contentRoute';
 
 type yamlCache = {
     [key: string]: any
@@ -24,7 +24,7 @@ export class MovieDataReader implements ContentFileReader {
             for (var index: number = 0; index < data.movies.length; index++) {
                 const movie = data.movies[index]
                 routes.push({
-                    slug: safeStringify(movie.title),
+                    slug: slugifyTitle(safeStringify(movie.title)),
                     route: path.join(file.path, safeStringify(movie.year)),
                     source: file,
                     element: index
@@ -41,7 +41,7 @@ export class MovieDataReader implements ContentFileReader {
         if (Array.isArray(data.movies)) {
             const movie = data.movies[route.element]
             const entry: Entry = {
-                route: route.route,
+                route: getFullRoute(route),
                 timestamp: safeParseDateMillis(movie.last_seen),
                 title: movie.title,
                 article: new TextType(movie.review, "text/markdown")
