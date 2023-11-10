@@ -1,11 +1,11 @@
 import * as path from 'path';
 import * as yaml from 'js-yaml';
-import { ContentFileReader } from "../interfaces/contentFileReader"
-import Entry, { ERROR_ENTRY } from "../interfaces/entry"
-import { ContentFile } from '../interfaces/contentFile';
+import { ContentFileReader } from "../../interfaces/contentFileReader"
+import Entry, { ERROR_ENTRY } from "../../interfaces/entry"
+import { ContentFile } from '../../interfaces/contentFile';
 import { safeParseDateMillis, safeStringify } from '@/typeConversion';
-import { TextType } from '../interfaces/types';
-import { ContentRoute, getFullRoute, slugifyTitle } from '../interfaces/contentRoute';
+import { TextType } from '../../interfaces/types';
+import { ContentRoute, getFullRoute, slugifyTitle } from '../../interfaces/contentRoute';
 
 type yamlCache = {
     [key: string]: any

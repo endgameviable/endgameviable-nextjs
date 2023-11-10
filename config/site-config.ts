@@ -5,7 +5,8 @@ import ContentDirectoryProvider from "../src/data/providers/localDirectory"
 import { ContentProvider } from "@/data/interfaces/contentProvider"
 import LocalDirectoryProvider from "@/data/readers/localDirectoryProvider"
 import { MarkdownFileReader } from "@/data/readers/markdownFileReader"
-import { MovieDataReader } from "@/data/readers/movieDataReader"
+import { MovieDataReader } from "@/data/readers/yaml/movieDataReader"
+import { EldenRingDataReader } from "@/data/readers/yaml/eldenRingDataReader"
 
 type metaData = {
     [key: string]: string
@@ -50,6 +51,17 @@ export const SITE_SECTIONS: sections = {
             ".yaml",
             [],
             new MovieDecoder("movies"))
+    },
+    eldenring: {
+        name: "eldenring",
+        provider2: new LocalDirectoryProvider(
+            "eldenring", ".yaml", [], new EldenRingDataReader()
+        ),
+        provider1: new ContentDirectoryProvider(
+            "eldenring",
+            ".yaml",
+            [],
+            new MovieDecoder("eldenring"))
     }
 }
 
