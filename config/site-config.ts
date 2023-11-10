@@ -2,6 +2,10 @@ import EntryProvider from "@/data/interfaces/entryProvider"
 import MarkdownFileDecoder from "@/data/transformers/markdownDecoder"
 import MovieDecoder from "@/data/transformers/movieDecoder"
 import ContentDirectoryProvider from "../src/data/providers/localDirectory"
+import { ContentProvider } from "@/data/interfaces/contentProvider"
+import LocalDirectoryProvider from "@/data/readers/localDirectoryProvider"
+import { MarkdownFileReader } from "@/data/readers/markdownFileReader"
+import { MovieDataReader } from "@/data/readers/movieDataReader"
 
 type metaData = {
     [key: string]: string
@@ -16,7 +20,8 @@ export const PAGE_SIZE: number = 10
 
 interface sectionInfo {
     name: string
-    provider: EntryProvider
+    provider1: EntryProvider
+    provider2: ContentProvider
 }
 
 type sections = {
@@ -26,7 +31,10 @@ type sections = {
 export const SITE_SECTIONS: sections = {
     blog: {
         name: "blog",
-        provider: new ContentDirectoryProvider(
+        provider2: new LocalDirectoryProvider(
+            "blog", ".md", ["movies"], new MarkdownFileReader()
+        ),
+        provider1: new ContentDirectoryProvider(
             "blog", 
             ".md",
             ["movies"], // exclude
@@ -34,7 +42,10 @@ export const SITE_SECTIONS: sections = {
     },
     movies: {
         name: "movies",
-        provider: new ContentDirectoryProvider(
+        provider2: new LocalDirectoryProvider(
+            "movies", ".yaml", [], new MovieDataReader()
+        ),
+        provider1: new ContentDirectoryProvider(
             "movies",
             ".yaml",
             [],
