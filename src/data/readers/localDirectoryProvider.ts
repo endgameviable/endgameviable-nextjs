@@ -50,7 +50,7 @@ export default class LocalDirectoryProvider implements ContentProvider {
   private excludeDirs: string[]
   private transformer: ContentFileReader
   private routes: ContentRoute[]
-  private paths: string[] = []
+  private paths: string[]
 
   constructor(directoryPath: string,
     baseRoute: string,
@@ -65,6 +65,7 @@ export default class LocalDirectoryProvider implements ContentProvider {
     this.transformer = transformer
     this.init = init
     this.routes = []
+    this.paths = []
   }
 
   public async getAllRoutes(): Promise<ContentRoute[]> {
@@ -95,10 +96,10 @@ export default class LocalDirectoryProvider implements ContentProvider {
     return routes
   }
 
-  public getAllPaths(): string[] {
+  public async getAllPaths(): Promise<string[]> {
     if (this.paths.length > 0)
       return this.paths
-    this.getAllRoutes()
+    await this.getAllRoutes()
     return this.paths
   }
 

@@ -11,11 +11,13 @@ import { getFullRoute } from '@/data/interfaces/contentRoute'
 export async function generateStaticParams()  {
   console.log("generateStaticParams for catch-all route")
   const params: { route: string[] }[] = []
+  const promises: Promise<string[]>[] = []
   for (const section of getSections()) {
-    await section.provider2.getAllRoutes()
-    const paths = section.provider2.getAllPaths()
-    paths.forEach((path) => params.push({ route: path.split('/') }))
+    promises.push(section.provider2.getAllPaths())
   }
+  const paths = await Promise.all(promises)
+  const flattened: string[] = ([] as string[]).concat(...paths)
+  flattened.forEach((path) => params.push({ route: path.split('/') }))
   return params
 }
 
@@ -33,12 +35,16 @@ export default async function Page({ params }: { params: { route: string[] }}) {
       content="List"
       list={entries.slice(0, PAGE_SIZE)} />
   } else {
+    // If the url matches a route, we return a single page
+    // Otherwise we return a list of entries at that path
     const allRoutes = await sectionInfo.provider2.getAllRoutes()
     const match = allRoutes.find((e) => getFullRoute(e) === route)
     if (match !== undefined) {
+      // A single entry route match
       const entry = await sectionInfo.provider2.getEntry(params.route.join("/"))
       component = <SingleEntryLayout entry={entry} />
     } else {
+      // A list of entries matching the path
       const entries = await sectionInfo.provider2.getEntries({
         routeStartsWith: route,
         contains: ""
