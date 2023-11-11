@@ -70,7 +70,7 @@ export default class LocalDirectoryProvider implements ContentProvider {
   public async getAllRoutes(): Promise<ContentRoute[]> {
     if (this.init && !existsSync(this.directoryPath)) {
       console.log(`initializing ${this.directoryPath}`)
-      this.init()
+      await this.init()
     }
     if (this.routes.length > 0) {
       console.log(`getAllRoutes ${this.baseRoute}: returning ${this.routes.length} cached routes`)
