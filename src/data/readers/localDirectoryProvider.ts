@@ -8,17 +8,21 @@ import { ContentProvider } from '../interfaces/contentProvider';
 import { ContentRoute, getFullRoute } from '../interfaces/contentRoute';
 import { ContentFileReader } from '../interfaces/contentFileReader';
 
-// Modified from a ChatGPT example
+// Scan directory, modified from a ChatGPT example
+// Returns an array of all directory names,
+// and an array of all files.
 async function walkDirectory(dirRoot: string, 
   dirPath: string, 
   fileExt: string, 
-  excludeDirs: string[]): Promise<LocalFileRoute[]> {
+  excludeDirs: string[]): Promise<{ paths: string[], files: LocalFileRoute[] }> {
 
+  const dirs: string[] = [];
   const files: LocalFileRoute[] = [];
 
   async function traverse(dirRoot: string, currentDir: string) {
+    dirs.push(currentDir)
     const items = await fs.readdir(path.join(dirRoot, currentDir));
-
+    
     for (const item of items) {
       const itemPath = path.join(currentDir, item);
       const itemStats = await fs.stat(path.join(dirRoot, itemPath));
@@ -34,7 +38,7 @@ async function walkDirectory(dirRoot: string,
   }
 
   await traverse(dirRoot, dirPath);
-  return files;
+  return { paths: dirs, files: files };
 }
 
 // A provider to scan a local directory and generate Entries from the files there.
@@ -45,6 +49,7 @@ export default class LocalDirectoryProvider implements ContentProvider {
   private excludeDirs: string[]
   private transformer: ContentFileReader
   private routes: ContentRoute[]
+  private paths: string[] = []
 
   constructor(directoryPath: string,
     baseRoute: string,
@@ -65,12 +70,13 @@ export default class LocalDirectoryProvider implements ContentProvider {
       return this.routes
     }
     const startTime = performance.now()
-    const files = await walkDirectory(this.directoryPath,
+    const results = await walkDirectory(this.directoryPath,
       this.baseRoute,
       this.fileExtension,
       this.excludeDirs)
+    this.paths = results.paths
     const promises: Promise<ContentRoute[]>[] = []
-    files.forEach((file) => {
+    results.files.forEach((file) => {
       promises.push(this.transformer.getRoutes(file))
     })
     const routes: ContentRoute[] = []
@@ -80,6 +86,13 @@ export default class LocalDirectoryProvider implements ContentProvider {
     console.log(`getAllRoutes ${this.baseRoute}: scanned ${routes.length} routes in ${elapsed.toFixed(2)}ms`)
     this.routes = routes
     return routes
+  }
+
+  public getAllPaths(): string[] {
+    if (this.paths.length > 0)
+      return this.paths
+    this.getAllRoutes()
+    return this.paths
   }
 
   public async getAllEntries(): Promise<Entry[]> {
