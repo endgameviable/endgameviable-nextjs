@@ -1,5 +1,5 @@
 import SingleEntryLayout from '@/layouts/entrySingle'
-import { PAGE_SIZE, getSectionInfo, getSections } from '@config/site-config'
+import { PAGE_SIZE, getSectionInfo, getSections } from '@config/siteConfig'
 import EntryListLayout from '@/layouts/entryList'
 import { getFullRoute } from '@/data/interfaces/contentRoute'
 

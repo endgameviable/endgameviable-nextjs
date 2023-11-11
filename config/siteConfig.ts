@@ -1,8 +1,4 @@
 import path from 'path'
-import EntryProvider from "@/data/interfaces/entryProvider"
-import MarkdownFileDecoder from "@/data/transformers/markdownDecoder"
-import MovieDecoder from "@/data/transformers/movieDecoder"
-import ContentDirectoryProvider from "../src/data/providers/localDirectory"
 import { ContentProvider } from "@/data/interfaces/contentProvider"
 import LocalDirectoryProvider from "@/data/readers/localDirectoryProvider"
 import { MarkdownFileReader } from "@/data/readers/markdownFileReader"
@@ -10,15 +6,19 @@ import { MovieDataReader } from "@/data/readers/yaml/movieDataReader"
 import { EldenRingDataReader } from "@/data/readers/yaml/eldenRingDataReader"
 import { syncHugoContentDir } from './gitSync'
 
+// Very high level site configuration.
+
 type metaData = {
     [key: string]: string
 }
 
+// Site Branding
 export const siteConfig: metaData = {
     siteName: "Endgame Viable Next.js Beta",
     siteUrl: "https://beta.endgameviable.com",
 }
 
+// Default limit to rss feeds and list pages
 export const PAGE_SIZE: number = 10
 
 interface sectionInfo {
@@ -35,6 +35,11 @@ async function noInitializer(): Promise<void> {
     // Resolves immediately
     return Promise.resolve<void>(undefined)
 }
+
+// Configuration of data sources for site content sections.
+// For example:
+// content/ -> a directory of markdown files
+// movies/ -> a yaml file containing movie reviews
 
 export const SITE_SECTIONS: sections = {
     content: {

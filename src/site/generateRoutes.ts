@@ -1,7 +1,7 @@
 import fs from 'fs';
 import Entry from "@/data/interfaces/entry"
 import { MATCH_ALL_ENTRIES } from "@/data/interfaces/queryFilter"
-import { getSections } from "@config/site-config"
+import { getSections } from "@config/siteConfig"
 
 type RouteDictionary = {
     [key: string]: Entry

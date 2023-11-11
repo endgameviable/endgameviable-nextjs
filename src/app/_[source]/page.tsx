@@ -1,6 +1,6 @@
 import { MATCH_ALL_ENTRIES } from '@/data/interfaces/queryFilter'
 import EntryListLayout from '@/layouts/entryList'
-import { PAGE_SIZE, SITE_SECTIONS, getSectionInfo } from '@config/site-config'
+import { PAGE_SIZE, SITE_SECTIONS, getSectionInfo } from '@config/siteConfig'
 
 export const generateStaticParams = async () => {
   const params = []

@@ -9,7 +9,12 @@ export async function syncHugoContentDir() {
         `https://${process.env.CODECOMMIT_USER}:${process.env.CODECOMMIT_PASS}@${process.env.CODECOMMIT_REPO}`)
 }
 
-// Clone and/or pull from a remote git repo
+// Clone and/or pull from a remote git repo.
+// Since the Amplify build starts with an empty directory
+// every time, this will effectively clone every time
+// in a production build situation.
+// (I'm somewhat surprised writing to build directories
+// like this actually works, but it does.)
 async function syncRepo(dirName: string, remoteUrl: string) {
     console.log("syncing repo", dirName)
     const localDir = path.join(process.cwd(), "content-remote", dirName)

@@ -1,6 +1,6 @@
 import Entry from "@/data/interfaces/entry"
 import EntryQueryParams from "@/data/interfaces/queryFilter"
-import { PAGE_SIZE, getSections } from "@config/site-config"
+import { PAGE_SIZE, getSections } from "@config/siteConfig"
 import { safeStringify } from "@/typeConversion"
 
 export async function GET(request: Request) {

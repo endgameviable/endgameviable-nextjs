@@ -1,6 +1,6 @@
 import { Feed } from "feed";
 import { renderArticleAsHTML, renderSummaryAsHTML } from "../data/interfaces/entry";
-import { PAGE_SIZE, siteConfig } from "@config/site-config";
+import { PAGE_SIZE, siteConfig } from "@config/siteConfig";
 import { safeStringify } from "@/typeConversion";
 import { generateLatestEntries } from "./generateLatestEntries";
 
