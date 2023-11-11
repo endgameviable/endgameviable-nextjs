@@ -31,11 +31,11 @@ type sections = {
 }
 
 export const SITE_SECTIONS: sections = {
-    blog: {
-        name: "blog",
+    content: {
+        name: "content",
         provider2: new LocalDirectoryProvider(
-            path.join(process.cwd(), 'content-remote/endgameviable-hugo/content'),
-            "blog", ".md", ["movies"], new MarkdownFileReader()
+            path.join(process.cwd(), 'content-remote/endgameviable-hugo'),
+            "content", ".md", ["movies"], new MarkdownFileReader()
         ),
         provider1: new ContentDirectoryProvider(
             "blog", 
@@ -46,7 +46,7 @@ export const SITE_SECTIONS: sections = {
     movies: {
         name: "movies",
         provider2: new LocalDirectoryProvider(
-            path.join(process.cwd(), 'content/movies'),
+            path.join(process.cwd(), 'content'),
             "movies", ".yaml", [], new MovieDataReader()
         ),
         provider1: new ContentDirectoryProvider(
@@ -58,7 +58,7 @@ export const SITE_SECTIONS: sections = {
     eldenring: {
         name: "eldenring",
         provider2: new LocalDirectoryProvider(
-            path.join(process.cwd(), 'content/eldenring'),
+            path.join(process.cwd(), 'content'),
             "eldenring", ".yaml", [], new EldenRingDataReader()
         ),
         provider1: new ContentDirectoryProvider(
