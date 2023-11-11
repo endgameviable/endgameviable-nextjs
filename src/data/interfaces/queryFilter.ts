@@ -15,7 +15,8 @@ export const MATCH_ALL_ENTRIES: EntryQueryParams = {
 
 // Test to see if an entry passes the filter parameters
 export function entryMatchesFilter(entry: Entry, filter: EntryQueryParams): boolean {
-    if (filter === null) return true
+    if (entry === null || entry === undefined) return false
+    if (filter === null || filter === undefined) return true
     if (filter.routeStartsWith !== "") {
         if (!entry.route.startsWith(filter.routeStartsWith))
             return false

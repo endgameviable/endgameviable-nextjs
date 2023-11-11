@@ -24,12 +24,14 @@ export function safeStringify(s: any, defaultValue: string = ""): string {
     return stringified
 }
 
-export function safeTextSearch(s: any, searchFor: string): boolean {
+export function safeTextSearch(searchIn: any, searchFor: string): boolean {
     // Yeesh why is it so hard to deal with strings
-    if (searchFor === null || searchFor === undefined)
+    if (searchFor === null || searchFor === undefined || searchFor === "")
         return false
-    if (s === null || s === undefined)
+    if (searchIn === null || searchIn === undefined)
         return false
-    const content: string = s.toString()
+    const content: string = searchIn.toString()
+    if (content === null || content === undefined || content === "")
+        return false
     return content.toLowerCase().includes(searchFor.toLowerCase())
 }
