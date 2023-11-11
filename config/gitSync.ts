@@ -5,13 +5,13 @@ import path from 'path';
 import simpleGit, { SimpleGit, SimpleGitOptions } from 'simple-git';
 
 export async function syncHugoContentDir() {
-    await syncRepo('endgameviable-hugo',
+    return syncRepo('endgameviable-hugo',
         `https://${process.env.CODECOMMIT_USER}:${process.env.CODECOMMIT_PASS}@${process.env.CODECOMMIT_REPO}`)
 }
 
 // Clone and/or pull from a remote git repo
 async function syncRepo(dirName: string, remoteUrl: string) {
-    console.log("syncing repo", remoteUrl)
+    console.log("syncing repo", dirName)
     const localDir = path.join(process.cwd(), "content-remote", dirName)
     const options: Partial<SimpleGitOptions> = {
         baseDir: path.join(process.cwd(), "content-remote"),
