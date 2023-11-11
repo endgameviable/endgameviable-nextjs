@@ -18,7 +18,7 @@ export async function GET(request: Request) {
     // Query for matching entries
     const allEntries: Entry[] = []
     for (const section of getSections()) {
-        var entries = await section.provider1.queryEntries(filter)
+        var entries = await section.provider2.getEntries(filter)
         allEntries.push(...entries)
     }
 

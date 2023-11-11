@@ -8,6 +8,7 @@ import LocalDirectoryProvider from "@/data/readers/localDirectoryProvider"
 import { MarkdownFileReader } from "@/data/readers/markdownFileReader"
 import { MovieDataReader } from "@/data/readers/yaml/movieDataReader"
 import { EldenRingDataReader } from "@/data/readers/yaml/eldenRingDataReader"
+import { syncHugoContentDir } from './gitSync'
 
 type metaData = {
     [key: string]: string
@@ -22,7 +23,7 @@ export const PAGE_SIZE: number = 10
 
 interface sectionInfo {
     name: string
-    provider1: EntryProvider
+    //provider1: EntryProvider
     provider2: ContentProvider
 }
 
@@ -30,42 +31,51 @@ type sections = {
     [key: string]: sectionInfo
 }
 
+async function noInitializer(): Promise<void> {
+    // Resolves immediately
+    return Promise.resolve<void>(undefined)
+}
+
 export const SITE_SECTIONS: sections = {
     content: {
         name: "content",
         provider2: new LocalDirectoryProvider(
             path.join(process.cwd(), 'content-remote/endgameviable-hugo'),
-            "content", ".md", ["movies"], new MarkdownFileReader()
+            "content", ".md", ["movies"], 
+            new MarkdownFileReader(),
+            syncHugoContentDir
         ),
-        provider1: new ContentDirectoryProvider(
-            "blog", 
-            ".md",
-            ["movies"], // exclude
-            new MarkdownFileDecoder())
+        // provider1: new ContentDirectoryProvider(
+        //     "blog", 
+        //     ".md",
+        //     ["movies"], // exclude
+        //     new MarkdownFileDecoder())
     },
     movies: {
         name: "movies",
         provider2: new LocalDirectoryProvider(
             path.join(process.cwd(), 'content'),
-            "movies", ".yaml", [], new MovieDataReader()
-        ),
-        provider1: new ContentDirectoryProvider(
-            "movies",
-            ".yaml",
-            [],
-            new MovieDecoder("movies"))
+            "movies", ".yaml", [], 
+            new MovieDataReader(),
+            noInitializer),
+        // provider1: new ContentDirectoryProvider(
+        //     "movies",
+        //     ".yaml",
+        //     [],
+        //     new MovieDecoder("movies"))
     },
     eldenring: {
         name: "eldenring",
         provider2: new LocalDirectoryProvider(
             path.join(process.cwd(), 'content'),
-            "eldenring", ".yaml", [], new EldenRingDataReader()
-        ),
-        provider1: new ContentDirectoryProvider(
-            "eldenring",
-            ".yaml",
-            [],
-            new MovieDecoder("eldenring"))
+            "eldenring", ".yaml", [], 
+            new EldenRingDataReader(),
+            noInitializer),
+        // provider1: new ContentDirectoryProvider(
+        //     "eldenring",
+        //     ".yaml",
+        //     [],
+        //     new MovieDecoder("eldenring"))
     }
 }
 

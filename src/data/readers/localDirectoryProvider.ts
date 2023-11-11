@@ -1,4 +1,4 @@
-import { Stats, promises as fs } from 'fs'
+import { Stats, existsSync, promises as fs } from 'fs'
 import * as path from 'path'
 
 import { LocalFileRoute } from '@/data/providers/localFile'
@@ -43,6 +43,7 @@ async function walkDirectory(dirRoot: string,
 
 // A provider to scan a local directory and generate Entries from the files there.
 export default class LocalDirectoryProvider implements ContentProvider {
+  private init: () => Promise<void>
   private baseRoute: string
   private directoryPath: string
   private fileExtension: string
@@ -55,16 +56,22 @@ export default class LocalDirectoryProvider implements ContentProvider {
     baseRoute: string,
     fileExt: string,
     excludeDirs: string[],
-    transformer: ContentFileReader) {
+    transformer: ContentFileReader,
+    init: () => Promise<void>) {
     this.baseRoute = baseRoute
     this.directoryPath = directoryPath
     this.fileExtension = fileExt
     this.excludeDirs = excludeDirs
     this.transformer = transformer
+    this.init = init
     this.routes = []
   }
 
   public async getAllRoutes(): Promise<ContentRoute[]> {
+    if (this.init && !existsSync(this.directoryPath)) {
+      console.log(`initializing ${this.directoryPath}`)
+      this.init()
+    }
     if (this.routes.length > 0) {
       console.log(`getAllRoutes ${this.baseRoute}: returning ${this.routes.length} cached routes`)
       return this.routes

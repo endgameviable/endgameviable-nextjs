@@ -9,7 +9,7 @@ import { getFullRoute } from '@/data/interfaces/contentRoute'
 // that everything be here.
 
 export async function generateStaticParams()  {
-  console.log("generateStaticParams")
+  console.log("generateStaticParams for catch-all route")
   const params: { route: string[] }[] = []
   for (const section of getSections()) {
     await section.provider2.getAllRoutes()

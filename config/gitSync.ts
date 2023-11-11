@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import simpleGit, { SimpleGit, SimpleGitOptions } from 'simple-git';
 
-export async function BuildTasks() {
+export async function syncHugoContentDir() {
     console.log("running build tasks")
     await syncRepo('endgameviable-hugo',
         `https://${process.env.CODECOMMIT_USER}:${process.env.CODECOMMIT_PASS}@${process.env.CODECOMMIT_REPO}`)
