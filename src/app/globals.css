@@ -17,19 +17,19 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
-  font-size:12pt;
-  margin:.3em;
+  font-size: 12pt;
+  margin: 0.3em;
 }
 
 section {
-  margin:2em 0;
+  margin: 2em 0;
 }
 
 section p {
-  margin:1em 0;
+  margin: 1em 0;
 }
 
 a {
-  color:#60a;
+  color: #60a;
   text-decoration: underline;
 }

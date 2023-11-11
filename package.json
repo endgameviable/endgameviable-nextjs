@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --check --ignore-path .gitignore .",
+    "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
@@ -15,6 +17,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.449.0",
     "@types/js-yaml": "^4.0.8",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -23,10 +26,13 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "feed": "^4.2.2",
     "gray-matter": "^4.0.3",
     "micromark": "^4.0.0",
     "postcss": "^8",
+    "prettier": "^3.0.3",
     "simple-git": "^3.20.0",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"

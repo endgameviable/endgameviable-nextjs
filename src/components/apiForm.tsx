@@ -1,24 +1,26 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 interface FilterFormProps {
-  onSubmit: (filterValue: string) => void
+  onSubmit: (filterValue: string) => void;
 }
 
 // Client side form to query the api for entries
 const FilterForm: React.FC<FilterFormProps> = ({ onSubmit }) => {
-  const [filterValue, setFilterValue] = useState('')
+  const [filterValue, setFilterValue] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      const response = await fetch(`/api/query?source=movies&text=${filterValue}`)
-      const data = await response.json()
+      const response = await fetch(
+        `/api/query?source=movies&text=${filterValue}`,
+      );
+      const data = await response.json();
       onSubmit(data);
     } catch (error) {
-      console.error('Error fetching data:', error)
+      console.error('Error fetching data:', error);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -30,7 +32,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ onSubmit }) => {
       />
       <button type="submit">Apply Filter</button>
     </form>
-  )
-}
+  );
+};
 
-export default FilterForm
+export default FilterForm;

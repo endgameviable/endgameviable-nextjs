@@ -1,31 +1,36 @@
-import * as path from 'path'
-import { promises as fs } from 'fs'
-import { Stats } from 'fs'
-import { ContentFile, getBaseName } from '@/data/interfaces/contentFile'
+import * as path from 'path';
+import { promises as fs } from 'fs';
+import { Stats } from 'fs';
+import { ContentFile, getBaseName } from '@/data/interfaces/contentFile';
 
 export class LocalFileRoute implements ContentFile {
-    public path: string
-    public name: string
-    public rootPath: string
-    public pathname: string
-    public stats: Stats
+  public path: string;
+  public name: string;
+  public rootPath: string;
+  public pathname: string;
+  public stats: Stats;
 
-    constructor(rootPath: string, relativePath: string, filename: string, stats: Stats) {
-        this.rootPath = rootPath
-        this.path = relativePath
-        this.name = getBaseName(filename)
-        this.pathname = path.join(rootPath, relativePath, filename)
-        this.stats = stats
-    }
+  constructor(
+    rootPath: string,
+    relativePath: string,
+    filename: string,
+    stats: Stats,
+  ) {
+    this.rootPath = rootPath;
+    this.path = relativePath;
+    this.name = getBaseName(filename);
+    this.pathname = path.join(rootPath, relativePath, filename);
+    this.stats = stats;
+  }
 
-    public async readContent(): Promise<string> {
-        try {
-            return await fs.readFile(this.pathname, 'utf8');
-        } catch (error) {
-            console.log("error loading file:", error)
-            return ""
-        }
+  public async readContent(): Promise<string> {
+    try {
+      return await fs.readFile(this.pathname, 'utf8');
+    } catch (error) {
+      console.log('error loading file:', error);
+      return '';
     }
+  }
 }
 
 // Information about a single local file
