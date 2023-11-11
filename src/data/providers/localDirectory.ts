@@ -1,3 +1,5 @@
+// TODO: This one is obsolete
+
 import { Stats, promises as fs } from 'fs';
 import * as path from 'path';
 

@@ -35,5 +35,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+/credentials.sh
 /content/blog/testContent
+/content-remote/*/
 /public/routes.json

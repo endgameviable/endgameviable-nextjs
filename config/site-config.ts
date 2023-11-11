@@ -1,3 +1,4 @@
+import path from 'path'
 import EntryProvider from "@/data/interfaces/entryProvider"
 import MarkdownFileDecoder from "@/data/transformers/markdownDecoder"
 import MovieDecoder from "@/data/transformers/movieDecoder"
@@ -33,6 +34,7 @@ export const SITE_SECTIONS: sections = {
     blog: {
         name: "blog",
         provider2: new LocalDirectoryProvider(
+            path.join(process.cwd(), 'content-remote/endgameviable-hugo/content'),
             "blog", ".md", ["movies"], new MarkdownFileReader()
         ),
         provider1: new ContentDirectoryProvider(
@@ -44,6 +46,7 @@ export const SITE_SECTIONS: sections = {
     movies: {
         name: "movies",
         provider2: new LocalDirectoryProvider(
+            path.join(process.cwd(), 'content/movies'),
             "movies", ".yaml", [], new MovieDataReader()
         ),
         provider1: new ContentDirectoryProvider(
@@ -55,6 +58,7 @@ export const SITE_SECTIONS: sections = {
     eldenring: {
         name: "eldenring",
         provider2: new LocalDirectoryProvider(
+            path.join(process.cwd(), 'content/eldenring'),
             "eldenring", ".yaml", [], new EldenRingDataReader()
         ),
         provider1: new ContentDirectoryProvider(

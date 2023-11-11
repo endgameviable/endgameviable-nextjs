@@ -46,12 +46,13 @@ export default class LocalDirectoryProvider implements ContentProvider {
   private transformer: ContentFileReader
   private routes: ContentRoute[]
 
-  constructor(baseRoute: string,
+  constructor(directoryPath: string,
+    baseRoute: string,
     fileExt: string,
     excludeDirs: string[],
     transformer: ContentFileReader) {
     this.baseRoute = baseRoute
-    this.directoryPath = path.join(process.cwd(), 'content')
+    this.directoryPath = directoryPath
     this.fileExtension = fileExt
     this.excludeDirs = excludeDirs
     this.transformer = transformer
