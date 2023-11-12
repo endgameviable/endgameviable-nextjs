@@ -33,45 +33,39 @@ type sections = {
   [key: string]: sectionInfo;
 };
 
-async function noInitializer(): Promise<void> {
-  // Resolves immediately
-  return Promise.resolve<void>(undefined);
-}
-
 const s3client = new S3Client({
   region: process.env.AWS_REGION,
 });
 
-export const SITE_SECTION_NAMES: string[] = ['s3', 'movies'];
+export const SITE_SECTION_NAMES: string[] = ['blog', 'movies'];
 
 // Configuration of data sources for site content sections.
 // For example:
 // content/ -> a directory of markdown files
 // movies/ -> a yaml file containing movie reviews
 export const SITE_SECTIONS: sections = {
-  s3: {
-    name: 's3',
-    provider2: new S3Provider(
-      s3client,
-      'endgameviable-nextjs-storage',
-      'endgameviable-hugo/content/',
-      's3',
+  // s3: {
+  //   name: 's3',
+  //   provider2: new S3Provider(
+  //     s3client,
+  //     'endgameviable-nextjs-storage',
+  //     'endgameviable-hugo/content/',
+  //     's3',
+  //     '.md',
+  //     ['movies'],
+  //     new MarkdownFileReader(),
+  //   ),
+  // },
+  blog: {
+    name: 'blog',
+    provider2: new LocalDirectoryProvider(
+      path.join(process.cwd(), 'content'),
+      'blog',
       '.md',
       ['movies'],
       new MarkdownFileReader(),
     ),
   },
-  // content: {
-  //   name: 'content',
-  //   provider2: new LocalDirectoryProvider(
-  //     path.join(process.cwd(), 'content-remote/endgameviable-hugo'),
-  //     'content',
-  //     '.md',
-  //     ['movies'],
-  //     new MarkdownFileReader(),
-  //     initStaticConfig,
-  //   ),
-  // },
   movies: {
     name: 'movies',
     provider2: new LocalDirectoryProvider(
@@ -80,7 +74,6 @@ export const SITE_SECTIONS: sections = {
       '.yaml',
       [],
       new MovieDataReader(),
-      noInitializer,
     ),
   },
   eldenring: {
@@ -91,7 +84,6 @@ export const SITE_SECTIONS: sections = {
       '.yaml',
       [],
       new EldenRingDataReader(),
-      noInitializer,
     ),
   },
 };

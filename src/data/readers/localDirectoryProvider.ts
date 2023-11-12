@@ -45,7 +45,6 @@ async function walkDirectory(
 
 // A provider to scan a local directory and generate Entries from the files there.
 export default class LocalDirectoryProvider implements ContentProvider {
-  private init: () => Promise<void>;
   private baseRoute: string;
   private directoryPath: string;
   private fileExtension: string;
@@ -60,23 +59,17 @@ export default class LocalDirectoryProvider implements ContentProvider {
     fileExt: string,
     excludeDirs: string[],
     transformer: ContentFileReader,
-    init: () => Promise<void>,
   ) {
     this.baseRoute = baseRoute;
     this.directoryPath = directoryPath;
     this.fileExtension = fileExt;
     this.excludeDirs = excludeDirs;
     this.transformer = transformer;
-    this.init = init;
     this.routes = [];
     this.paths = [];
   }
 
   public async getAllRoutes(): Promise<ContentRoute[]> {
-    // if (this.init && !existsSync(this.directoryPath)) {
-    //   console.log(`initializing ${this.directoryPath}`)
-    //   await this.init()
-    // }
     if (this.routes.length > 0) {
       console.log(
         `getAllRoutes ${this.baseRoute}: returning ${this.routes.length} cached routes`,
