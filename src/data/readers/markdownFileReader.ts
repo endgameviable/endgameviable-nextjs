@@ -13,7 +13,6 @@ export class MarkdownFileReader implements ContentFileReader {
 
   // Returns all the content routes in the file
   public async getRoutes(file: ContentFile): Promise<ContentRoute[]> {
-    // TODO: Need to actually load the markdown
     // We need to fetch the slug from the front matter
     const data = await file.readContent();
     // Decode front matter

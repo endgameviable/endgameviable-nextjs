@@ -1,12 +1,12 @@
 import Entry from '@/data/interfaces/entry';
-import { MATCH_ALL_ENTRIES } from '@/data/interfaces/queryFilter';
-import { PAGE_SIZE, getSections } from '@config/siteConfig';
+import { PAGE_SIZE, forEachSection } from '@config/siteConfig';
 
 export async function generateLatestEntries(): Promise<Entry[]> {
   const entries: Entry[] = [];
-  for (const section of getSections()) {
+  // TODO: parallelize this
+  forEachSection(async (section) => {
     entries.push(...(await section.provider2.getAllEntries()));
-  }
+  });
   entries.sort((b, a) => a.timestamp - b.timestamp);
   return entries.slice(0, PAGE_SIZE);
 }

@@ -1,5 +1,5 @@
 import SingleEntryLayout from '@/layouts/entrySingle';
-import { PAGE_SIZE, getSectionInfo, getSections } from '@config/siteConfig';
+import { PAGE_SIZE, forEachSection, getSectionInfo } from '@config/siteConfig';
 import EntryListLayout from '@/layouts/entryList';
 import { getFullRoute } from '@/data/interfaces/contentRoute';
 import { initStaticConfig } from '@config/gitSync';
@@ -11,15 +11,15 @@ import { initStaticConfig } from '@config/gitSync';
 
 export async function generateStaticParams() {
   console.log('generateStaticParams for catch-all route');
-  await initStaticConfig(); // one-time
+  await initStaticConfig(); // one-time, hopefully
   const params: { route: string[] }[] = [];
   const promises: Promise<string[]>[] = [];
-  for (const section of getSections()) {
-    promises.push(section.provider2.getAllPaths());
-  }
+  forEachSection((section) => {
+    if (section.provider2) promises.push(section.provider2.getAllPaths());
+  });
   const paths = await Promise.all(promises);
   const flattened: string[] = ([] as string[]).concat(...paths);
-  flattened.forEach((path) => params.push({ route: path.split('/') }));
+  //flattened.forEach((path) => params.push({ route: path.split('/') }));
   return params;
 }
 

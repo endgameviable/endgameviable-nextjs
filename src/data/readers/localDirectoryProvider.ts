@@ -104,8 +104,9 @@ export default class LocalDirectoryProvider implements ContentProvider {
         routes.length
       } routes in ${elapsed.toFixed(2)}ms`,
     );
-    this.routes = routes;
-    return routes;
+    this.routes = [];
+    this.routes.push(...routes);
+    return this.routes;
   }
 
   public async getAllPaths(): Promise<string[]> {

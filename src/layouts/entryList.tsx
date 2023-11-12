@@ -15,7 +15,7 @@ export default function EntryListLayout({
       {list.map((entry) => {
         const htmlContent = renderArticleAsHTML(entry);
         return (
-          <section key={entry.timestamp}>
+          <section key={entry.timestamp + entry.route}>
             <article>
               <header>
                 <h1>{entry.title}</h1>

@@ -1,6 +1,6 @@
 import Entry from '@/data/interfaces/entry';
 import EntryQueryParams from '@/data/interfaces/queryFilter';
-import { PAGE_SIZE, getSections } from '@config/siteConfig';
+import { PAGE_SIZE, forEachSection } from '@config/siteConfig';
 import { safeStringify } from '@/typeConversion';
 
 export async function GET(request: Request) {
@@ -17,10 +17,10 @@ export async function GET(request: Request) {
 
   // Query for matching entries
   const allEntries: Entry[] = [];
-  for (const section of getSections()) {
+  forEachSection(async (section) => {
     var entries = await section.provider2.getEntries(filter);
     allEntries.push(...entries);
-  }
+  });
 
   // Sort by date descending
   allEntries.sort((b, a) => a.timestamp - b.timestamp);

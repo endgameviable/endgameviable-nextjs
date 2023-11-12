@@ -11,15 +11,15 @@ export async function initStaticConfig() {
     'content-remote',
     'endgameviable-hugo',
   );
-  await syncRepo(
-    localDir,
-    `https://${process.env.CODECOMMIT_USER}:${process.env.CODECOMMIT_PASS}@${process.env.CODECOMMIT_REPO}`,
-  );
-  await syncToS3(
-    'endgameviable-nextjs-storage',
-    'endgameviable-hugo',
-    localDir,
-  );
+  // await syncRepo(
+  //   localDir,
+  //   `https://${process.env.CODECOMMIT_USER}:${process.env.CODECOMMIT_PASS}@${process.env.CODECOMMIT_REPO}`,
+  // );
+  // await syncToS3(
+  //   'endgameviable-nextjs-storage',
+  //   'endgameviable-hugo',
+  //   localDir,
+  // );
 }
 
 // Clone and/or pull from a remote git repo.

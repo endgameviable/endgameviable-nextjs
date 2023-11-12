@@ -1,7 +1,7 @@
 import fs from 'fs';
 import Entry from '@/data/interfaces/entry';
 import { MATCH_ALL_ENTRIES } from '@/data/interfaces/queryFilter';
-import { getSections } from '@config/siteConfig';
+import { forEachSection } from '@config/siteConfig';
 
 type RouteDictionary = {
   [key: string]: Entry;
@@ -10,9 +10,9 @@ type RouteDictionary = {
 export async function generateRouteDictionary(): Promise<RouteDictionary> {
   console.log('scanning for content');
   const promises: Promise<Entry[]>[] = [];
-  for (const section of getSections()) {
+  forEachSection((section) => {
     promises.push(section.provider2.getAllEntries());
-  }
+  });
   const routeMap: RouteDictionary = {};
   await Promise.all(promises)
     .then((all) => {
