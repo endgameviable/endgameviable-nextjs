@@ -1,27 +1,20 @@
 import SingleEntryLayout from '@/layouts/entrySingle';
-import { PAGE_SIZE, forEachSection, getSectionInfo } from '@config/siteConfig';
 import EntryListLayout from '@/layouts/entryList';
-import { getFullRoute } from '@/data/interfaces/contentRoute';
-import { initStaticConfig } from '@config/gitSync';
+import Entry from '@/data/interfaces/entry';
+import { fetchJsonFromS3 } from '@/data/s3/fetchFromS3';
+import { jsonToEntry } from '@/data/s3/jsonToEntry';
+import { s3client } from '@config/siteConfig';
 
-// This seems to be riddled with redundancies and inefficiences
-// Not happy with this implementation.
-// But the way the "catch-all" route works demands
-// that everything be here.
+// This implementation fetches json data for pages
+// from an S3 bucket item with the same route as the url.
+// Depends on rendering json data from markdown files,
+// which is done by the Hugo project endgameviable-json.
 
-export async function generateStaticParams() {
-  console.log('generateStaticParams for catch-all route');
-  await initStaticConfig(); // one-time, hopefully
-  const params: { route: string[] }[] = [];
-  const promises: Promise<string[]>[] = [];
-  forEachSection((section) => {
-    if (section.provider2) promises.push(section.provider2.getAllPaths());
-  });
-  const paths = await Promise.all(promises);
-  const flattened: string[] = ([] as string[]).concat(...paths);
-  //flattened.forEach((path) => params.push({ route: path.split('/') }));
-  return params;
-}
+// generateStaticRoutes should read sitemap.xml
+// and generate a static page for each entry.
+// Should also add a way to read an index of
+// section list pages, too. Will have to
+// generate those in the Hugo project.
 
 // Renders either a single entry page or a list
 export default async function Page({
@@ -29,48 +22,27 @@ export default async function Page({
 }: {
   params: { route: string[] };
 }) {
-  const source = params.route[0];
-  const route = params.route.join('/');
-  const sectionInfo = getSectionInfo(source);
-  const startTime = performance.now();
   var component: JSX.Element;
-  if (params.route.length === 1) {
-    const entries = await sectionInfo.provider2.getAllEntries();
-    entries.sort((b, a) => a.timestamp - b.timestamp);
-    component = (
-      <EntryListLayout content="List" list={entries.slice(0, PAGE_SIZE)} />
-    );
+  const startTime = performance.now();
+  const jsonData = await fetchJsonFromS3(s3client, params.route);
+  if (jsonData.metadata.content === "single") {
+    const entry = jsonToEntry(jsonData.pages[0]);
+    component = <SingleEntryLayout entry={entry} />;
   } else {
-    // If the url matches a route, we return a single page
-    // Otherwise we return a list of entries at that path
-    const allRoutes = await sectionInfo.provider2.getAllRoutes();
-    const match = allRoutes.find((e) => getFullRoute(e) === route);
-    if (match !== undefined) {
-      // A single entry route match
-      const entry = await sectionInfo.provider2.getEntry(
-        params.route.join('/'),
-      );
-      component = <SingleEntryLayout entry={entry} />;
-    } else {
-      // A list of entries matching the path
-      const entries = await sectionInfo.provider2.getEntries({
-        routeStartsWith: route,
-        contains: '',
-      });
-      entries.sort((b, a) => a.timestamp - b.timestamp);
-      component = (
-        <EntryListLayout
-          content="Sub-directory List"
-          list={entries.slice(0, PAGE_SIZE)}
-        />
-      );
+    const entries: Entry[] = [];
+    for (const jsonPage of jsonData.pages) {
+      const entry = jsonToEntry(jsonPage);
+      entries.push(entry);
     }
+    component = (
+      <EntryListLayout content="List" list={entries} />
+    );
   }
   const elapsed = performance.now() - startTime;
-  console.log(`genereated page in ${elapsed.toFixed(2)}ms`);
+  console.log(`generated ${params.route.join('/')} page in ${elapsed.toFixed(2)}ms`);
   return (
     <main>
-      <p>Content source: {source}</p>
+      <p>Content fetched from S3 json data</p>
       {component}
     </main>
   );

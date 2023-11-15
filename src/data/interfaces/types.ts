@@ -22,6 +22,8 @@ export function contentToHTML(content: TextType): string {
   switch (content.contentType) {
     case 'text/plain':
       return content.text;
+    case 'text/html':
+      return content.text;
     case 'text/markdown':
       return micromark(content.text, 'utf8', {
         allowDangerousHtml: true,

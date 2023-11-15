@@ -33,7 +33,7 @@ type sections = {
   [key: string]: sectionInfo;
 };
 
-const s3client = new S3Client({
+export const s3client = new S3Client({
   region: process.env.AWS_REGION,
 });
 
