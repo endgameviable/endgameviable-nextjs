@@ -16,6 +16,9 @@ export const siteConfig: metaData = {
 // Default limit to rss feeds and list pages
 export const PAGE_SIZE: number = 10;
 
+const awsAccessKeyId = safeStringify(process.env.S3_ACCESS_KEY_ID);
+const awsSecretAccessKey = safeStringify(process.env.S3_SECRET_ACCESS_KEY);
+
 // Normally we would use credentials: fromNodeProviderChain().
 // fromNodeProviderChain() attempts to read credentials
 // from a series of standard locations in the runtime environment.
@@ -27,8 +30,8 @@ export const PAGE_SIZE: number = 10;
 export function getS3Client(): S3Client {
   return new S3Client({
     credentials: {
-      accessKeyId: safeStringify(process.env.S3_ACCESS_KEY_ID),
-      secretAccessKey: safeStringify(process.env.S3_SECRET_ACCESS_KEY),
+      accessKeyId: awsAccessKeyId,
+      secretAccessKey: awsSecretAccessKey,
     }
   });
 }
