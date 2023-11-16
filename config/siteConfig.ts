@@ -1,5 +1,5 @@
 import { S3Client } from '@aws-sdk/client-s3';
-import { fromEnv } from "@aws-sdk/credential-providers";
+import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
 
 // Very high level site configuration.
 
@@ -17,5 +17,5 @@ export const siteConfig: metaData = {
 export const PAGE_SIZE: number = 10;
 
 export const s3client = new S3Client({
-  credentials: fromEnv(),
+  credentials: fromNodeProviderChain(),
 });
