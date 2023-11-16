@@ -28,27 +28,35 @@ export async function fetchJsonFromS3(
   route: string[],
 ): Promise<JsonDataEndpoint> {
   const key = path.join(route.join('/'), 'index.json');
+  const params: GetObjectCommandInput = {
+    Bucket: 'endgameviable-nextjs-storage',
+    Key: key,
+  };
   try {
-    const params: GetObjectCommandInput = {
-      Bucket: 'endgameviable-nextjs-storage',
-      Key: key,
-    };
     const response = await s3.send(new GetObjectCommand(params));
     if (response.Body) {
       const s = await response.Body?.transformToString();
       return JSON.parse(s);
     }
-    console.log('no response body from s3 object');
+    return {
+      metadata: { content: 'error', section: 'error' },
+      pages: [
+        {
+          title: 'Nothing Here',
+          content: `<p>There's no content at ${key}.</p>`,
+        },
+      ],
+    };
   } catch (error) {
     console.log('error loading file:', error);
+    return {
+      metadata: { content: 'error', section: 'error' },
+      pages: [
+        {
+          title: 'An Error Occurred',
+          content: `<p>There was an error fetching ${key}.</p><p><blockquote>${error}</blockquote></p>`,
+        },
+      ],
+    };
   }
-  return {
-    metadata: { content: 'error', section: 'error' },
-    pages: [
-      {
-        title: 'Nothing Here',
-        content: `<p>There was an error fetching ${key}.</p>`,
-      },
-    ],
-  };
 }
