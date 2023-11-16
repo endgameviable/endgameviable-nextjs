@@ -11,7 +11,7 @@ import EntryQueryParams, {
   MATCH_ALL_ENTRIES,
   entryMatchesFilter,
 } from '@/data/interfaces/queryFilter';
-import { TextType } from '@/data/interfaces/types';
+import { TextType } from '@/types/contentText';
 import { ContentFile } from '../interfaces/contentFile';
 
 // Modified from a ChatGPT example

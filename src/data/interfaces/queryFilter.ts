@@ -1,5 +1,5 @@
 import Entry from './entry';
-import { safeTextSearch } from '@/typeConversion';
+import { safeTextSearch } from '@/types/strings';
 
 // A standard set of filters for querying entries
 export default interface EntryQueryParams {

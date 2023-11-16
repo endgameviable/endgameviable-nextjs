@@ -11,7 +11,7 @@ import { ContentProvider } from '../interfaces/contentProvider';
 import { ContentRoute, getFullRoute } from '../interfaces/contentRoute';
 import { ContentFileReader } from '../interfaces/contentFileReader';
 import { S3FileRoute } from './s3File';
-import { safeStringify } from '@/typeConversion';
+import { safeStringify } from '@/types/strings';
 import path from 'path';
 
 // A provider to scan a local directory and generate Entries from the files there.

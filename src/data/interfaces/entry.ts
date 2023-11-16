@@ -1,4 +1,4 @@
-import { TextType, contentToHTML } from './types';
+import { TextType, contentToHTML } from '../../types/contentText';
 
 // A single displayable content entry.
 // Presumably one of a list of entries,

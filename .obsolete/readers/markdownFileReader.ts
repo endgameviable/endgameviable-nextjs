@@ -3,9 +3,10 @@ import grayMatter from 'gray-matter';
 import { ContentFileReader } from '../interfaces/contentFileReader';
 import Entry, { ERROR_ENTRY } from '../interfaces/entry';
 import { ContentFile } from '../interfaces/contentFile';
-import { safeParseDateMillis, safeStringify } from '@/typeConversion';
-import { TextType } from '../interfaces/types';
+import { TextType } from '@/types/contentText';
 import { ContentRoute } from '../interfaces/contentRoute';
+import { safeStringify } from '@/types/strings';
+import { safeParseDateMillis } from '@/types/dates';
 
 export class MarkdownFileReader implements ContentFileReader {
   // TODO: ugh this is so slow and inefficient

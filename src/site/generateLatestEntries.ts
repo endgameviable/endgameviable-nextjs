@@ -1,12 +1,9 @@
 import Entry from '@/data/interfaces/entry';
-import { PAGE_SIZE, forEachSection } from '@config/siteConfig';
+import { fetchJsonFromS3 } from '@/data/s3/fetchFromS3';
+import { jsonToEntries } from '@/data/s3/jsonToEntry';
+import { s3client } from '@config/siteConfig';
 
 export async function generateLatestEntries(): Promise<Entry[]> {
-  const entries: Entry[] = [];
-  // TODO: parallelize this
-  forEachSection(async (section) => {
-    entries.push(...(await section.provider2.getAllEntries()));
-  });
-  entries.sort((b, a) => a.timestamp - b.timestamp);
-  return entries.slice(0, PAGE_SIZE);
+  const jsonData = await fetchJsonFromS3(s3client, []);
+  return jsonToEntries(jsonData.pages);
 }

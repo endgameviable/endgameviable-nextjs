@@ -2,12 +2,12 @@ import * as path from 'path';
 import grayMatter from 'gray-matter';
 import FileDecoder from '@/data/interfaces/fileDecoder';
 import Entry from '@/data/interfaces/entry';
-import { TextType } from '@/data/interfaces/types';
+import { TextType } from '@/types/contentText';
 import {
   safeParseDate,
   safeParseDateMillis,
   safeStringify,
-} from '@/typeConversion';
+} from '@/types/strings';
 import { ContentFile } from '../interfaces/contentFile';
 
 // Transform a Markdown post file to a view model

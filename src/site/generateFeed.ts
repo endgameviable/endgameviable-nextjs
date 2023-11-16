@@ -4,7 +4,7 @@ import {
   renderSummaryAsHTML,
 } from '../data/interfaces/entry';
 import { PAGE_SIZE, siteConfig } from '@config/siteConfig';
-import { safeStringify } from '@/typeConversion';
+import { safeStringify } from '@/types/strings';
 import { generateLatestEntries } from './generateLatestEntries';
 
 export async function generateFeed(): Promise<Feed> {

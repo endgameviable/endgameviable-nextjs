@@ -1,6 +1,6 @@
 import Entry from '@/data/interfaces/entry';
 import SingleEntryLayout from '@/layouts/entrySingle';
-import { TextType } from '@/data/interfaces/types';
+import { TextType } from '@/types/contentText';
 
 /* Single page display the content slug */
 export default function Page({

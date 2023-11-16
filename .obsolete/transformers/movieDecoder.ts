@@ -2,8 +2,8 @@ import * as path from 'path';
 import * as yaml from 'js-yaml';
 import FileDecoder from '@/data/interfaces/fileDecoder';
 import Entry from '@/data/interfaces/entry';
-import { TextType } from '@/data/interfaces/types';
-import { safeParseDateMillis, safeStringify } from '@/typeConversion';
+import { TextType } from '@/types/contentText';
+import { safeParseDateMillis, safeStringify } from '@/types/strings';
 import { ContentFile } from '../interfaces/contentFile';
 
 // Parse movie entries from a single YAML file into view models
