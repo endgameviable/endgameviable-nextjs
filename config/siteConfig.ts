@@ -16,6 +16,8 @@ export const siteConfig: metaData = {
 // Default limit to rss feeds and list pages
 export const PAGE_SIZE: number = 10;
 
+// fromNodeProviderChain() attempts to read credentials
+// from a series of standard locations in the runtime environment.
 export const s3client = new S3Client({
   credentials: fromNodeProviderChain(),
 });
