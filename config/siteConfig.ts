@@ -24,9 +24,11 @@ export const PAGE_SIZE: number = 10;
 // with "AWS_" are reserved. Therefore we have to use
 // differently-named environment variables from the standard,
 // so we have to set the credential keys manually like so:
-export const s3client = new S3Client({
-  credentials: {
-    accessKeyId: safeStringify(process.env.S3_ACCESS_KEY_ID),
-    secretAccessKey: safeStringify(process.env.S3_SECRET_ACCESS_KEY),
-  }
-});
+export function getS3Client(): S3Client {
+  return new S3Client({
+    credentials: {
+      accessKeyId: safeStringify(process.env.S3_ACCESS_KEY_ID),
+      secretAccessKey: safeStringify(process.env.S3_SECRET_ACCESS_KEY),
+    }
+  });
+}

@@ -3,7 +3,7 @@ import EntryListLayout from '@/layouts/entryList';
 import Entry from '@/data/interfaces/entry';
 import { fetchJsonFromS3 } from '@/data/s3/fetchFromS3';
 import { jsonToEntries, jsonToEntry } from '@/data/s3/jsonToEntry';
-import { s3client } from '@config/siteConfig';
+import { getS3Client } from '@config/siteConfig';
 
 // This implementation fetches json data for pages
 // from an S3 bucket item with the same route as the url.
@@ -24,7 +24,7 @@ export default async function Page({
 }) {
   var component: JSX.Element;
   const startTime = performance.now();
-  const jsonData = await fetchJsonFromS3(s3client, params.route);
+  const jsonData = await fetchJsonFromS3(getS3Client(), params.route);
   if (jsonData.metadata.content === 'single') {
     const entry = jsonToEntry(jsonData.pages[0]);
     component = <SingleEntryLayout entry={entry} />;
