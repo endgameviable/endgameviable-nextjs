@@ -16,7 +16,7 @@ export const siteConfig: metaData = {
 // Default limit to rss feeds and list pages
 export const PAGE_SIZE: number = 10;
 
-const awsAccessKeyId = safeStringify(process.env.S3_ACCESS_KEY_ID);
+export const awsAccessKeyId = safeStringify(process.env.S3_ACCESS_KEY_ID);
 const awsSecretAccessKey = safeStringify(process.env.S3_SECRET_ACCESS_KEY);
 
 // Normally we would use credentials: fromNodeProviderChain().

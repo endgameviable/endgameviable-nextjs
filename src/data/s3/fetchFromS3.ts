@@ -1,8 +1,10 @@
+import { safeStringify } from '@/types/strings';
 import {
   GetObjectCommand,
   GetObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3';
+import { awsAccessKeyId } from '@config/siteConfig';
 import path from 'path';
 
 export interface JsonMetadata {
@@ -54,7 +56,7 @@ export async function fetchJsonFromS3(
       pages: [
         {
           title: 'An Error Occurred',
-          content: `<p>There was an error fetching ${key}.</p><p><blockquote>${error}</blockquote></p>`,
+          content: `<p>There was an error fetching ${key}.</p><p><blockquote>${error}</blockquote></p><p>env: ${safeStringify(process.env.S3_ACCESS_KEY_ID)}</p><p>const: ${awsAccessKeyId}</p>`,
         },
       ],
     };
