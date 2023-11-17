@@ -56,7 +56,7 @@ export async function fetchJsonFromS3(
       pages: [
         {
           title: 'An Error Occurred',
-          content: `<p>There was an error fetching ${key}.</p><p><blockquote>${error}</blockquote></p><p>env: ${safeStringify(process.env.S3_ACCESS_KEY_ID)}</p><p>const: ${awsAccessKeyId}</p><p>window: ${typeof window}</p>`,
+          content: `<p>There was an error fetching ${key}.</p><p><blockquote>${error}</blockquote></p><p>env: ${safeStringify(process.env.S3_ACCESS_KEY_ID).slice(0,5)}</p><p>window: ${typeof window}</p>`,
         },
       ],
     };
