@@ -18,7 +18,6 @@ import { getS3Client } from '@config/siteConfig';
 
 type pageParams = {
   route: string[];
-  static?: boolean;
 }
 
 export async function generateStaticParams() {
@@ -27,14 +26,14 @@ export async function generateStaticParams() {
   for (const page of allSections.pages) {
     if (page.link) {
       const route = getRoute(page.link);
-      params.push({route: route.split('/'), static: true});
+      params.push({route: route.split('/')});
     }
   }
   const allPages = await fetchJsonFromS3(getS3Client(), ['_pagemap']);
   for (const page of allPages.pages) {
     if (page.link) {
       const route = getRoute(page.link);
-      params.push({route: route.split('/'), static: true});
+      params.push({route: route.split('/')});
     }
   }
   return params;
@@ -52,12 +51,8 @@ function getRoute(pageRoute: string): string {
 }
 
 // Renders either a single entry page or a list
-export default async function Page({params}: { params: { route: string[], static?: boolean }}) {
+export default async function Page({params}: { params: { route: string[] }}) {
   let component: JSX.Element;
-  let renderType: string = "dynamically at runtime";
-  if (params.static === true) {
-    renderType = "statically at buildtime";
-  }
   const startTime = performance.now();
   const jsonData = await fetchJsonFromS3(getS3Client(), params.route);
   if (jsonData.metadata.content === 'single') {
@@ -73,7 +68,7 @@ export default async function Page({params}: { params: { route: string[], static
   // );
   return (
     <main>
-      <p>Page was generated {renderType} in {elapsed.toFixed(2)}ms from json data fetched from S3!</p>
+      <p>Page was generated in {elapsed.toFixed(2)}ms from json data fetched from S3!</p>
       {component}
     </main>
   );
