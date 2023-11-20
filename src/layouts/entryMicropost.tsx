@@ -8,8 +8,7 @@ export default function MicroPostEntryLayout({ entry }: { entry: Entry }) {
       <section>
         <article>
           <header>
-            <h2>{new Date(entry.timestamp).toString()}</h2>
-            <h3><Link href={entry.route.replace(/\/index\.json$/, '')}>{entry.route}</Link></h3>
+            <h2><Link href={entry.route.replace(/\/index\.json$/, '')}>{new Date(entry.timestamp).toString()}</Link></h2>
           </header>
           <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
           <footer>

@@ -58,7 +58,7 @@ function getView(jsonData: JsonDataEndpoint): JSX.Element {
     if (entry.type === 'micropost') {
       component = <MicroPostEntryLayout entry={entry} />;
     } else {
-      component = <SingleEntryLayout entry={entry} />;
+      component = <SingleEntryLayout entry={entry} summary={false} />;
     }
   } else {
     const entries = jsonToEntries(jsonData.pages);

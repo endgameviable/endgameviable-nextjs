@@ -21,7 +21,7 @@ export class TextType {
 export function contentToHTML(content: TextType): string {
   switch (content.contentType) {
     case 'text/plain':
-      return content.text;
+      return '<p>' + content.text + '</p>';
     case 'text/html':
       return content.text;
     case 'text/markdown':

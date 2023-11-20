@@ -9,7 +9,7 @@ export function jsonToEntry(json: JsonDataPage): Entry {
   return {
     timestamp: safeParseDateMillis(safeStringify(json.date)),
     route: safeStringify(json.link),
-    summary: new TextType(safeStringify(json.summary), 'text/html'),
+    summary: new TextType(safeStringify(json.summary), 'text/plain'),
     article: new TextType(safeStringify(json.content), 'text/html'),
     title: json.title,
     type: json.type,

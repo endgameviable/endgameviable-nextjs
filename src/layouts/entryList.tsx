@@ -23,7 +23,7 @@ export default function EntryListLayout({
         }
         else {
           return (
-            <SingleEntryLayout key={entry.route} entry={entry} />
+            <SingleEntryLayout key={entry.route} entry={entry} summary={true} />
           )
         }
       })}
