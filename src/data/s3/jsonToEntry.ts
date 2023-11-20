@@ -12,6 +12,7 @@ export function jsonToEntry(json: JsonDataPage): Entry {
     summary: new TextType(safeStringify(json.summary), 'text/html'),
     article: new TextType(safeStringify(json.content), 'text/html'),
     title: json.title,
+    type: json.type,
   };
 }
 

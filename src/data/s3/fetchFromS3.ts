@@ -8,16 +8,19 @@ import { awsAccessKeyId } from '@config/siteConfig';
 import path from 'path';
 
 export interface JsonMetadata {
-  content?: string;
+  view?: string;
   section?: string;
+  heading?: string;
 }
 
 export interface JsonDataPage {
-  date?: string;
+  date?: string; // format: yyyy-mm-ddThh:mm:ss-zzzz
   title?: string;
   summary?: string;
   content?: string;
   link?: string;
+  type?: string;
+  alternates?: string[];
 }
 
 export interface JsonDataEndpoint {
@@ -41,7 +44,7 @@ export async function fetchJsonFromS3(
       return JSON.parse(s);
     }
     return {
-      metadata: { content: 'error', section: 'error' },
+      metadata: { view: 'page', section: 'error' },
       pages: [
         {
           title: 'Nothing Here',
@@ -52,7 +55,7 @@ export async function fetchJsonFromS3(
   } catch (error) {
     console.log('error loading file:', error);
     return {
-      metadata: { content: 'error', section: 'error' },
+      metadata: { view: 'page', section: 'error' },
       pages: [
         {
           title: 'An Error Occurred',

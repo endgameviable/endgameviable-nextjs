@@ -1,4 +1,6 @@
-import Entry, { renderArticleAsHTML } from '@/data/interfaces/entry';
+import Entry from '@/data/interfaces/entry';
+import SingleEntryLayout from './entrySingle';
+import MicroPostEntryLayout from './entryMicropost';
 
 export default function EntryListLayout({
   content,
@@ -10,23 +12,20 @@ export default function EntryListLayout({
   return (
     <>
       <header>
-        <p>{content}</p>
+        <h1>List Page</h1>
+        <div dangerouslySetInnerHTML={{ __html: content }} />
       </header>
       {list.map((entry) => {
-        const htmlContent = renderArticleAsHTML(entry);
-        return (
-          <section key={entry.timestamp + entry.route}>
-            <article>
-              <header>
-                <h1>{entry.title}</h1>
-                <h2>{new Date(entry.timestamp).toString()}</h2>
-                <h3>{entry.route}</h3>
-              </header>
-              <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-              <footer />
-            </article>
-          </section>
-        );
+        if (entry.type === "micropost") {
+          return (
+            <MicroPostEntryLayout key={entry.route} entry={entry} />
+          )
+        }
+        else {
+          return (
+            <SingleEntryLayout key={entry.route} entry={entry} />
+          )
+        }
       })}
     </>
   );

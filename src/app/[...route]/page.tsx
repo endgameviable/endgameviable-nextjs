@@ -60,7 +60,7 @@ export default async function Page({params}: { params: { route: string[] }}) {
     component = <SingleEntryLayout entry={entry} />;
   } else {
     const entries = jsonToEntries(jsonData.pages);
-    component = <EntryListLayout content="List" list={entries} />;
+    component = <EntryListLayout content="{jsonData.metadata.heading}" list={entries} />;
   }
   const elapsed = performance.now() - startTime;
   // console.log(
