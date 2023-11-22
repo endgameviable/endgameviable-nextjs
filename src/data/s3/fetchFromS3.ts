@@ -13,6 +13,11 @@ export interface JsonMetadata {
   heading?: string;
 }
 
+export interface JsonMastodonStatus {
+  instance?: string;
+  id?: string;
+}
+
 export interface JsonDataPage {
   date?: string; // format: yyyy-mm-ddThh:mm:ss-zzzz
   title?: string;
@@ -21,6 +26,7 @@ export interface JsonDataPage {
   link?: string;
   type?: string;
   alternates?: string[];
+  mastodon_status?: JsonMastodonStatus;
 }
 
 export interface JsonDataEndpoint {

@@ -1,5 +1,6 @@
-import Entry, { renderArticleAsHTML, renderSummaryAsHTML } from '@/data/interfaces/entry';
 import Link from 'next/link';
+import Entry, { renderArticleAsHTML, renderSummaryAsHTML } from '@/data/interfaces/entry';
+import MastodonThreadLayout from './mastodonThread';
 
 export default function SingleEntryLayout({ entry, summary }: { entry: Entry, summary: boolean }) {
   let htmlContent = renderArticleAsHTML(entry);
@@ -16,6 +17,7 @@ export default function SingleEntryLayout({ entry, summary }: { entry: Entry, su
           </header>
           <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
           <footer>
+            <MastodonThreadLayout entry={entry} />
           </footer>
         </article>
       </section>
