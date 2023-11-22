@@ -1,7 +1,7 @@
 'use client';
 
 import { Mention } from '@/data/interfaces/mention';
-import { canonicalizeUrl, siteUrl } from '@/site/utilities';
+import { siteUrl } from '@/site/utilities';
 import { useState, useEffect } from 'react';
 
 export default function MastodonThreadLayout({ route }: { route: string }) {
