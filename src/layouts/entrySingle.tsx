@@ -3,10 +3,13 @@ import Entry, { renderArticleAsHTML, renderSummaryAsHTML } from '@/data/interfac
 import MastodonThreadLayout from './mastodonThread';
 
 export default function SingleEntryLayout({ entry, summary }: { entry: Entry, summary: boolean }) {
-  let htmlContent = renderArticleAsHTML(entry);
-  let thread = <></>;
+  let htmlContent: string;
+  let thread: JSX.Element;
   if (summary) {
     htmlContent = renderSummaryAsHTML(entry);
+    thread = <></>;
+  } else {
+    htmlContent = renderArticleAsHTML(entry);
     thread = <MastodonThreadLayout entry={entry} />;
   }
   return (
