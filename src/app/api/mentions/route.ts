@@ -1,7 +1,7 @@
 import { Mention } from '@/data/interfaces/mention';
 import { safeStringify } from '@/types/strings';
 import { GetItemCommand } from '@aws-sdk/client-dynamodb';
-import { dynamoClient, dynamoTableName } from '@config/siteConfig';
+import { dynamoClient, dynamoTableName, mastodonApiToken } from '@config/siteConfig';
 
 // TODO: Someday might need to turn this into a paged interface.
 // If e.g. there are hundreds or thousands of mentions.
@@ -20,7 +20,7 @@ async function lookupUrl(url: string): Promise<any> {
 async function getThread(instance?: string, id?: string): Promise<Mention[]> {
   const mentions: Mention[] = [];
   const headers = new Headers();
-  headers.append('Authorization', `Bearer ${process.env.MASTODON_API_TOKEN}`);
+  headers.append('Authorization', `Bearer ${mastodonApiToken}`);
   const apiUrl = `${instance}/api/v1/statuses/${id}/context`;
   await fetch(apiUrl, {method: 'GET', headers: headers})
     .then((response) => {
@@ -60,7 +60,7 @@ export async function GET(request: Request) {
   }
 
   const elapsed = performance.now() - startTime;
-  console.log(`got mentions for ${url} in ${elapsed}ms`)
+  console.log(`got ${mentions.length} mentions for ${url} in ${elapsed}ms`)
 
   return Response.json(mentions);
 }

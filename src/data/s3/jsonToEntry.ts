@@ -3,6 +3,7 @@ import Entry, { EntrySocialData } from '../interfaces/entry';
 import { TextType } from '@/types/contentText';
 import { JsonDataPage } from './fetchFromS3';
 import { safeParseDateMillis } from '@/types/dates';
+import { canonicalizeUrl } from '@/site/utilities';
 
 // Convert the json returned from S3 endpoints to an Entry
 export function jsonToEntry(json: JsonDataPage): Entry {
@@ -13,7 +14,7 @@ export function jsonToEntry(json: JsonDataPage): Entry {
   }
   return {
     timestamp: safeParseDateMillis(safeStringify(json.date)),
-    route: safeStringify(json.link),
+    route: canonicalizeUrl(safeStringify(json.link)),
     summary: new TextType(safeStringify(json.summary), 'text/plain'),
     article: new TextType(safeStringify(json.content), 'text/html'),
     title: json.title,

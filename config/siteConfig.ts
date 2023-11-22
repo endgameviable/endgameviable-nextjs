@@ -24,6 +24,7 @@ export const PAGE_SIZE: number = 25;
 // The env var name cannot begin with "AWS_"
 export const awsAccessKeyId = safeStringify(process.env.S3_ACCESS_KEY_ID);
 const awsSecretAccessKey = safeStringify(process.env.S3_SECRET_ACCESS_KEY);
+export const mastodonApiToken = safeStringify(process.env.MASTODON_API_TOKEN);
 
 // Normally we would use credentials: fromNodeProviderChain().
 // fromNodeProviderChain() attempts to read credentials
