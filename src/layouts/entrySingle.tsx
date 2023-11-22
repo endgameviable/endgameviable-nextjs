@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Entry, { renderArticleAsHTML, renderSummaryAsHTML } from '@/data/interfaces/entry';
 import MastodonThreadLayout from './mastodonThread';
+import { canonicalizeUrl } from '@/site/utilities';
 
 export default function SingleEntryLayout({ entry, summary }: { entry: Entry, summary: boolean }) {
   let htmlContent: string;
@@ -10,7 +11,8 @@ export default function SingleEntryLayout({ entry, summary }: { entry: Entry, su
     thread = <></>;
   } else {
     htmlContent = renderArticleAsHTML(entry);
-    thread = <MastodonThreadLayout entry={entry} />;
+    const url = canonicalizeUrl(entry.route);
+    thread = <MastodonThreadLayout route={url} />;
   }
   return (
     <>

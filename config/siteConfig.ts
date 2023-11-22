@@ -1,21 +1,27 @@
 import { safeStringify } from '@/types/strings';
 import { S3Client } from '@aws-sdk/client-s3';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 
 // Very high level site configuration.
 
-type metaData = {
-  [key: string]: string;
+export interface siteMetaData {
+  siteName: string;
+  siteUrl: string;
+  routeHostName: string;
 };
 
 // Site Branding
-export const siteConfig: metaData = {
+export const siteConfig: siteMetaData = {
   siteName: 'Endgame Viable Next.js Beta',
   siteUrl: 'https://beta.endgameviable.com',
+  routeHostName: 'https://endgameviable.com',
 };
 
 // Default limit to rss feeds and list pages
 export const PAGE_SIZE: number = 25;
 
+// Note: A general service account, not just for S3
+// The env var name cannot begin with "AWS_"
 export const awsAccessKeyId = safeStringify(process.env.S3_ACCESS_KEY_ID);
 const awsSecretAccessKey = safeStringify(process.env.S3_SECRET_ACCESS_KEY);
 
@@ -27,6 +33,8 @@ const awsSecretAccessKey = safeStringify(process.env.S3_SECRET_ACCESS_KEY);
 // with "AWS_" are reserved. Therefore we have to use
 // differently-named environment variables from the standard,
 // so we have to set the credential keys manually like so:
+
+// TODO: I think we can change this back to a constant
 export function getS3Client(): S3Client {
   return new S3Client({
     credentials: {
@@ -35,3 +43,13 @@ export function getS3Client(): S3Client {
     }
   });
 }
+
+export const dynamoClient = new DynamoDBClient({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: awsAccessKeyId,
+    secretAccessKey: awsSecretAccessKey,
+  }
+});
+
+export const dynamoTableName = 'endgameviable-post-notifications';
