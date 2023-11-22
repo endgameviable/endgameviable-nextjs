@@ -4,8 +4,10 @@ import MastodonThreadLayout from './mastodonThread';
 
 export default function SingleEntryLayout({ entry, summary }: { entry: Entry, summary: boolean }) {
   let htmlContent = renderArticleAsHTML(entry);
+  let thread = <></>;
   if (summary) {
     htmlContent = renderSummaryAsHTML(entry);
+    thread = <MastodonThreadLayout entry={entry} />;
   }
   return (
     <>
@@ -17,9 +19,9 @@ export default function SingleEntryLayout({ entry, summary }: { entry: Entry, su
           </header>
           <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
           <footer>
-            <MastodonThreadLayout entry={entry} />
           </footer>
         </article>
+        {thread}
       </section>
     </>
   );
