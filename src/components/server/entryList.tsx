@@ -1,20 +1,23 @@
 import Entry from '@/data/interfaces/entry';
-import SingleEntryLayout from './entrySingle';
+import SingleEntryList from './entrySingleList';
 import MicroPostEntryLayout from './entryMicropost';
 
 export default function EntryListLayout({
+  title,
   content,
   list,
 }: {
+  title: string;
   content: string;
   list: Entry[];
 }) {
   return (
     <>
       <header>
-        <h1>List Page</h1>
+        <h1>{title}</h1>
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </header>
+      <section>
       {list.map((entry) => {
         if (entry.type === "micropost") {
           return (
@@ -23,10 +26,13 @@ export default function EntryListLayout({
         }
         else {
           return (
-            <SingleEntryLayout key={entry.route} entry={entry} summary={true} />
+            <SingleEntryList key={entry.route} entry={entry} summary={true} />
           )
         }
       })}
+      </section>
+      <footer>
+      </footer>
     </>
   );
 }

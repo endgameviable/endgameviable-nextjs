@@ -1,34 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('~simpledotcss/simple.min.css');
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
+h1, h2, h3, h4, h5, h6 {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
-  margin: 0.3em;
-}
-
-section {
-  margin: 1em 0;
-}
-
-section p {
-  margin: 1em 0;
-}
-
-section a {
-  color: #60a;
-  text-decoration: underline;
+em {
+  font-weight:bolder;
 }

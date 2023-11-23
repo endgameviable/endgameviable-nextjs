@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import FilterForm from '@/components/apiForm';
-import EntryListLayout from '@/layouts/entryList';
+import EntryListLayout from '@/components/server/entryList';
 
 export default function Page() {
   const [filteredData, setFilteredData] = useState<any[]>([]);
