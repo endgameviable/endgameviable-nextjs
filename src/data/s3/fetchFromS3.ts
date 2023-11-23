@@ -4,7 +4,7 @@ import {
   GetObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3';
-import { awsAccessKeyId } from '@config/siteConfig';
+import { awsAccessKeyId, s3ContentBucketName } from '@config/siteConfig';
 import path from 'path';
 
 export interface JsonMetadata {
@@ -29,13 +29,14 @@ export interface JsonDataEndpoint {
   pages: JsonDataPage[];
 }
 
+// Fetch JSON content data from an S3 bucket source
 export async function fetchJsonFromS3(
   s3: S3Client,
   route: string[],
 ): Promise<JsonDataEndpoint> {
   const key = path.join(route.join('/'), 'index.json');
   const params: GetObjectCommandInput = {
-    Bucket: 'endgameviable-nextjs-storage',
+    Bucket: s3ContentBucketName,
     Key: key,
   };
   try {

@@ -11,7 +11,7 @@ export default interface Entry {
   summary?: TextType;
   article: TextType;
   title?: string;
-  image?: string;
+  image?: string; // header image url
 }
 
 export const ERROR_ENTRY: Entry = {

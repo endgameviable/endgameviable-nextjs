@@ -1,3 +1,5 @@
+// OBSOLETE
+
 import { ContentFile } from './contentFile';
 import { ContentRoute } from './contentRoute';
 import Entry from './entry';

@@ -1,3 +1,5 @@
+// OBSOLETE
+
 import Entry from '@/data/interfaces/entry';
 import EntryQueryParams from '@/data/interfaces/queryFilter';
 import { ContentFile } from './contentFile';

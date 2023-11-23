@@ -1,3 +1,5 @@
+// OBSOLETE
+
 import { ContentFile } from './contentFile';
 import Entry from '@/data/interfaces/entry';
 

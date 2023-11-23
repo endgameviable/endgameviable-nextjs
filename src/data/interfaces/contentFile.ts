@@ -1,3 +1,5 @@
+// OBSOLETE
+
 // Describes a path to a content entry,
 // and an interface to read the content there.
 export interface ContentFile {

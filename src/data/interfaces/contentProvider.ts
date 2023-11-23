@@ -1,3 +1,5 @@
+// OBSOLETE
+
 import { ContentRoute } from './contentRoute';
 import Entry from './entry';
 import EntryQueryParams from './queryFilter';

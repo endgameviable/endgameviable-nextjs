@@ -1,6 +1,21 @@
-This is an application to present timestamped content in a user-friendly HTML page. It's a blog, basically, but it can display more than just posts. Content can come from Markdown files in the traditional manner of a static site generator, or it can be extracted from structured data files like YAML.
+This is a presentation layer application that presents structured, timestamped json content.
 
-These things can be done with a static site generator, but this project aims to add some additional functionality that's difficult or impossible with static generators. (Mainly robust searching, but there's some future potential for ActivityPub integration.)
+It's a blog platform, basically.
+
+Content is read from an s3 bucket of json data, which can be generated however you like, but I use a Hugo project that converts Markdown blog posts into json data pages.
+
+Content can also come from other sources like YAML files, but that's a process the json generator handles.
+
+These things can all be done with a static site generator (like Hugo), but this project aims to add server-side functionality that's difficult or impossible to do with static sites. Mainly:
+
+- Search.
+- Link redirection.
+- WordPress Pingback handling.
+- Dynamic blogrolls.
+- ActivityPub integration.
+- Maybe comments?? But probably not.
+
+Using Next.js hopefully allows us to have the best of all worlds: Static page generation for things that don't change, client-side javascript where we can use it, and dynamic server-side rendering for things that need a server.
 
 ## Inspiration
 
@@ -9,6 +24,44 @@ I searched for a way to do this _without_ writing something of my own, but every
 Inspiration has been taken from numerous similar Next.js blog projects on github and blog samples in the Next.js docs. Some concepts loosely based on ideas in Blot https://github.com/davidmerfield/Blot.
 
 And, of course, since we live in 2023, ChatGPT patiently explained numerous Typescript concepts to me, and who knows where _that_ information came from.
+
+## Hosting
+
+I use AWS Amplify to host this.
+
+The build script is almost the default, but has some modifications and looks like this:
+
+```
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - node -v
+        - npm ci
+    build:
+      commands:
+        - node -v
+        - env | grep -e S3_ACCESS_KEY_ID -e S3_SECRET_ACCESS_KEY -e MASTODON_API_TOKEN >> .env.production
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+```
+
+This line is vitally important not to forget:
+
+```
+- env | grep -e S3_ACCESS_KEY_ID -e S3_SECRET_ACCESS_KEY -e MASTODON_API_TOKEN >> .env.production
+```
+
+Otherwise the access tokens will not be available and the server-side app won't know how to connect to anything at runtime. See https://docs.aws.amazon.com/amplify/latest/userguide/ssr-environment-variables.html
+
+It took a LONG time to figure that out so don't forget it!
 
 ## Next.js
 

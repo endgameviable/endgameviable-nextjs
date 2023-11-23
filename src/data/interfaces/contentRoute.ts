@@ -1,3 +1,5 @@
+// OBSOLETE
+
 import { ContentSource } from './contentFile';
 
 export interface ContentRoute {
