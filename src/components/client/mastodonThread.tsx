@@ -22,11 +22,11 @@ export default function MastodonThreadLayout({ route }: { route: string }) {
   }, [url]);
 
   if (isLoading) {
-    return <section><p>Getting mentions...</p></section>
+    return <section><p>Looking for fediverse mentions...</p></section>
   }
 
   if (!mentions || mentions.length === 0) {
-    return <section><p>No mentions found.</p></section>
+    return <section><p>No fediverse mentions found.</p></section>
   }
 
   return (

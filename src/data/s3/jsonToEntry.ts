@@ -1,5 +1,5 @@
+import Entry from '../interfaces/entry';
 import { safeStringify } from '@/types/strings';
-import Entry, { EntrySocialData } from '../interfaces/entry';
 import { TextType } from '@/types/contentText';
 import { JsonDataPage } from './fetchFromS3';
 import { safeParseDateMillis } from '@/types/dates';
@@ -7,10 +7,9 @@ import { canonicalizeUrl } from '@/site/utilities';
 
 // Convert the json returned from S3 endpoints to an Entry
 export function jsonToEntry(json: JsonDataPage): Entry {
-  let socialData: EntrySocialData = {};
-  if (json.mastodon_status) {
-    socialData.mastodon_instance = json.mastodon_status.instance;
-    socialData.mastodon_status_id = json.mastodon_status.id;
+  let image: string | undefined = undefined;
+  if (json.images) {
+    image = json.images[0];
   }
   return {
     timestamp: safeParseDateMillis(safeStringify(json.date)),
@@ -19,7 +18,7 @@ export function jsonToEntry(json: JsonDataPage): Entry {
     article: new TextType(safeStringify(json.content), 'text/html'),
     title: json.title,
     type: json.type,
-    social: socialData,
+    image: image,
   };
 }
 

@@ -11,7 +11,7 @@ export default interface Entry {
   summary?: TextType;
   article: TextType;
   title?: string;
-  social?: EntrySocialData;
+  image?: string;
 }
 
 export const ERROR_ENTRY: Entry = {
@@ -32,9 +32,4 @@ export function renderArticleAsHTML(entry: Entry): string {
   else if (entry.summary !== null && entry.summary !== undefined)
     return contentToHTML(entry.summary);
   else return 'no article';
-}
-
-export interface EntrySocialData {
-  mastodon_instance?: string;
-  mastodon_status_id?: string;
 }
