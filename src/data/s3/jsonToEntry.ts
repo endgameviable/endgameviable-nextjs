@@ -3,7 +3,7 @@ import { safeStringify } from '@/types/strings';
 import { TextType } from '@/types/contentText';
 import { JsonDataPage } from './fetchFromS3';
 import { safeParseDateMillis } from '@/types/dates';
-import { canonicalizeUrl } from '@/site/utilities';
+import { canonicalizePath } from '@/site/utilities';
 
 // Convert the json returned from S3 endpoints to an Entry
 export function jsonToEntry(json: JsonDataPage): Entry {
@@ -13,7 +13,7 @@ export function jsonToEntry(json: JsonDataPage): Entry {
   }
   return {
     timestamp: safeParseDateMillis(safeStringify(json.date)),
-    route: canonicalizeUrl(safeStringify(json.link)),
+    route: canonicalizePath(safeStringify(json.link)),
     summary: new TextType(safeStringify(json.summary), 'text/plain'),
     article: new TextType(safeStringify(json.content), 'text/html'),
     title: json.title,

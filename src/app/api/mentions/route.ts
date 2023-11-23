@@ -1,4 +1,5 @@
 import { Mention } from '@/data/interfaces/mention';
+import { ensureTrailingSlash } from '@/site/utilities';
 import { safeStringify } from '@/types/strings';
 import { GetItemCommand } from '@aws-sdk/client-dynamodb';
 import { dynamoClient, dynamoTableName, mastodonApiToken } from '@config/siteConfig';
@@ -10,7 +11,7 @@ async function lookupUrl(url: string): Promise<any> {
   const command = new GetItemCommand({
     TableName: dynamoTableName,
     Key: {
-      postUrl: { S: url }
+      postUrl: { S: ensureTrailingSlash(url) }
     }
   });
   return dynamoClient.send(command)

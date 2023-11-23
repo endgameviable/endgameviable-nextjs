@@ -12,6 +12,7 @@ export default interface Entry {
   article: TextType;
   title?: string;
   image?: string; // header image url
+  children?: Entry[];
 }
 
 export const ERROR_ENTRY: Entry = {

@@ -1,12 +1,13 @@
 import { micromark } from 'micromark';
+import { safeStringify } from './strings';
 
 // Text with an associated contentType
 export class TextType {
   public text: string;
   public contentType: string;
 
-  constructor(text: string, contentType: string = 'text/plain') {
-    this.text = text;
+  constructor(text: string | undefined, contentType: string = 'text/plain') {
+    this.text = safeStringify(text);
     this.contentType = contentType;
   }
 

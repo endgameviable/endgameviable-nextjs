@@ -11,9 +11,26 @@ export function stripIndexJson(url: string): string {
     return url;
 }
 
-export function canonicalizeUrl(url: string): string {
-    const newUrl = stripIndexJson(url);
-    if (!newUrl.endsWith('/'))
-        return newUrl + '/';
-    return newUrl;
+// Path = /path/to/content
+export function canonicalizePath(path: string): string {
+    let newPath = stripIndexJson(path);
+    if (!newPath.startsWith('/'))
+        newPath = '/' + newPath;
+    if (newPath.endsWith('/'))
+        newPath = newPath.substring(0, newPath.length - 1);
+    return newPath;
+}
+
+// Route is same as path but does not have a leading /
+export function canonicalizeRoute(path: string): string {
+    let route = canonicalizePath(path);
+    if (route.startsWith('/'))
+        route = route.substring(1);
+    return route;
+}
+
+export function ensureTrailingSlash(path: string): string {
+    if (path.endsWith('/'))
+        return path;
+    return path + '/';
 }

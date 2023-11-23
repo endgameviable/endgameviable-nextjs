@@ -4,8 +4,13 @@ import {
   GetObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3';
-import { awsAccessKeyId, s3ContentBucketName } from '@config/siteConfig';
+import { awsAccessKeyId, getS3Client, s3ContentBucketName } from '@config/siteConfig';
 import path from 'path';
+import Entry, { ERROR_ENTRY } from '../interfaces/entry';
+import { canonicalizePath } from '@/site/utilities';
+import { jsonToEntries, jsonToEntry } from './jsonToEntry';
+import { safeParseDateMillis } from '@/types/dates';
+import { TextType } from '@/types/contentText';
 
 export interface JsonMetadata {
   view?: string;
@@ -66,4 +71,33 @@ export async function fetchJsonFromS3(
       ],
     };
   }
+}
+
+export async function getContentAtRouteS3(route: string[]): Promise<Entry> {
+  const key = path.join(route.join('/'), 'index.json');
+  const params: GetObjectCommandInput = {
+    Bucket: s3ContentBucketName,
+    Key: key,
+  };
+  try {
+    const response = await getS3Client().send(new GetObjectCommand(params));
+    if (response.Body) {
+      const s = await response.Body?.transformToString();
+      const data: JsonDataEndpoint = JSON.parse(s);
+      if (data.metadata.view === 'page') {
+        return jsonToEntry(data.pages[0]);
+      } else {
+        return {
+          timestamp: Date.now(), // TODO: should be section date
+          route: canonicalizePath(route.join('/')),
+          title: data.metadata.section,
+          article: new TextType(data.metadata.heading, 'text/html'),
+          children: jsonToEntries(data.pages),
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return ERROR_ENTRY;
 }

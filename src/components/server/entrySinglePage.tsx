@@ -3,12 +3,12 @@ import Image from 'next/image';
 import Entry, { renderArticleAsHTML } from '@/data/interfaces/entry';
 import EntryDateTime from './dateTime';
 import MastodonThreadLayout from '../client/mastodonThread';
-import { canonicalizeUrl } from '@/site/utilities';
+import { canonicalizePath } from '@/site/utilities';
 import { safeStringify } from '@/types/strings';
 
 export default function SingleEntryPage({ entry }: { entry: Entry }) {
   const htmlContent = renderArticleAsHTML(entry);
-  const url = canonicalizeUrl(entry.route);
+  const url = canonicalizePath(entry.route);
   let image: JSX.Element = <></>;
   if (entry.image) {
     image = <Image src={entry.image} 

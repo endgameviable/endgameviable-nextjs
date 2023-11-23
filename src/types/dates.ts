@@ -8,7 +8,7 @@ export function safeParseDate(s: string): Date {
 }
 
 // Assumes UTC time zone
-export function safeParseDateMillis(s: string): number {
+export function safeParseDateMillis(s: string | undefined): number {
   if (s === null || s === undefined || s === '') return 0;
   return Date.parse(s);
 }
