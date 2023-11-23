@@ -44,7 +44,7 @@ export default function MastodonThreadLayout({ route }: { route: string }) {
             minute: '2-digit',
             hour12: false,
           };    
-          const dateString = new Intl.DateTimeFormat('default', options).format(dt);  
+          const dateString = new Intl.DateTimeFormat('default', options).format(dt);
           return <p key={comment.url}>{dateString} {comment.content}</p>;
         })}
       </section>
