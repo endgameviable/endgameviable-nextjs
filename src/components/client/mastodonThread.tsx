@@ -36,7 +36,16 @@ export default function MastodonThreadLayout({ route }: { route: string }) {
           <h2>Mentions from The Fediverse</h2>
         </header>
         {mentions.map((comment) => {
-          return <p key={comment.url}>{comment.date} {comment.content}</p>;
+          const dt = new Date(comment.date);
+          const options: Intl.DateTimeFormatOptions = {
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: false,
+          };    
+          const dateString = new Intl.DateTimeFormat('default', options).format(dt);  
+          return <p key={comment.url}>{dateString} {comment.content}</p>;
         })}
       </section>
     </>

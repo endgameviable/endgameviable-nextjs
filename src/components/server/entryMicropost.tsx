@@ -1,6 +1,7 @@
-import Entry, { renderArticleAsHTML } from '@/data/interfaces/entry';
-import { canonicalizeUrl } from '@/site/utilities';
 import Link from 'next/link';
+import Entry, { renderArticleAsHTML } from '@/data/interfaces/entry';
+import EntryDateTime from './dateTime';
+import { canonicalizeUrl } from '@/site/utilities';
 
 export default function MicroPostEntryLayout({ entry }: { entry: Entry }) {
   const htmlContent = renderArticleAsHTML(entry);
@@ -8,7 +9,9 @@ export default function MicroPostEntryLayout({ entry }: { entry: Entry }) {
     <>
       <article>
         <header>
-          <p><Link href={canonicalizeUrl(entry.route)}><time dateTime={new Date(entry.timestamp).toISOString()}>{new Date(entry.timestamp).toString()}</time></Link></p>
+          <p><Link href={canonicalizeUrl(entry.route)}>
+            <EntryDateTime timestamp={entry.timestamp} />
+          </Link></p>
         </header>
         <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
         <footer>

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import Entry, { renderArticleAsHTML, renderSummaryAsHTML } from '@/data/interfaces/entry';
+import Entry, { renderArticleAsHTML } from '@/data/interfaces/entry';
+import EntryDateTime from './dateTime';
 import MastodonThreadLayout from '../client/mastodonThread';
 import { canonicalizeUrl } from '@/site/utilities';
 import { safeStringify } from '@/types/strings';
@@ -19,7 +20,7 @@ export default function SingleEntryPage({ entry }: { entry: Entry }) {
       <article>
         <header>
           <h1><Link href={entry.route.replace(/\/index\.json$/, '')}>{entry.title}</Link></h1>
-          <p><time dateTime={new Date(entry.timestamp).toISOString()}>{new Date(entry.timestamp).toString()}</time></p>
+          <p><EntryDateTime timestamp={entry.timestamp} /></p>
           <p>{safeStringify(entry.summary)}</p>
           {image}
         </header>

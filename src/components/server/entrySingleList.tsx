@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Entry, { renderArticleAsHTML, renderSummaryAsHTML } from '@/data/interfaces/entry';
-import MastodonThreadLayout from '../client/mastodonThread';
-import { canonicalizeUrl } from '@/site/utilities';
+import EntryDateTime from './dateTime';
 
 export default function SingleEntryList({ entry, summary }: { entry: Entry, summary: boolean }) {
   let htmlContent: string;
@@ -16,7 +15,7 @@ export default function SingleEntryList({ entry, summary }: { entry: Entry, summ
       <article>
         <header>
           <h2><Link href={entry.route.replace(/\/index\.json$/, '')}>{entry.title}</Link></h2>
-          <p><time dateTime={new Date(entry.timestamp).toISOString()}>{new Date(entry.timestamp).toString()}</time></p>
+          <p><EntryDateTime timestamp={entry.timestamp} /></p>
         </header>
         <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
         <footer>
