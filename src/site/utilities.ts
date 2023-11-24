@@ -1,7 +1,7 @@
 import { siteConfig } from "@config/siteConfig";
 
 export function siteUrl(relUrl: string): string {
-    return siteConfig.routeHostName + relUrl;
+    return siteConfig.routeHostName + canonicalizePath(relUrl);
 }
 
 export function stripIndexJson(url: string): string {

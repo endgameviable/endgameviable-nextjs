@@ -6,6 +6,7 @@ import {
 import { PAGE_SIZE, siteConfig } from '@config/siteConfig';
 import { safeStringify } from '@/types/strings';
 import { generateLatestEntries } from './generateLatestEntries';
+import { siteUrl } from './utilities';
 
 export async function generateFeed(): Promise<Feed> {
   const entries = await generateLatestEntries();
@@ -26,8 +27,8 @@ export async function generateFeed(): Promise<Feed> {
     feed.addItem({
       date: new Date(entry.timestamp),
       title: safeStringify(entry.title, 'Untitled'),
-      id: '', // TODO
-      link: '', // TODO
+      id: siteUrl(entry.route),
+      link: siteUrl(entry.route),
       description: renderSummaryAsHTML(entry),
       content: renderArticleAsHTML(entry),
     });
