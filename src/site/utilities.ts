@@ -13,6 +13,7 @@ export function stripIndexJson(url: string): string {
 
 // Path = /path/to/content
 export function canonicalizePath(path: string): string {
+    if (path === '') return '/';
     let newPath = stripIndexJson(path);
     if (!newPath.startsWith('/'))
         newPath = '/' + newPath;
