@@ -16,7 +16,10 @@ export default function Page() {
     <div>
       <h1>Search If You Dare</h1>
       <FilterForm onSubmit={handleFilter} />
-      <EntryListLayout title="Search Results" content="Your search results" list={filteredData} />
+      <EntryListLayout 
+        title="Search Results" 
+        content="Your search results" 
+        list={filteredData} />
     </div>
   );
 }

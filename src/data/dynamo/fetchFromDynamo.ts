@@ -46,12 +46,6 @@ async function getPageAtRoute(route: string[]): Promise<Entry | null> {
     return null;
 }
 
-function getS(attribute: AttributeValue): string | undefined {
-    if (!attribute) return undefined;
-    if (attribute.S) return attribute.S;
-    return undefined;
-}
-
 async function getSectionAtRoute(route: string[]): Promise<Entry | null> {
     // TODO: I don't think I can ever make this work
     // Can't do a ScanCommand that sorts by date descending
@@ -96,4 +90,10 @@ async function getSectionAtRoute(route: string[]): Promise<Entry | null> {
     }
     console.log(`${section} section not found in dynamoDB`);
     return null;
+}
+
+export function getS(attribute: AttributeValue): string | undefined {
+    if (!attribute) return undefined;
+    if (attribute.S) return attribute.S;
+    return undefined;
 }
