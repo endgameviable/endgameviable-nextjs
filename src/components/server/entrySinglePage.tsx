@@ -5,7 +5,7 @@ import EntryDateTime from './dateTime';
 import MastodonThreadLayout from '../client/mastodonThread';
 import { canonicalizePath } from '@/site/utilities';
 import { safeStringify } from '@/types/strings';
-import CommentBox from '../client/commentBox';
+import CommentBoxLayout from '../client/commentBox';
 
 export default function SingleEntryPage({ entry }: { entry: Entry }) {
   const htmlContent = renderArticleAsHTML(entry);
@@ -33,7 +33,7 @@ export default function SingleEntryPage({ entry }: { entry: Entry }) {
         <MastodonThreadLayout route={url} />
       </section>
       <section>
-        <CommentBox />
+        <CommentBoxLayout />
       </section>
     </>
   );
