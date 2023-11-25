@@ -11,7 +11,7 @@ async function lookupUrl(url: string): Promise<any> {
   const command = new GetItemCommand({
     TableName: dynamoTableName,
     Key: {
-      postUrl: { S: ensureTrailingSlash(url) }
+      postUrl: { S: url }
     }
   });
   return dynamoClient.send(command)
