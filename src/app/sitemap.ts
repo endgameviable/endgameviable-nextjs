@@ -1,8 +1,13 @@
+import { getContentAtRoute } from "@/site/getContent";
+import { thisSiteUrl } from "@/site/utilities";
+
 export default async function Sitemap() {
-  return [
-    {
-      url: 'https://yourdomain.com',
-      lastModified: new Date(),
-    },
-  ];
+  const allPages = await getContentAtRoute(['_pagemap']);
+  if (allPages.children) {
+    return allPages.children.map((entry) => ({
+      url: thisSiteUrl(entry.route),
+      lastModified: new Date(entry.timestamp),
+    }));
+  }
+  return [];
 }

@@ -1,11 +1,11 @@
 'use client';
 
 import { Mention } from '@/data/interfaces/mention';
-import { siteUrl } from '@/site/utilities';
+import { publicSiteUrl } from '@/site/utilities';
 import { useState, useEffect } from 'react';
 
 export default function MastodonThreadLayout({ route }: { route: string }) {
-  const url = siteUrl(route);
+  const url = publicSiteUrl(route);
   const initial: Mention[] = [];
   const [mentions, setMentions] = useState(initial);
   const [isLoading, setLoading] = useState(true);
