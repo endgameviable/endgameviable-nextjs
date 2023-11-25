@@ -2,7 +2,7 @@ import path from 'path';
 import Entry, { ERROR_ENTRY } from '../interfaces/entry';
 import { safeStringify } from '@/types/strings';
 import { GetObjectCommand, GetObjectCommandInput } from '@aws-sdk/client-s3';
-import { getS3Client, contentBucketName } from '@config/resourceConfig';
+import { s3Client, contentBucketName } from '@config/resourceConfig';
 import { canonicalizePath } from '@/site/utilities';
 import { safeParseDateMillis } from '@/types/dates';
 import { TextType } from '@/types/contentText';
@@ -26,7 +26,7 @@ export async function getContentAtRouteS3(route: string[]): Promise<Entry> {
     Key: key,
   };
   try {
-    const response = await getS3Client().send(new GetObjectCommand(params));
+    const response = await s3Client.send(new GetObjectCommand(params));
     if (response.Body) {
       const s = await response.Body?.transformToString();
       const data: HugoJsonPage = JSON.parse(s);

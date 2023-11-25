@@ -3,6 +3,7 @@
 import { safeStringify } from '@/types/strings';
 import { S3Client } from '@aws-sdk/client-s3';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { SQSClient } from "@aws-sdk/client-sqs";
 
 // AWS credentials
 // Note: This is a general service account, not just for S3
@@ -33,6 +34,10 @@ export const searchContentTableName = 'endgameviable-generated-posts';
 // Every checkin of new content triggers a rebuild of the s3 bucket.
 export const contentBucketName = 'endgameviable-nextjs-storage';
 
+// An SQS queue endpoint where site events are sent
+// for processing. e.g. webmentions.
+export const sqsEventQueuName = 'https://sqs.us-east-1.amazonaws.com/205454771271/endgameviable-event-queue';
+
 // Normally we would use credentials: fromNodeProviderChain().
 // fromNodeProviderChain() attempts to read credentials
 // from a series of standard locations in the runtime environment.
@@ -42,17 +47,23 @@ export const contentBucketName = 'endgameviable-nextjs-storage';
 // differently-named environment variables from the standard,
 // so we have to set the credential keys manually like this.
 
-// TODO: I think we can change this back to a constant
-export function getS3Client(): S3Client {
-  return new S3Client({
-    credentials: {
-      accessKeyId: awsAccessKeyId,
-      secretAccessKey: awsSecretAccessKey,
-    }
-  });
-}
+export const s3Client = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: awsAccessKeyId,
+    secretAccessKey: awsSecretAccessKey,
+  }
+});
 
 export const dynamoClient = new DynamoDBClient({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: awsAccessKeyId,
+    secretAccessKey: awsSecretAccessKey,
+  }
+});
+
+export const sqsClient = new SQSClient({
   region: process.env.AWS_REGION,
   credentials: {
     accessKeyId: awsAccessKeyId,
