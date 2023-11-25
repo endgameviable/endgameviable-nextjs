@@ -21,6 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={roboto.className}>
+      <head>
+        <link rel="me" href="https://gts.endgameviable.com/@ultrviolet" />
+        <link rel="me" href="https://github.com/endgameviable" />
+        <link rel="webmention" href="https://webmention.io/beta.endgameviable.com/webmention" />
+      </head>
       <body>{children}</body>
     </html>
   );
