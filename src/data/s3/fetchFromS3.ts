@@ -2,7 +2,7 @@ import path from 'path';
 import Entry, { ERROR_ENTRY } from '../interfaces/entry';
 import { safeStringify } from '@/types/strings';
 import { GetObjectCommand, GetObjectCommandInput } from '@aws-sdk/client-s3';
-import { getS3Client, s3ContentBucketName } from '@config/siteConfig';
+import { getS3Client, contentBucketName } from '@config/resourceConfig';
 import { canonicalizePath } from '@/site/utilities';
 import { safeParseDateMillis } from '@/types/dates';
 import { TextType } from '@/types/contentText';
@@ -22,7 +22,7 @@ interface HugoJsonPage {
 export async function getContentAtRouteS3(route: string[]): Promise<Entry> {
   const key = path.join(route.join('/'), 'index.json');
   const params: GetObjectCommandInput = {
-    Bucket: s3ContentBucketName,
+    Bucket: contentBucketName,
     Key: key,
   };
   try {

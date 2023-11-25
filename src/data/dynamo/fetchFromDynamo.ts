@@ -1,7 +1,7 @@
 import { canonicalizePath } from "@/site/utilities";
 import { safeStringify } from "@/types/strings";
 import { AttributeValue, GetItemCommand, QueryCommand, ScanCommand } from "@aws-sdk/client-dynamodb";
-import { dynamoClient } from "@config/siteConfig";
+import { dynamoClient } from "@config/resourceConfig";
 import Entry, { ERROR_ENTRY } from "../interfaces/entry";
 import { safeParseDateMillis } from "@/types/dates";
 import { TextType } from "@/types/contentText";

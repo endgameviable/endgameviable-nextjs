@@ -1,7 +1,7 @@
 import Entry from "../interfaces/entry";
 import EntryQueryParams from "../interfaces/queryFilter";
 import { ScanCommand } from "@aws-sdk/client-dynamodb";
-import { dynamoClient } from "@config/siteConfig";
+import { dynamoClient, searchContentTableName } from "@config/resourceConfig";
 import { getS } from "./fetchFromDynamo";
 import { safeParseDateMillis } from "@/types/dates";
 import { safeStringify } from "@/types/strings";
@@ -13,7 +13,7 @@ export async function searchEntriesDynamo(params: EntryQueryParams): Promise<Ent
     do {
         console.log(`scanning dynamoDB for search parameters`);
         const command = new ScanCommand({
-            TableName: 'endgameviable-generated-pages',
+            TableName: searchContentTableName,
             ExclusiveStartKey: lastKey,
             FilterExpression: 'contains(pageSearchContent, :searchKeyword)',
             ExpressionAttributeValues: {

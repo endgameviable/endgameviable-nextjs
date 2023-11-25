@@ -2,14 +2,14 @@ import { Mention } from '@/data/interfaces/mention';
 import { ensureTrailingSlash } from '@/site/utilities';
 import { safeStringify } from '@/types/strings';
 import { GetItemCommand } from '@aws-sdk/client-dynamodb';
-import { dynamoClient, dynamoTableName, mastodonApiToken } from '@config/siteConfig';
+import { dynamoClient, notificationTableName, mastodonApiToken } from '@config/resourceConfig';
 
 // TODO: Someday might need to turn this into a paged interface.
 // If e.g. there are hundreds or thousands of mentions.
 
 async function lookupUrl(url: string): Promise<any> {
   const command = new GetItemCommand({
-    TableName: dynamoTableName,
+    TableName: notificationTableName,
     Key: {
       postUrl: { S: url }
     }
