@@ -23,17 +23,20 @@ async function getThread(instance?: string, id?: string): Promise<Mention[]> {
   const headers = new Headers();
   headers.append('Authorization', `Bearer ${mastodonApiToken}`);
   const apiUrl = `${instance}/api/v1/statuses/${id}/context`;
+  console.log(`querying ${apiUrl}`);
   await fetch(apiUrl, {method: 'GET', headers: headers})
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      for (const status of data.descendants) {
-        mentions.push({
-          date: safeStringify(status.created_at),
-          content: safeStringify(status.text),
-          url: status.url,
-        })
+      if (data.descendants) {
+        for (const status of data.descendants) {
+          mentions.push({
+            date: safeStringify(status.created_at),
+            content: safeStringify(status.text),
+            url: status.url,
+          })
+        }
       }
     })
     .catch((error) => {

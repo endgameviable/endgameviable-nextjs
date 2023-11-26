@@ -41,6 +41,11 @@ export async function getContentAtRouteS3(route: string[]): Promise<Entry> {
     }
   } catch (error) {
     console.log(error);
+    return {
+      timestamp: Date.now(),
+      route: canonicalizePath(route.join('/')),
+      article: new TextType(`There was an error fetching content from S3: ${error} It's probably a misconfiguration somewhere in the infrastructure.`),
+    }
   }
   return ERROR_ENTRY;
 }
