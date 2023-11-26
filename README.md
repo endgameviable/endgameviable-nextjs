@@ -79,7 +79,7 @@ It took a LONG time to figure that out so don't forget it!
 As far as I know, these have to be set manually in the AWS Amplify Console.
 
 - MASTODON_API_KEY
-  - Get this by querying the Mastodon API of your server instance
+  - Get this by querying the Mastodon API of your ActivityPub server instance. (I use GoToSocial, not Mastodon.)
 - RESOURCE_LINK_TABLE
 - RESOURCE_SEARCH_TABLE
 - RESOURCE_JSON_BUCKET
