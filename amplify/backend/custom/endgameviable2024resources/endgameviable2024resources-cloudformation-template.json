@@ -124,6 +124,12 @@
                     "buildJson",
                     "Arn"
                   ]
+                },
+                {
+                  "Fn::GetAtt": [
+                    "buildDatabase",
+                    "Arn"
+                  ]
                 }
               ]
             },
@@ -247,6 +253,29 @@
                     "Name": "SourceJsonOutput"
                   }
                 ]
+              },
+              {
+                "Name": "GetDBSyncRepo",
+                "RunOrder": 3,
+                "ActionTypeId": {
+                  "Category": "Source",
+                  "Owner": "ThirdParty",
+                  "Version": 1,
+                  "Provider": "GitHub"
+                },
+                "Configuration": {
+                  "Owner": "endgameviable",
+                  "Repo": "endgameviable-dbsync",
+                  "Branch": "main",
+                  "OAuthToken": {
+                    "Fn::Sub": "{{resolve:secretsmanager:endgameviable2024-github:SecretString:token}}"
+                  }
+                },
+                "OutputArtifacts": [
+                  {
+                    "Name": "SourceDBSyncOutput"
+                  }
+                ]
               }
             ]
           },
@@ -295,6 +324,31 @@
                 "Configuration": {
                   "ProjectName": {
                     "Ref": "buildJson"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "Name": "SyncDatabase",
+            "Actions": [
+              {
+                "Name": "BuildAction",
+                "RunOrder": 1,
+                "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Version": 1,
+                  "Provider": "CodeBuild"
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "SourceDBSyncOutput"
+                  }
+                ],
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "buildDatabase"
                   }
                 }
               }
