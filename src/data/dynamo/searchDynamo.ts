@@ -8,10 +8,10 @@ import { safeStringify } from "@/types/strings";
 import { TextType } from "@/types/contentText";
 
 export async function searchEntriesDynamo(params: EntryQueryParams): Promise<Entry[]> {
+    console.log(`scanning ${searchContentTableName} for search parameters`);
     let lastKey: any = undefined;
     const children: Entry[] = [];
     do {
-        console.log(`scanning dynamoDB for search parameters`);
         const command = new ScanCommand({
             TableName: searchContentTableName,
             ExclusiveStartKey: lastKey,

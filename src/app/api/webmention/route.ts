@@ -9,6 +9,7 @@ function error400(message: string): Response {
         status: 400,
     });
 }
+
 export async function POST(request: Request) {
     let data: FormData;
     // Very basic validations
@@ -41,7 +42,7 @@ export async function POST(request: Request) {
     // Queue webmention processing
     const success = await sendMessage({
         eventType: 'webmention',
-        eventID: randomUUID(),
+        eventID: randomUUID(), // todo: don't need
         eventDate: new Date().toISOString(),
         eventHost: siteConfig.siteHost,
         eventPayload: {
