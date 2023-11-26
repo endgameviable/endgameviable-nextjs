@@ -162,7 +162,10 @@
             },
             {
               "Effect": "Allow",
-              "Action": "dynamodb:Write*",
+              "Action": [
+                "dynamodb:Write*",
+                "dynamodb:BatchWrite*"
+              ],
               "Resource": {
                 "Fn::GetAtt": [
                   "searchTable",
@@ -371,6 +374,46 @@
         "Source": {
           "Type": "GITHUB",
           "Location": "https://github.com/endgameviable/endgameviable-json"
+        }
+      }
+    },
+    "buildDatabase": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "buildRole",
+            "Arn"
+          ]
+        },
+        "Artifacts": {
+          "Type": "S3",
+          "Location": {
+            "Ref": "artifactBucket"
+          }
+        },
+        "Environment": {
+          "Type": "ARM_CONTAINER",
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/amazonlinux2-aarch64-standard:3.0",
+          "EnvironmentVariables": [
+            {
+              "Name": "RESOURCE_JSON_BUCKET",
+              "Value": {
+                "Ref": "jsonBucket"
+              }
+            },
+            {
+              "Name": "RESOURCE_SEARCH_TABLE",
+              "Value": {
+                "Ref": "searchTable"
+              }
+            }
+          ]
+        },
+        "Source": {
+          "Type": "GITHUB",
+          "Location": "https://github.com/endgameviable/endgameviable-dbsync"
         }
       }
     }
