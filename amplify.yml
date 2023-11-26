@@ -8,7 +8,7 @@ frontend:
     build:
       commands:
         - node -v
-        - amplify env checkout $BACKEND_ENV
+        - amplify env checkout $USER_BRANCH
         # not sure whether I need dev or production here
         # this amplify branch is technically "dev"
         # but "production" worked on the other project
