@@ -8,7 +8,12 @@ frontend:
     build:
       commands:
         - node -v
-        - env | grep -e S3_ACCESS_KEY_ID -e S3_SECRET_ACCESS_KEY -e MASTODON_API_TOKEN >> .env.production
+        # not sure whether I need dev or production here
+        # this amplify branch is technically "dev"
+        # but "production" worked on the other project
+        # so just doing both
+        - env | grep -e MASTODON_API_TOKEN >> .env.dev
+        - env | grep -e MASTODON_API_TOKEN >> .env.production
         - npm run build
   artifacts:
     baseDirectory: .next

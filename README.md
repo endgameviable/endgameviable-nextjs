@@ -65,6 +65,20 @@ It took a LONG time to figure that out so don't forget it!
 
 ## AWS Amplify Setup
 
+### Build Settings
+
+- Build Image: Amazon Linux:2023 image
+- Build Timeout: (default)
+- Package Overrides:
+  - Amplify CLI: latest
+  - Next.js version: latest
+  - Node.js version: 18
+
+### Environment Variables
+
+As far as I know, these have to be set manually in the AWS Amplify Console.
+
+- MASTODON_API_KEY
 
 ## Next.js
 
