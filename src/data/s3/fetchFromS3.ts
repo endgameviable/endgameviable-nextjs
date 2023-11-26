@@ -8,7 +8,7 @@ import { safeParseDateMillis } from '@/types/dates';
 import { TextType } from '@/types/contentText';
 
 interface HugoJsonPage {
-  date?: string; // format: yyyy-mm-ddThh:mm:ss-zzzz
+  date?: string; // format: ISO 8601 yyyy-mm-ddThh:mm:ss-zzzz
   title?: string;
   summary?: string;
   content?: string;
