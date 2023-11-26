@@ -14,6 +14,7 @@ frontend:
         # but "production" worked on the other project
         # so just doing both
         - "env | grep -e '^MASTODON_API_TOKEN' -e '^RESOURCE_' >> .env.production"
+        - cat aws-exports.js
         - npm run build
   artifacts:
     baseDirectory: .next
