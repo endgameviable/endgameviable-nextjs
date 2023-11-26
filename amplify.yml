@@ -8,10 +8,8 @@ frontend:
     build:
       commands:
         - node -v
-        # is this really necessary??? Google is so useless
-        - amplify env checkout $USER_BRANCH
-        - env
         - "env | grep -e '^MASTODON_API_TOKEN' -e '^RESOURCE_' >> .env.production"
+        - "env | grep -e '^RUNTIME_' | sed 's/^RUNTIME_/AWS_/' >> .env.production"
         - npm run build
   artifacts:
     baseDirectory: .next
