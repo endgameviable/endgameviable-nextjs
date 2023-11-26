@@ -72,6 +72,10 @@ Get this by querying the Mastodon API of your ActivityPub server instance. (I us
 
 Names of resources managed by Amplify and CloudFormation so they have long, weird names. Find them in the AWS Console and paste them in. Wish I didn't have to do this.
 
+### Pushing Changes
+
+After making a change to the custom CloudFormation template, run `amplify push` to reprovision aws resources.
+
 
 
 
