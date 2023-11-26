@@ -63,6 +63,9 @@ Otherwise the access tokens will not be available and the server-side app won't 
 
 It took a LONG time to figure that out so don't forget it!
 
+## AWS Amplify Setup
+
+
 ## Next.js
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

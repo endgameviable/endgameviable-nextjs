@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-endgameviable2024-dev-81804-authRole",
+      "UnauthRoleArn": "arn:aws:iam::205454771271:role/amplify-endgameviable2024-dev-81804-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::205454771271:role/amplify-endgameviable2024-dev-81804-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-endgameviable2024-dev-81804-deployment",
+      "UnauthRoleName": "amplify-endgameviable2024-dev-81804-unauthRole",
+      "StackName": "amplify-endgameviable2024-dev-81804",
+      "StackId": "arn:aws:cloudformation:us-east-1:205454771271:stack/amplify-endgameviable2024-dev-81804/3c447d40-8c5e-11ee-90eb-0a5455fa2cb7",
+      "AmplifyAppId": "dpo50rv4wfry1"
+    },
+    "categories": {
+      "custom": {
+        "endgameviable2024resources": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dpo50rv4wfry1",
+          "type": "cicd"
+        }
+      }
+    }
+  }
+}

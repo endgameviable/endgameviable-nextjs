@@ -1,0 +1,19 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - node -v
+        - npm ci
+    build:
+      commands:
+        - node -v
+        - env | grep -e S3_ACCESS_KEY_ID -e S3_SECRET_ACCESS_KEY -e MASTODON_API_TOKEN >> .env.production
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
