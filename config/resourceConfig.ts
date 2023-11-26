@@ -26,22 +26,26 @@ export const mastodonApiToken = safeStringify(process.env.MASTODON_API_TOKEN);
 // application which detects new posts, sends an ActivityPub note,
 // then adds an entry to the table, which is then picked up
 // by the client-side component that renders mentions.
-export const notificationTableName = 'endgameviable-post-notifications';
+// export const notificationTableName = 'endgameviable-post-notifications';
+export const notificationTableName = safeStringify(process.env.RESOURCE_LINK_TABLE);
 
 // A DynamoDB table name containing searchable post data.
 // This drives the search api.
-export const searchContentTableName = 'endgameviable-generated-posts';
+// export const searchContentTableName = 'endgameviable-generated-posts';
+export const searchContentTableName = safeStringify(process.env.RESOURCE_SEARCH_TABLE);
 
 // An S3 bucket which contains json content data.
 // Essentially it's a static version of a web site,
 // except every page is json instead of html.
 // This content is built with the Hugo project endgameviable-json.
 // Every checkin of new content triggers a rebuild of the s3 bucket.
-export const contentBucketName = 'endgameviable-nextjs-storage';
+// export const contentBucketName = 'endgameviable-nextjs-storage';
+export const contentBucketName = safeStringify(process.env.RESOURCE_JSON_BUCKET);
 
 // An SQS queue endpoint where site events are sent
 // for processing. e.g. webmentions.
-export const sqsEventQueueName = 'https://sqs.us-east-1.amazonaws.com/205454771271/endgameviable-event-queue';
+// export const sqsEventQueueName = 'https://sqs.us-east-1.amazonaws.com/205454771271/endgameviable-event-queue';
+export const sqsEventQueueName = safeStringify(process.env.RESOURCE_EVENT_QUEUE);
 
 // Normally we would use credentials: fromNodeProviderChain().
 // fromNodeProviderChain() attempts to read credentials

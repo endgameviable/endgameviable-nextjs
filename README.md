@@ -79,6 +79,12 @@ It took a LONG time to figure that out so don't forget it!
 As far as I know, these have to be set manually in the AWS Amplify Console.
 
 - MASTODON_API_KEY
+  - Get this by querying the Mastodon API of your server instance
+- RESOURCE_LINK_TABLE
+- RESOURCE_SEARCH_TABLE
+- RESOURCE_JSON_BUCKET
+- RESOURCE_EVENT_QUEUE
+  - The resources are managed by Amplify and CloudFormation so they have long, weird names.
 
 ## Next.js
 
