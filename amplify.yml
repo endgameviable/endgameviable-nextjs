@@ -12,10 +12,8 @@ frontend:
         # this amplify branch is technically "dev"
         # but "production" worked on the other project
         # so just doing both
-        - env
-        - env | grep -e MASTODON_API_TOKEN
-        - env | grep -e MASTODON_API_TOKEN >> .env.dev
-        - env | grep -e MASTODON_API_TOKEN >> .env.production
+        #- env | grep -e MASTODON_API_TOKEN
+        #- env | grep -e MASTODON_API_TOKEN >> .env.production
         - npm run build
   artifacts:
     baseDirectory: .next
