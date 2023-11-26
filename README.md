@@ -29,31 +29,7 @@ And, of course, since we live in 2023, ChatGPT patiently explained numerous Type
 
 I use AWS Amplify to host this.
 
-The build script is almost the default, but has some modifications and looks like this:
-
-```
-version: 1
-frontend:
-  phases:
-    preBuild:
-      commands:
-        - node -v
-        - npm ci
-    build:
-      commands:
-        - node -v
-        - env | grep -e S3_ACCESS_KEY_ID -e S3_SECRET_ACCESS_KEY -e MASTODON_API_TOKEN >> .env.production
-        - npm run build
-  artifacts:
-    baseDirectory: .next
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
-```
-
-This line is vitally important not to forget:
+A line like this is vitally important not to forget in the build spec:
 
 ```
 - env | grep -e S3_ACCESS_KEY_ID -e S3_SECRET_ACCESS_KEY -e MASTODON_API_TOKEN >> .env.production
@@ -61,9 +37,11 @@ This line is vitally important not to forget:
 
 Otherwise the access tokens will not be available and the server-side app won't know how to connect to anything at runtime. See https://docs.aws.amazon.com/amplify/latest/userguide/ssr-environment-variables.html
 
-It took a LONG time to figure that out so don't forget it!
+It took a LONG time to figure that out so don't forget it! (See more below.)
 
 ## AWS Amplify Setup
+
+Apparently you have to create an Amplify service account manually in the Console. I tried to make a role with AmplifyAdministrator policies as part of the CloudFormation template but it wouldn't let me select it.
 
 ### Build Settings
 
@@ -78,13 +56,24 @@ It took a LONG time to figure that out so don't forget it!
 
 As far as I know, these have to be set manually in the AWS Amplify Console.
 
+- RUNTIME_ACCESS_KEY_ID
+- RUNTIME_SECRET_ACCESS_KEY
+
+Access token and secret for an account that has access to resources from the server-side runtime. These are required mainly so that the api can access DynamoDB tables. Couldn't find any other way to get credentials to the runtime. Create an IAM user with S3ReadOnly, DynamoReadOnly, and SQS message send permissions, then create access tokens and set them here.
+
 - MASTODON_API_KEY
-  - Get this by querying the Mastodon API of your ActivityPub server instance. (I use GoToSocial, not Mastodon.)
+
+Get this by querying the Mastodon API of your ActivityPub server instance. (I use GoToSocial, actually, not Mastodon.)
+
 - RESOURCE_LINK_TABLE
 - RESOURCE_SEARCH_TABLE
 - RESOURCE_JSON_BUCKET
 - RESOURCE_EVENT_QUEUE
-  - The resources are managed by Amplify and CloudFormation so they have long, weird names.
+
+Names of resources managed by Amplify and CloudFormation so they have long, weird names. Find them in the AWS Console and paste them in. Wish I didn't have to do this.
+
+
+
 
 ## Next.js
 
