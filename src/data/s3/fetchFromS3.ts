@@ -74,7 +74,7 @@ export function jsonToEntry(
         summary: new TextType(safeStringify(json.summary), 'text/plain'),
         article: new TextType(safeStringify(json.content), 'text/html'),
         title: json.title,
-        type: json.type,
+        type: json.type?.toLowerCase() === 'micropost' ? 'micropost' : 'post',
         image: image,
         children: children,
     };

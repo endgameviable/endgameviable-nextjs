@@ -34,7 +34,7 @@ async function getPageAtRoute(route: string[]): Promise<PageContent | null> {
             console.log(`${key} page read from dynamoDB`);
             const item = response.Item;
             return {
-                type: 'page',
+                type: 'post',
                 timestamp: safeParseDateMillis(item.pageDate.S),
                 route: safeStringify(getS(item.pagePath)),
                 summary: new TextType(getS(item.pageSummary), 'text/plain'),
@@ -71,7 +71,7 @@ async function getSectionAtRoute(route: string[]): Promise<PageContent | null> {
         const response = await dynamoClient.send(command);
         if (response.Items && response.Items.length > 0) {
             const entries: PageContent[] = response.Items.map((item) => ({
-                type: 'page',
+                type: 'post',
                 timestamp: safeParseDateMillis(getS(item.pageDate)),
                 route: safeStringify(getS(item.pagePath)),
                 summary: new TextType(getS(item.pageSummary), 'text/plain'),
