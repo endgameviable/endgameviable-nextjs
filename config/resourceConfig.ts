@@ -13,7 +13,7 @@ import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
 // const awsSecretAccessKey = safeStringify(process.env.S3_SECRET_ACCESS_KEY);
 
 // Mastodon API credentials
-export const mastodonApiToken = safeStringify(process.env.MASTODON_API_TOKEN);
+export const mastodonApiToken = safeStringify(process.env.EGV_USER_MASTODON_API_TOKEN);
 
 // TODO: Need to get these resource names from env vars.
 // So we support CloudFormation resource management.
@@ -27,12 +27,12 @@ export const mastodonApiToken = safeStringify(process.env.MASTODON_API_TOKEN);
 // then adds an entry to the table, which is then picked up
 // by the client-side component that renders mentions.
 // export const notificationTableName = 'endgameviable-post-notifications';
-export const notificationTableName = safeStringify(process.env.RESOURCE_LINK_TABLE);
+export const notificationTableName = safeStringify(process.env.EGV_RESOURCE_LINK_TABLE);
 
 // A DynamoDB table name containing searchable post data.
 // This drives the search api.
 // export const searchContentTableName = 'endgameviable-generated-posts';
-export const searchContentTableName = safeStringify(process.env.RESOURCE_SEARCH_TABLE);
+export const searchContentTableName = safeStringify(process.env.EGV_RESOURCE_SEARCH_TABLE);
 
 // An S3 bucket which contains json content data.
 // Essentially it's a static version of a web site,
@@ -40,12 +40,12 @@ export const searchContentTableName = safeStringify(process.env.RESOURCE_SEARCH_
 // This content is built with the Hugo project endgameviable-json.
 // Every checkin of new content triggers a rebuild of the s3 bucket.
 // export const contentBucketName = 'endgameviable-nextjs-storage';
-export const contentBucketName = safeStringify(process.env.RESOURCE_JSON_BUCKET);
+export const contentBucketName = safeStringify(process.env.EGV_RESOURCE_JSON_BUCKET);
 
 // An SQS queue endpoint where site events are sent
 // for processing. e.g. webmentions.
 // export const sqsEventQueueName = 'https://sqs.us-east-1.amazonaws.com/205454771271/endgameviable-event-queue';
-export const sqsEventQueueName = safeStringify(process.env.RESOURCE_EVENT_QUEUE);
+export const sqsEventQueueName = safeStringify(process.env.EGV_RESOURCE_EVENT_QUEUE);
 
 // Normally we would use credentials: fromNodeProviderChain().
 // fromNodeProviderChain() attempts to read credentials
@@ -59,26 +59,14 @@ export const sqsEventQueueName = safeStringify(process.env.RESOURCE_EVENT_QUEUE)
 export const s3Client = new S3Client({
   region: process.env.AWS_REGION,
   credentials: fromNodeProviderChain(),
-  // credentials: {
-  //   accessKeyId: awsAccessKeyId,
-  //   secretAccessKey: awsSecretAccessKey,
-  // }
 });
 
 export const dynamoClient = new DynamoDBClient({
   region: process.env.AWS_REGION,
   credentials: fromNodeProviderChain(),
-  // credentials: {
-  //   accessKeyId: awsAccessKeyId,
-  //   secretAccessKey: awsSecretAccessKey,
-  // }
 });
 
 export const sqsClient = new SQSClient({
   region: process.env.AWS_REGION,
   credentials: fromNodeProviderChain(),
-  // credentials: {
-  //   accessKeyId: awsAccessKeyId,
-  //   secretAccessKey: awsSecretAccessKey,
-  // }
 });

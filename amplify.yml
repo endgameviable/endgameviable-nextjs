@@ -9,8 +9,8 @@ frontend:
     build:
       commands:
         - node -v
-        - "env | grep -e '^MASTODON_API_TOKEN' -e '^RESOURCE_' >> .env.production"
-        - "env | grep -e '^RUNTIME_' | sed 's/^RUNTIME_/AWS_/' >> .env.production"
+        - "env | grep -e '^EGV_USER_' -e '^EGV_RESOURCE_' >> .env.production"
+        - "env | grep -e '^EGV_RUNTIME_' | sed 's/^EGV_RUNTIME_/AWS_/' >> .env.production"
         - npm run build
   artifacts:
     baseDirectory: .next

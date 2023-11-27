@@ -412,13 +412,13 @@
           "Image": "aws/codebuild/amazonlinux2-aarch64-standard:3.0",
           "EnvironmentVariables": [
             {
-              "Name": "MARKDOWN_BUCKET_NAME",
+              "Name": "EGV_RESOURCE_MARKDOWN_BUCKET",
               "Value": {
                 "Ref": "markdownBucket"
               }
             },
             {
-              "Name": "JSON_BUCKET_NAME",
+              "Name": "EGV_RESOURCE_JSON_BUCKET",
               "Value": {
                 "Ref": "jsonBucket"
               }
@@ -452,13 +452,13 @@
           "Image": "aws/codebuild/amazonlinux2-aarch64-standard:3.0",
           "EnvironmentVariables": [
             {
-              "Name": "RESOURCE_JSON_BUCKET",
+              "Name": "EGV_RESOURCE_JSON_BUCKET",
               "Value": {
                 "Ref": "jsonBucket"
               }
             },
             {
-              "Name": "RESOURCE_SEARCH_TABLE",
+              "Name": "EGV_RESOURCE_SEARCH_TABLE",
               "Value": {
                 "Ref": "searchTable"
               }
