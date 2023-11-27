@@ -1,13 +1,18 @@
-import { canonicalizePath } from "@/site/utilities";
-import { safeStringify } from "@/types/strings";
-import { AttributeValue, GetItemCommand, QueryCommand, ScanCommand } from "@aws-sdk/client-dynamodb";
-import { dynamoClient } from "@config/resourceConfig";
-import PageContent, { ERROR_ENTRY } from "../interfaces/content";
-import { safeParseDateMillis } from "@/types/dates";
-import { TextType } from "@/types/contentText";
-import { getContentAtRouteS3 } from "../s3/fetchFromS3";
+import { canonicalizePath } from '@/site/utilities';
+import { safeStringify } from '@/types/strings';
+import {
+    AttributeValue,
+    GetItemCommand,
+    ScanCommand,
+} from '@aws-sdk/client-dynamodb';
+import { dynamoClient } from '@config/resourceConfig';
+import PageContent, { ERROR_ENTRY } from '../interfaces/content';
+import { safeParseDateMillis } from '@/types/dates';
+import { TextType } from '@/types/contentText';
 
-export async function getContentAtRouteDynamo(route: string[]): Promise<PageContent> {
+export async function getContentAtRouteDynamo(
+    route: string[],
+): Promise<PageContent> {
     const pageEntry = await getPageAtRoute(route);
     if (pageEntry) return pageEntry;
     const sectionEntry = await getSectionAtRoute(route);
@@ -21,7 +26,7 @@ async function getPageAtRoute(route: string[]): Promise<PageContent | null> {
         TableName: 'endgameviable-generated-pages',
         Key: {
             pagePath: { S: key },
-        }
+        },
     });
     try {
         const response = await dynamoClient.send(command);
@@ -38,7 +43,7 @@ async function getPageAtRoute(route: string[]): Promise<PageContent | null> {
                 image: getS(item.pageImage),
             };
         } else {
-            console.log(`${key} page not found in dynamoDB`)
+            console.log(`${key} page not found in dynamoDB`);
         }
     } catch (error) {
         console.log(error);
@@ -79,14 +84,16 @@ async function getSectionAtRoute(route: string[]): Promise<PageContent | null> {
         lastKey = response.LastEvaluatedKey;
     } while (lastKey);
     if (children.length > 0) {
-        children.sort((a, b) => (b.timestamp - a.timestamp));
-        console.log(`${section} section found in dynamoDB (${children.length} items)`);
+        children.sort((a, b) => b.timestamp - a.timestamp);
+        console.log(
+            `${section} section found in dynamoDB (${children.length} items)`,
+        );
         return {
             route: section,
             timestamp: Date.now(),
             article: new TextType('Entries at ' + section),
             children: children.slice(0, 25),
-        }
+        };
     }
     console.log(`${section} section not found in dynamoDB`);
     return null;

@@ -8,33 +8,43 @@ import { safeStringify } from '@/types/strings';
 import CommentBoxLayout from '../client/commentBox';
 
 export default function ContentArticle({ entry }: { entry: PageContent }) {
-  const htmlContent = renderArticleAsHTML(entry);
-  const url = canonicalizePath(entry.route);
-  let image: JSX.Element = <></>;
-  if (entry.image) {
-    image = <Image src={entry.image} 
-      alt="{entry.title}"
-      width={1024} height={1024} />;
-  }
-  return (
-    <>
-      <article>
-        <header>
-          <h1><Link href={entry.route.replace(/\/index\.json$/, '')}>{entry.title}</Link></h1>
-          <p><EntryDateTime timestamp={entry.timestamp} /></p>
-          <p>{safeStringify(entry.summary)}</p>
-          {image}
-        </header>
-        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-        <footer>
-        </footer>
-      </article>
-      <section>
-        <MastodonThreadLayout route={url} />
-      </section>
-      <section>
-        <CommentBoxLayout />
-      </section>
-    </>
-  );
+    const htmlContent = renderArticleAsHTML(entry);
+    const url = canonicalizePath(entry.route);
+    let image: JSX.Element = <></>;
+    if (entry.image) {
+        image = (
+            <Image
+                src={entry.image}
+                alt="{entry.title}"
+                width={1024}
+                height={1024}
+            />
+        );
+    }
+    return (
+        <>
+            <article>
+                <header>
+                    <h1>
+                        <Link href={entry.route.replace(/\/index\.json$/, '')}>
+                            {entry.title}
+                        </Link>
+                    </h1>
+                    <p>
+                        <EntryDateTime timestamp={entry.timestamp} />
+                    </p>
+                    <p>{safeStringify(entry.summary)}</p>
+                    {image}
+                </header>
+                <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+                <footer></footer>
+            </article>
+            <section>
+                <MastodonThreadLayout route={url} />
+            </section>
+            <section>
+                <CommentBoxLayout />
+            </section>
+        </>
+    );
 }

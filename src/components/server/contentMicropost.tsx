@@ -4,19 +4,20 @@ import EntryDateTime from './dateTime';
 import { canonicalizePath } from '@/site/utilities';
 
 export default function ContentMicropost({ entry }: { entry: PageContent }) {
-  const htmlContent = renderArticleAsHTML(entry);
-  return (
-    <>
-      <article>
-        <header>
-          <p><Link href={canonicalizePath(entry.route)}>
-            <EntryDateTime timestamp={entry.timestamp} />
-          </Link></p>
-        </header>
-        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-        <footer>
-        </footer>
-      </article>
-    </>
-  );
+    const htmlContent = renderArticleAsHTML(entry);
+    return (
+        <>
+            <article>
+                <header>
+                    <p>
+                        <Link href={canonicalizePath(entry.route)}>
+                            <EntryDateTime timestamp={entry.timestamp} />
+                        </Link>
+                    </p>
+                </header>
+                <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+                <footer></footer>
+            </article>
+        </>
+    );
 }

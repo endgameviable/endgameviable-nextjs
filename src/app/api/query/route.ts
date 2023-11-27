@@ -11,32 +11,40 @@ import { searchEntries } from '@/site/search';
 // I have tentative plans to try an AWS ElasticSearch.
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const textFilter = safeStringify(searchParams.get('text'));
-  console.log(`querying text=${textFilter}`);
+    const { searchParams } = new URL(request.url);
+    const textFilter = safeStringify(searchParams.get('text'));
+    console.log(`querying text=${textFilter}`);
 
-  const startTime = performance.now();
-  const filter: EntryQueryParams = {
-    routeStartsWith: '',
-    contains: textFilter,
-  };
-  console.log(filter);
+    const startTime = performance.now();
+    const filter: EntryQueryParams = {
+        routeStartsWith: '',
+        contains: textFilter,
+    };
+    console.log(filter);
 
-  // Query for matching entries
-  const searchResults: PageContent[] = await searchEntries(filter);
-  const elapsed = performance.now() - startTime;
+    // Query for matching entries
+    const searchResults: PageContent[] = await searchEntries(filter);
+    const elapsed = performance.now() - startTime;
 
-  const returnedResults = searchResults.slice(0, PAGE_SIZE);
+    const returnedResults = searchResults.slice(0, PAGE_SIZE);
 
-  const summary = new TextType(`Search returned ${searchResults.length} results in ${elapsed.toFixed(2)}ms. ${searchResults.length-returnedResults.length} results omitted.`);
-  returnedResults.push({
-    route: '/search',
-    timestamp: Date.now(),
-    title: 'Search Statistics',
-    summary: summary,
-    article: summary,
-  });
+    const summary = new TextType(
+        `Search returned ${searchResults.length} results in ${elapsed.toFixed(
+            2,
+        )}ms. ${
+            searchResults.length - returnedResults.length
+        } results omitted.`,
+    );
+    returnedResults.push({
+        route: '/search',
+        timestamp: Date.now(),
+        title: 'Search Statistics',
+        summary: summary,
+        article: summary,
+    });
 
-  console.log(`returning ${searchResults.length} entries queried in ${elapsed}ms`);
-  return Response.json(returnedResults);
+    console.log(
+        `returning ${searchResults.length} entries queried in ${elapsed}ms`,
+    );
+    return Response.json(returnedResults);
 }

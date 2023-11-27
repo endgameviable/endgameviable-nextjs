@@ -13,8 +13,8 @@ import { standardPageComponent } from '@/site/standardPageView';
 // and copies the results to the s3 bucket.
 
 type pageParams = {
-  route: string[];
-}
+    route: string[];
+};
 
 // generateStaticRoutes() provides a list of
 // page routes to create statically at build time.
@@ -25,32 +25,36 @@ type pageParams = {
 // (Currently this is over 1500 static pages.)
 
 export async function generateStaticParams() {
-  const params: pageParams[] = [];
-  // _sectionmap is a list of content sections in the blog
-  const allSections = await getContentAtRoute(['_sectionmap']);
-  if (allSections.children) {
-    for (const page of allSections.children) {
-      if (page.route) {
-        const route = canonicalizeRoute(page.route);
-        params.push({route: route.split('/')});
-      }
+    const params: pageParams[] = [];
+    // _sectionmap is a list of content sections in the blog
+    const allSections = await getContentAtRoute(['_sectionmap']);
+    if (allSections.children) {
+        for (const page of allSections.children) {
+            if (page.route) {
+                const route = canonicalizeRoute(page.route);
+                params.push({ route: route.split('/') });
+            }
+        }
     }
-  }
-  // _pagemap is a list of all content pages in the blog
-  const allPages = await getContentAtRoute(['_pagemap']);
-  if (allPages.children) {
-    for (const page of allPages.children) {
-      if (page.route) {
-        const route = canonicalizeRoute(page.route);
-        params.push({route: route.split('/')});
-      }
+    // _pagemap is a list of all content pages in the blog
+    const allPages = await getContentAtRoute(['_pagemap']);
+    if (allPages.children) {
+        for (const page of allPages.children) {
+            if (page.route) {
+                const route = canonicalizeRoute(page.route);
+                params.push({ route: route.split('/') });
+            }
+        }
     }
-  }
-  return params;
+    return params;
 }
 
 // Fetch source data for the given route and render a page view.
 // This is the main landing page for any permalinks.
-export default async function Page({params}: { params: { route: string[] }}) {
-  return standardPageComponent(params.route);
+export default async function Page({
+    params,
+}: {
+    params: { route: string[] };
+}) {
+    return standardPageComponent(params.route);
 }

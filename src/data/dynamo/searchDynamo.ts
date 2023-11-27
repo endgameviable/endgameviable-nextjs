@@ -1,14 +1,13 @@
-import PageContent from "../interfaces/content";
-import EntryQueryParams from "../interfaces/queryFilter";
-import { ScanCommand } from "@aws-sdk/client-dynamodb";
-import { dynamoClient, searchContentTableName } from "@config/resourceConfig";
-import { getS } from "./fetchFromDynamo";
-import { safeParseDateMillis } from "@/types/dates";
-import { safeStringify } from "@/types/strings";
-import { TextType } from "@/types/contentText";
-import { getContentObject, jsonToEntry } from "../s3/fetchFromS3";
+import PageContent from '../interfaces/content';
+import EntryQueryParams from '../interfaces/queryFilter';
+import { ScanCommand } from '@aws-sdk/client-dynamodb';
+import { dynamoClient, searchContentTableName } from '@config/resourceConfig';
+import { getS } from './fetchFromDynamo';
+import { getContentObject, jsonToEntry } from '../s3/fetchFromS3';
 
-export async function searchEntriesDynamo(params: EntryQueryParams): Promise<PageContent[]> {
+export async function searchEntriesDynamo(
+    params: EntryQueryParams,
+): Promise<PageContent[]> {
     console.log(`scanning ${searchContentTableName} for search parameters`);
     let lastKey: any = undefined;
     // const children: Entry[] = [];
@@ -45,7 +44,7 @@ export async function searchEntriesDynamo(params: EntryQueryParams): Promise<Pag
     } while (lastKey);
     const children = await Promise.all(promises);
     if (children.length > 0) {
-        children.sort((a, b) => (b.timestamp - a.timestamp));
+        children.sort((a, b) => b.timestamp - a.timestamp);
         console.log(`search found ${children.length} items`);
         return children;
     }

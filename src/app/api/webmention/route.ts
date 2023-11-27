@@ -1,7 +1,7 @@
-import { sendMessage } from "@/data/sqs/send";
-import { safeStringify } from "@/types/strings";
-import { siteConfig } from "@config/siteConfig";
-import { randomUUID } from "crypto";
+import { sendMessage } from '@/data/sqs/send';
+import { safeStringify } from '@/types/strings';
+import { siteConfig } from '@config/siteConfig';
+import { randomUUID } from 'crypto';
 
 function error400(message: string): Response {
     console.log(message);
@@ -27,12 +27,12 @@ export async function POST(request: Request) {
     const source = safeStringify(data.get('source')?.toString());
     const target = safeStringify(data.get('target')?.toString());
     try {
-        const sourceUrl = new URL(source);
+        new URL(source); // just checking format
     } catch (error) {
         return error400('Cannot parse source url');
     }
     try {
-        const targetUrl = new URL(target);
+        new URL(target); // just checking format
     } catch (error) {
         return error400('Cannot parse target url');
     }
@@ -48,7 +48,7 @@ export async function POST(request: Request) {
         eventPayload: {
             source: source,
             target: target,
-        }
+        },
     });
     if (success) {
         return new Response('WebMention Queued', {
