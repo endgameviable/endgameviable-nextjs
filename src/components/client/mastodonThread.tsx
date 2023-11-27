@@ -22,7 +22,12 @@ export default function MastodonThreadLayout({ route }: { route: string }) {
   }, [url]);
 
   if (isLoading) {
-    return <section><p>Looking for fediverse mentions...</p></section>
+    return <section>
+      <p>Looking for fediverse mentions...</p>
+      <noscript>
+        <p>...but they'll never be found because Javascript is disabled.</p>
+      </noscript>
+    </section>;
   }
 
   if (!mentions || mentions.length === 0) {
