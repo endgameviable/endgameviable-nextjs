@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import FilterForm from '@/components/apiForm';
-import EntryListLayout from '@/components/server/entryList';
+import ContentList from '@/components/server/contentList';
 
 export default function Page() {
   const [filteredData, setFilteredData] = useState<any[]>([]);
@@ -16,7 +16,7 @@ export default function Page() {
     <div>
       <h1>Search If You Dare</h1>
       <FilterForm onSubmit={handleFilter} />
-      <EntryListLayout 
+      <ContentList 
         title="Search Results" 
         content="Your search results" 
         list={filteredData} />

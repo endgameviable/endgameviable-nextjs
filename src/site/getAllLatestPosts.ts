@@ -1,7 +1,7 @@
-import Entry from '@/data/interfaces/entry';
+import PageContent from '@/data/interfaces/content';
 import { getContentAtRoute } from './getContent';
 
-export async function generateLatestEntries(): Promise<Entry[]> {
+export async function getAllLatestPosts(): Promise<PageContent[]> {
   const entry = await getContentAtRoute([]);
   return entry.children ? entry.children : [];
 }

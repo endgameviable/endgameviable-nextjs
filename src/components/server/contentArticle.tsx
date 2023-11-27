@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import Entry, { renderArticleAsHTML } from '@/data/interfaces/entry';
+import PageContent, { renderArticleAsHTML } from '@/data/interfaces/content';
 import EntryDateTime from './dateTime';
 import MastodonThreadLayout from '../client/mastodonThread';
 import { canonicalizePath } from '@/site/utilities';
 import { safeStringify } from '@/types/strings';
 import CommentBoxLayout from '../client/commentBox';
 
-export default function SingleEntryPage({ entry }: { entry: Entry }) {
+export default function ContentArticle({ entry }: { entry: PageContent }) {
   const htmlContent = renderArticleAsHTML(entry);
   const url = canonicalizePath(entry.route);
   let image: JSX.Element = <></>;

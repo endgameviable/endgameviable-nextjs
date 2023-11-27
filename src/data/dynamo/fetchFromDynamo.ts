@@ -2,12 +2,12 @@ import { canonicalizePath } from "@/site/utilities";
 import { safeStringify } from "@/types/strings";
 import { AttributeValue, GetItemCommand, QueryCommand, ScanCommand } from "@aws-sdk/client-dynamodb";
 import { dynamoClient } from "@config/resourceConfig";
-import Entry, { ERROR_ENTRY } from "../interfaces/entry";
+import PageContent, { ERROR_ENTRY } from "../interfaces/content";
 import { safeParseDateMillis } from "@/types/dates";
 import { TextType } from "@/types/contentText";
 import { getContentAtRouteS3 } from "../s3/fetchFromS3";
 
-export async function getContentAtRouteDynamo(route: string[]): Promise<Entry> {
+export async function getContentAtRouteDynamo(route: string[]): Promise<PageContent> {
     const pageEntry = await getPageAtRoute(route);
     if (pageEntry) return pageEntry;
     const sectionEntry = await getSectionAtRoute(route);
@@ -15,7 +15,7 @@ export async function getContentAtRouteDynamo(route: string[]): Promise<Entry> {
     return ERROR_ENTRY;
 }
 
-async function getPageAtRoute(route: string[]): Promise<Entry | null> {
+async function getPageAtRoute(route: string[]): Promise<PageContent | null> {
     const key = canonicalizePath(route.join('/'));
     const command = new GetItemCommand({
         TableName: 'endgameviable-generated-pages',
@@ -46,13 +46,13 @@ async function getPageAtRoute(route: string[]): Promise<Entry | null> {
     return null;
 }
 
-async function getSectionAtRoute(route: string[]): Promise<Entry | null> {
+async function getSectionAtRoute(route: string[]): Promise<PageContent | null> {
     // TODO: I don't think I can ever make this work
     // Can't do a ScanCommand that sorts by date descending
     // Can't do a QueryCommand where pageSection starts with a string
     let lastKey: any = undefined;
     const section = canonicalizePath(route.join('/'));
-    const children: Entry[] = [];
+    const children: PageContent[] = [];
     do {
         const command = new ScanCommand({
             TableName: 'endgameviable-generated-pages',
@@ -65,7 +65,7 @@ async function getSectionAtRoute(route: string[]): Promise<Entry | null> {
         });
         const response = await dynamoClient.send(command);
         if (response.Items && response.Items.length > 0) {
-            const entries: Entry[] = response.Items.map((item) => ({
+            const entries: PageContent[] = response.Items.map((item) => ({
                 type: 'page',
                 timestamp: safeParseDateMillis(getS(item.pageDate)),
                 route: safeStringify(getS(item.pagePath)),

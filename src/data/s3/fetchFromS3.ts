@@ -1,5 +1,5 @@
 import path from 'path';
-import Entry, { ERROR_ENTRY } from '../interfaces/entry';
+import PageContent, { ERROR_ENTRY } from '../interfaces/content';
 import { safeStringify } from '@/types/strings';
 import { GetObjectCommand, GetObjectCommandInput } from '@aws-sdk/client-s3';
 import { s3Client, contentBucketName } from '@config/resourceConfig';
@@ -20,7 +20,7 @@ interface HugoJsonPage {
   children?: HugoJsonPage[];
 }
 
-export async function getContentAtRouteS3(route: string[]): Promise<Entry> {
+export async function getContentAtRouteS3(route: string[]): Promise<PageContent> {
   const key = path.join(route.join('/'), 'index.json');
   try {
     const data = await getContentObject(key);
@@ -56,7 +56,7 @@ export async function getContentObject(key: string): Promise<HugoJsonPage> {
 }
 
 // Convert the json returned from S3 endpoints to an Entry
-export function jsonToEntry(json: HugoJsonPage, children: Entry[] = []): Entry {
+export function jsonToEntry(json: HugoJsonPage, children: PageContent[] = []): PageContent {
   let image: string | undefined = undefined;
   if (json.images) {
     image = json.images[0];
@@ -73,8 +73,8 @@ export function jsonToEntry(json: HugoJsonPage, children: Entry[] = []): Entry {
   };
 }
 
-export function jsonToEntries(dataPages: HugoJsonPage[]): Entry[] {
-  const entries: Entry[] = [];
+export function jsonToEntries(dataPages: HugoJsonPage[]): PageContent[] {
+  const entries: PageContent[] = [];
   for (const jsonPage of dataPages) {
     const entry = jsonToEntry(jsonPage, []);
     entries.push(entry);

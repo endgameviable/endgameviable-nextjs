@@ -1,7 +1,7 @@
-import Entry from "@/data/interfaces/entry";
-import EntryListLayout from '@/components/server/entryList';
-import SingleEntryPage from '@/components/server/entrySinglePage';
-import MicroPostEntryLayout from '@/components/server/entryMicropost';
+import PageContent from "@/data/interfaces/content";
+import ContentList from '@/components/server/contentList';
+import ContentArticle from '@/components/server/contentArticle';
+import ContentMicropost from '@/components/server/contentMicropost';
 import { getContentAtRoute } from "./getContent";
 import { safeStringify } from "@/types/strings";
 
@@ -11,18 +11,18 @@ import { safeStringify } from "@/types/strings";
 // - A section view, which is a list of posts
 // - A post view, which is a single post article
 // - A micropost view, which is a single microblog post
-function getView(entry: Entry): JSX.Element {
+function getView(entry: PageContent): JSX.Element {
     let component: JSX.Element;
     if (entry.children && entry.children.length > 0) {
-      component = <EntryListLayout
+      component = <ContentList
         title={safeStringify(entry.title)}
         content={safeStringify(entry.article)}
         list={entry.children} />;
     } else {
       if (entry.type === 'micropost') {
-        component = <MicroPostEntryLayout entry={entry} />;
+        component = <ContentMicropost entry={entry} />;
       } else {
-        component = <SingleEntryPage entry={entry} />;
+        component = <ContentArticle entry={entry} />;
       }
     }
     return component;

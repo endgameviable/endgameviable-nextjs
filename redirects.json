@@ -5896,11 +5896,5 @@
         "target": "/gaming/2020/pathologic-2-credits/",
         "status": "301",
         "condition": null
-    },
-    {
-        "source": "/.well-known/webfinger",
-        "target": "https://endgameviable.social/.well-known/webfinger",
-        "status": "302",
-        "condition": null
     }
 ]

@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import Entry, { renderArticleAsHTML } from '@/data/interfaces/entry';
+import PageContent, { renderArticleAsHTML } from '@/data/interfaces/content';
 import EntryDateTime from './dateTime';
 import { canonicalizePath } from '@/site/utilities';
 
-export default function MicroPostEntryLayout({ entry }: { entry: Entry }) {
+export default function ContentMicropost({ entry }: { entry: PageContent }) {
   const htmlContent = renderArticleAsHTML(entry);
   return (
     <>

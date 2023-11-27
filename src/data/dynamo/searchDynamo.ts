@@ -1,4 +1,4 @@
-import Entry from "../interfaces/entry";
+import PageContent from "../interfaces/content";
 import EntryQueryParams from "../interfaces/queryFilter";
 import { ScanCommand } from "@aws-sdk/client-dynamodb";
 import { dynamoClient, searchContentTableName } from "@config/resourceConfig";
@@ -8,11 +8,11 @@ import { safeStringify } from "@/types/strings";
 import { TextType } from "@/types/contentText";
 import { getContentObject, jsonToEntry } from "../s3/fetchFromS3";
 
-export async function searchEntriesDynamo(params: EntryQueryParams): Promise<Entry[]> {
+export async function searchEntriesDynamo(params: EntryQueryParams): Promise<PageContent[]> {
     console.log(`scanning ${searchContentTableName} for search parameters`);
     let lastKey: any = undefined;
     // const children: Entry[] = [];
-    const promises: Promise<Entry>[] = [];
+    const promises: Promise<PageContent>[] = [];
     do {
         const command = new ScanCommand({
             TableName: searchContentTableName,
@@ -53,7 +53,7 @@ export async function searchEntriesDynamo(params: EntryQueryParams): Promise<Ent
     return [];
 }
 
-async function readEntry(key: string): Promise<Entry> {
+async function readEntry(key: string): Promise<PageContent> {
     const json = await getContentObject(key);
     return jsonToEntry(json);
 }

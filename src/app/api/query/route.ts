@@ -1,4 +1,4 @@
-import Entry from '@/data/interfaces/entry';
+import PageContent from '@/data/interfaces/content';
 import EntryQueryParams from '@/data/interfaces/queryFilter';
 import { PAGE_SIZE } from '@config/siteConfig';
 import { safeStringify } from '@/types/strings';
@@ -23,7 +23,7 @@ export async function GET(request: Request) {
   console.log(filter);
 
   // Query for matching entries
-  const searchResults: Entry[] = await searchEntries(filter);
+  const searchResults: PageContent[] = await searchEntries(filter);
   const elapsed = performance.now() - startTime;
 
   const returnedResults = searchResults.slice(0, PAGE_SIZE);

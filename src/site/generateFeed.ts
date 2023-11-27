@@ -2,14 +2,14 @@ import { Feed } from 'feed';
 import {
   renderArticleAsHTML,
   renderSummaryAsHTML,
-} from '../data/interfaces/entry';
+} from '../data/interfaces/content';
 import { PAGE_SIZE, siteConfig } from '@config/siteConfig';
 import { safeStringify } from '@/types/strings';
-import { generateLatestEntries } from './generateLatestEntries';
+import { getAllLatestPosts } from './getAllLatestPosts';
 import { publicSiteUrl, thisSiteUrl } from './utilities';
 
 export async function generateFeed(): Promise<Feed> {
-  const entries = await generateLatestEntries();
+  const entries = await getAllLatestPosts();
   entries.sort((b, a) => a.timestamp - b.timestamp);
   const feed = new Feed({
     title: siteConfig.siteName,

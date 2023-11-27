@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import Entry, { renderArticleAsHTML, renderSummaryAsHTML } from '@/data/interfaces/entry';
+import PageContent, { renderArticleAsHTML, renderSummaryAsHTML } from '@/data/interfaces/content';
 import EntryDateTime from './dateTime';
 
-export default function SingleEntryList({ entry, summary }: { entry: Entry, summary: boolean }) {
+export default function ContentSummary({ entry, summary }: { entry: PageContent, summary: boolean }) {
   let htmlContent: string;
   let thread: JSX.Element;
   if (summary) {

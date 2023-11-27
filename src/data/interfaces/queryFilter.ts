@@ -1,4 +1,4 @@
-import Entry from './entry';
+import PageContent from './content';
 import { safeTextSearch } from '@/types/strings';
 
 // A standard set of filters for querying entries
@@ -15,7 +15,7 @@ export const MATCH_ALL_ENTRIES: EntryQueryParams = {
 
 // Test to see if an entry passes the filter parameters
 export function entryMatchesFilter(
-  entry: Entry,
+  entry: PageContent,
   filter: EntryQueryParams,
 ): boolean {
   if (entry === null || entry === undefined) return false;
