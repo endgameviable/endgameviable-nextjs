@@ -25,7 +25,7 @@ export default function MastodonThreadLayout({ route }: { route: string }) {
     return <section>
       <p>Looking for fediverse mentions...</p>
       <noscript>
-        <p>...but they'll never be found because Javascript is disabled.</p>
+        <p>...but they&apos;ll never be found because Javascript is disabled.</p>
       </noscript>
     </section>;
   }
