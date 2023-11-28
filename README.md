@@ -1,47 +1,54 @@
-This is a presentation layer application that presents structured, timestamped json content.
+This is the Next.js application that I'm experimenting with as an engine for my Endgame Viable blog site.
 
-It's a blog platform, basically.
+It's a hybrid static/dynamic blog platform, but unlike most static generators, this aims to keep the content completely separate from the source repo.
 
-Content is read from an s3 bucket of json data, which can be generated however you like, but I use a Hugo project that converts Markdown blog posts into json data pages.
+Content is read from an s3 bucket of json data, which can be generated however you like, but I use [a Hugo project](https://github.com/endgameviable/endgameviable-json) that generates json from Markdown posts with front matter.
 
-Content can also come from other sources like YAML files, but that's a process the json generator handles.
+I also want to support content from other sources like YAML files, but that's a process the json generator handles.
 
-These things can all be done with a static site generator (like Hugo), but this project aims to add server-side functionality that's difficult or impossible to do with static sites. Mainly:
+Site generation from Markdown can be done with a static site generator (like Hugo), but this project also aims to add server-side functionality that's difficult or impossible to do with exclusively static sites. Mainly:
 
-- Search.
+- Search. The main thing, really.
+- ActivityPub integration.\*
+- Webmention and icky WordPress Pingback handling.
 - Link redirection.
-- WordPress Pingback handling.
 - Dynamic blogrolls.
-- ActivityPub integration.
-- Maybe comments?? But probably not.
+- Protected pages that might require some form of authentication.
+- Maybe comments?? But probably not. I don't want the headaches of hosting comments. Better to offload that burden to third parties, imo.
 
 Using Next.js hopefully allows us to have the best of all worlds: Static page generation for things that don't change, client-side javascript where we can use it, and dynamic server-side rendering for things that need a server.
+
+\* Someday I'd like the blog server to _be_ an ActiityPub server, but that's too ambitious at present. For now, it just integrates with an ActivityPub account via. Mastodon-style API calls. (Only tested with GoToSocial so far.)
 
 ## Inspiration
 
 I searched for a way to do this _without_ writing something of my own, but everything fell short of my requirements.
 
-Inspiration has been taken from numerous similar Next.js blog projects on github and blog samples in the Next.js docs. Some concepts loosely based on ideas in Blot https://github.com/davidmerfield/Blot.
+Inspiration has been taken from numerous Next.js blog projects on github and blog samples in the Next.js docs. The concept of separating the content is loosely based on ideas in Blot https://github.com/davidmerfield/Blot.
 
-And, of course, since we live in 2023, ChatGPT patiently explained numerous Typescript concepts to me, and who knows where _that_ information came from.
+And, of course, since we live in 2023, ChatGPT patiently explained numerous AWS, Next.js, Node.js, and Typescript concepts to me, and who knows where _that_ information came from.
 
 ## Hosting
 
-I use AWS Amplify to host this.
+I currently use AWS Amplify to host this, and there's some stuff in here that's specific to aws right now.
 
-A line like this is vitally important not to forget in the build spec:
+In order for this to work, a line like this is vitally important not to forget in the build spec:
 
 ```
-- env | grep -e S3_ACCESS_KEY_ID -e S3_SECRET_ACCESS_KEY -e EGV_USER_MASTODON_API_TOKEN >> .env.production
+- env | grep -e S3_ACCESS_KEY_ID -e S3_SECRET_ACCESS_KEY >> .env.production
 ```
 
-Otherwise the access tokens will not be available and the server-side app won't know how to connect to anything at runtime. See https://docs.aws.amazon.com/amplify/latest/userguide/ssr-environment-variables.html
+Essentially it puts selected environment variables from the build environment into the runtime environment. Otherwise the access tokens will not be available to the server-side app and it won't know how to connect to anything at runtime. See https://docs.aws.amazon.com/amplify/latest/userguide/ssr-environment-variables.html
 
-It took a LONG time to figure that out so don't forget it! (See more below.)
+It took a LONG time to figure that out so don't forget it! (More below.)
 
-## AWS Amplify Setup
+### AWS Amplify Setup
 
-Apparently you have to create an Amplify service account manually in the Console. I tried to make a role with AmplifyAdministrator policies as part of the CloudFormation template but it wouldn't let me select it.
+I wanted to setup everything as infrastructure-as-code so you could just press a single button to create and deploy everything needed to run the site, but alas, you can't do that with AWS Amplify. Or at least, it's not documented very well if you can.
+
+So you have to create an AWS Amplify app manually in the console.
+
+Apparently you also have to create an Amplify service account manually in the Console. I tried to get it to use an account made in a CloudFormation template but it wouldn't ever let me select it.
 
 ### Build Settings
 
@@ -52,9 +59,13 @@ Apparently you have to create an Amplify service account manually in the Console
   - Next.js version: latest
   - Node.js version: 18
 
+Amazon Linux:2023 is relatively new build image that is required in order to build a Next.js 13+ App Router application, which requires Node.js 18+, which wasn't supported until the Amazon Linux:2023 image.
+
 ### Environment Variables
 
-As far as I know, these have to be set manually in the AWS Amplify Console.
+As far as I know, these have to be set manually in the AWS Amplify Console. Try as I might, I can't find a way to set these up programmatically.
+
+Well, now that I think about it, I suppose it's possible to insert these into the buildspec, but that would probably be pretty ugly.
 
 - EGV_RUNTIME_ACCESS_KEY_ID
 - EGV_RUNTIME_SECRET_ACCESS_KEY
@@ -69,9 +80,11 @@ As far as I know, these have to be set manually in the AWS Amplify Console.
 - EGV_USER_COMMENTBOX
   - A CommentBox api key. If not specified, no CommentBox is rendered.
 
-### Pushing Changes
+### Pushing Backend Changes
 
-After making a change to the custom CloudFormation template, run `amplify push` to reprovision aws resources.
+Sometimes I have to change the backend configuration of resources (add tables, update the build pipeline, etc.). Those changes are made in the backend custom CloudFormation template `/amplify/backend/custom/endgameviable2024resources/endgameviable2024resources-cloudformation-template.json`. Good luck. It's the yucky json kind of template, not the friendly yaml kind.
+
+After making a change\, run `amplify push` to reprovision aws resources.
 
 
 
@@ -86,19 +99,9 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
 
