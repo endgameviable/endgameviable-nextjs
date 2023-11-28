@@ -1,15 +1,14 @@
-import { SendMessageCommand } from '@aws-sdk/client-sqs';
+import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 import { QueueEvent } from './event';
-import { sqsClient, sqsEventQueueName } from '@config/resourceConfig';
+import { sqsEventQueueName } from '@config/resourceConfig';
 
-export async function sendMessage(payload: QueueEvent): Promise<boolean> {
+export async function sendMessage(sqsClient: SQSClient, payload: QueueEvent): Promise<boolean> {
     const command = new SendMessageCommand({
         QueueUrl: sqsEventQueueName,
         MessageBody: JSON.stringify(payload),
     });
     try {
-        const response = await sqsClient.send(command);
-        console.log(response);
+        await sqsClient.send(command);
         return true;
     } catch (error) {
         // How are we supposed to handle these errors?

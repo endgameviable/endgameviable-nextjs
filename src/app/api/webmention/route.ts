@@ -1,5 +1,6 @@
 import { sendMessage } from '@/data/sqs/send';
 import { safeStringify } from '@/types/strings';
+import { sqsClient } from '@config/resourceConfig';
 import { siteConfig } from '@config/siteConfig';
 import { randomUUID } from 'crypto';
 
@@ -40,7 +41,7 @@ export async function POST(request: Request) {
         return error400('Source cannot equal target');
     }
     // Queue webmention processing
-    const success = await sendMessage({
+    const success = await sendMessage(sqsClient, {
         eventType: 'webmention',
         eventID: randomUUID(), // todo: don't need
         eventDate: new Date().toISOString(),
