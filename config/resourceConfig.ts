@@ -27,7 +27,7 @@ export const mastodonApiToken = safeStringify(process.env.EGV_USER_MASTODON_API_
 // then adds an entry to the table, which is then picked up
 // by the client-side component that renders mentions.
 // export const notificationTableName = 'endgameviable-post-notifications';
-export const notificationTableName = safeStringify(process.env.EGV_RESOURCE_LINK_TABLE);
+export const notificationTableName = safeStringify(process.env.EGV_RESOURCE_STATE_TABLE);
 
 // A DynamoDB table name containing searchable post data.
 // This drives the search api.

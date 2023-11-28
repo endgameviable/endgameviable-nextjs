@@ -59,7 +59,7 @@ As far as I know, these have to be set manually in the AWS Amplify Console.
 - EGV_RUNTIME_ACCESS_KEY_ID
 - EGV_RUNTIME_SECRET_ACCESS_KEY
   - Access token and secret for an account that has access to resources from the server-side runtime. These are required mainly so that the api can access DynamoDB tables. Couldn't find any other way to get credentials to the runtime. Create an IAM user with S3ReadOnly, DynamoReadOnly, and SQS message send permissions, then create access tokens and set them here.
-- EGV_RESOURCE_LINK_TABLE
+- EGV_RESOURCE_STATE_TABLE
 - EGV_RESOURCE_SEARCH_TABLE
 - EGV_RESOURCE_JSON_BUCKET
 - EGV_RESOURCE_EVENT_QUEUE

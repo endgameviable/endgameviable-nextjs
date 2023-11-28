@@ -37,6 +37,27 @@
         "BillingMode": "PAY_PER_REQUEST"
       }
     },
+    "stateTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "pagePath",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "pagePath",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        }
+      }
+    },
     "buildRole": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -172,12 +193,20 @@
                 "dynamodb:Write*",
                 "dynamodb:BatchWrite*"
               ],
-              "Resource": {
-                "Fn::GetAtt": [
-                  "searchTable",
-                  "Arn"
-                ]
-              }
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "searchTable",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::GetAtt": [
+                    "stateTable",
+                    "Arn"
+                  ]
+                }
+              ]
             },
             {
               "Effect": "Allow",
