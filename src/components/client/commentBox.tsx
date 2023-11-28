@@ -7,9 +7,6 @@ import commentBox from 'commentbox.io';
 const appId = process.env.EGV_USER_COMMENTBOX_APPID;
 
 export default function CommentBoxLayout() {
-    if (!appId || appId === '') 
-        return <></>;
-        
     useEffect(() => {
         commentBox(appId);
     }, []);

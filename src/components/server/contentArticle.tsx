@@ -21,6 +21,11 @@ export default function ContentArticle({ entry }: { entry: PageContent }) {
             />
         );
     }
+
+    let commentBoxComponent = <></>;
+    if (process.env.EGV_USER_COMMENTBOX_APPID)
+        commentBoxComponent = <CommentBoxLayout />;
+
     return (
         <>
             <article>
@@ -42,9 +47,7 @@ export default function ContentArticle({ entry }: { entry: PageContent }) {
             <section>
                 <MastodonThreadLayout route={url} />
             </section>
-            <section>
-                <CommentBoxLayout />
-            </section>
+            {commentBoxComponent}
         </>
     );
 }
