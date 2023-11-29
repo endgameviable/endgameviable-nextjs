@@ -1,6 +1,14 @@
+import { Roboto_Mono } from 'next/font/google';
 import type { Metadata } from 'next';
 import './globals.css';
 import { siteConfig } from '@config/siteConfig';
+
+const roboto = Roboto_Mono({
+    variable: '--font-roboto-mono',
+    weight: '400',
+    subsets: ['latin'],
+    display: 'swap',
+});
 
 export const metadata: Metadata = {
     title: siteConfig.siteName,
@@ -13,7 +21,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
+        <html lang="en" className={`${roboto.variable}`}>
             <head>
                 <link
                     rel="me"

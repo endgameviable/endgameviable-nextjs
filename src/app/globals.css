@@ -1,7 +1,7 @@
 @import url('~simpledotcss/simple.min.css');
 
 :root {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-roboto-mono);
 }
 
 h1,
