@@ -15,7 +15,7 @@ async function lookupUrl(url: string): Promise<any> {
     const command = new GetItemCommand({
         TableName: notificationTableName,
         Key: {
-            postUrl: { S: url },
+            url: { S: url },
         },
     });
     return dynamoClient.send(command).then((data) => data.Item);
