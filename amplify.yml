@@ -15,10 +15,8 @@ frontend:
         - node -v
         - 'echo "using bucket: $EGV_RESOURCE_JSON_BUCKET"'
         - 'echo "using table: $EGV_RESOURCE_SEARCH_TABLE"'
-        - "env | grep -e '^EGV_'"
         - "env | grep -e '^EGV_USER_' -e '^EGV_RESOURCE_' >> .env.production"
         - "env | grep -e '^EGV_RUNTIME_' | sed 's/^EGV_RUNTIME_/AWS_/' >> .env.production"
-        - cat .env.production
         - npm run build
   artifacts:
     baseDirectory: .next
