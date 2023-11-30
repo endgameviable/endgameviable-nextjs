@@ -1,4 +1,5 @@
 import { Mention } from '@/data/interfaces/mention';
+import { ensureHttps } from '@/site/utilities';
 import { safeStringify } from '@/types/strings';
 import { GetItemCommand } from '@aws-sdk/client-dynamodb';
 import {
@@ -21,9 +22,11 @@ async function lookupUrl(url: string): Promise<any> {
 }
 
 async function getThread(instance?: string, id?: string): Promise<Mention[]> {
+    if (!instance || !id) return [];
     const mentions: Mention[] = [];
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${mastodonApiToken}`);
+    instance = ensureHttps(instance);
     const apiUrl = `${instance}/api/v1/statuses/${id}/context`;
     console.log(`querying ${apiUrl}`);
     await fetch(apiUrl, { method: 'GET', headers: headers })

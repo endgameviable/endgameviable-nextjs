@@ -11,6 +11,11 @@ export function publicSiteUrl(relUrl: string): string {
     return siteConfig.routeHostName + canonicalizePath(relUrl);
 }
 
+export function ensureHttps(url: string): string {
+    if (url.startsWith('https://')) return url;
+    return 'https://' + url;
+}
+
 export function stripIndexJson(url: string): string {
     if (url && url.endsWith('/index.json')) {
         return url.substring(0, url.length - '/index.json'.length);
