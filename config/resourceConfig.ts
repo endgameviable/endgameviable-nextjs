@@ -6,11 +6,10 @@ import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { SQSClient } from "@aws-sdk/client-sqs";
 import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
 
-// AWS credentials
-// Note: This is a general service account, not just for S3
-// The env var name cannot begin with "AWS_"
-// const awsAccessKeyId = safeStringify(process.env.S3_ACCESS_KEY_ID);
-// const awsSecretAccessKey = safeStringify(process.env.S3_SECRET_ACCESS_KEY);
+// As of now, for this to work in Amplify SSR environment,
+// this requires getting access token and secret from env vars
+// which have to be set at build time.
+// See https://github.com/aws-amplify/amplify-hosting/issues/3205
 
 // Mastodon API credentials
 export const mastodonApiToken = safeStringify(process.env.EGV_USER_MASTODON_API_TOKEN);
