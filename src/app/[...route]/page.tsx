@@ -1,5 +1,5 @@
 import { canonicalizeRoute } from '@/site/utilities';
-import { getContentAtRoute } from '@/site/getContent';
+import { getContentAtRoute } from '@config/resourceConfig';
 import { standardPageComponent } from '@/site/standardPageView';
 
 // This is the main dynamic route page endpoint.

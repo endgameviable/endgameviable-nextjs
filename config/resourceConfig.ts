@@ -5,6 +5,7 @@ import { S3Client } from '@aws-sdk/client-s3';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { SQSClient } from "@aws-sdk/client-sqs";
 import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
+import { getContentAtRouteLocal } from '@/data/local/fetchFromLocal';
 
 // As of now, for this to work in Amplify SSR environment,
 // this requires getting access token and secret from env vars
@@ -66,3 +67,7 @@ export const sqsClient = new SQSClient({
   region: process.env.AWS_REGION,
   credentials: fromNodeProviderChain(),
 });
+
+// Read json data content from local files in /content directory
+// Could also be getContentAtRouteS3
+export const getContentAtRoute = getContentAtRouteLocal;

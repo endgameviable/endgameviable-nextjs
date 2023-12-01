@@ -1,5 +1,5 @@
-import { getContentAtRoute } from '@/site/getContent';
 import { thisSiteUrl } from '@/site/utilities';
+import { getContentAtRoute } from '@config/resourceConfig';
 
 // sitemap.xml
 export default async function Sitemap() {
