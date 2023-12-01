@@ -1,12 +1,12 @@
 This is the Next.js application that I'm experimenting with as an engine for my Endgame Viable blog site.
 
-It's a hybrid static/dynamic blog platform, but unlike most static generators, this aims to keep the content completely separate from the source repo.
+It's a hybrid static/dynamic blog platform, but the goal is to keep the content completely separate from the blog repo.
 
-Content is read from an s3 bucket of json data, which can be generated however you like, but I use [a Hugo project](https://github.com/endgameviable/endgameviable-json) that generates json from Markdown posts with front matter.
+The project, however, expects to find content at build time in a local content directory. The content directory is populated as part of a backend build process using [a Hugo template](https://github.com/endgameviable/endgameviable-json-theme) that renders Markdown content into JSON data files instead of HTML.
 
-I also want to support content from other sources like YAML files, but that's a process the json generator handles.
+I also want to support content from other sources like YAML files, but that's a process that's handled elsewhere. This project renders whatever JSON data it finds in the local content directory.
 
-Site generation from Markdown can be done with a static site generator (like Hugo), but this project also aims to add server-side functionality that's difficult or impossible to do with exclusively static sites. Mainly:
+You might be wondering why a Next.js project when site generation from Markdown files can be easily done with a static site generator (like Hugo). 1) It's a fun experiment. 2) This project also aims to add server-side functionality that's difficult or impossible to do with exclusively static sites. Mainly:
 
 - Search. The main thing, really.
 - ActivityPub integration.\*
@@ -16,7 +16,7 @@ Site generation from Markdown can be done with a static site generator (like Hug
 - Protected pages that might require some form of authentication.
 - Maybe comments?? But probably not. I don't want the headaches of hosting comments. Better to offload that burden to third parties, imo.
 
-Using Next.js hopefully allows us to have the best of all worlds: Static page generation for things that don't change, client-side javascript where we can use it, and dynamic server-side rendering for things that need a server.
+Using Next.js hopefully allows us to have the best of all worlds: Static page generation for things that don't change, client-side javascript where we can use it, and dynamic server-side rendering for things that need a server. And it's a much less painful development experience than trying to develop client-side Javascript for HTML.
 
 \* Someday I'd like the blog server to _be_ an ActiityPub server, but that's too ambitious at present. For now, it just integrates with an ActivityPub account via. Mastodon-style API calls. (Only tested with GoToSocial so far.)
 
@@ -24,23 +24,19 @@ Using Next.js hopefully allows us to have the best of all worlds: Static page ge
 
 I searched for a way to do this _without_ writing something of my own, but everything fell short of my requirements.
 
-Inspiration has been taken from numerous Next.js blog projects on github and blog samples in the Next.js docs. The concept of separating the content is loosely based on ideas in Blot https://github.com/davidmerfield/Blot.
+Inspiration has been taken from numerous Next.js blog projects on github (seriously there are thousands) and blog samples in the Next.js docs. The concept of separating the content is loosely based on ideas in Blot https://github.com/davidmerfield/Blot.
 
 And, of course, since we live in 2023, ChatGPT patiently explained numerous AWS, Next.js, Node.js, and Typescript concepts to me, and who knows where _that_ information came from.
 
 ## Hosting
 
-I currently use AWS Amplify to host this, and there's some stuff in here that's specific to aws right now.
+I currently use AWS Amplify to host the front end, and AWS CloudFormation templates to build the backend infrastructure. I don't _want_ it to be tethered to AWS, but it is right now
 
-In order for this to work, a line like this is vitally important not to forget in the build spec:
+### Backend Setup
 
-```
-- env | grep -e S3_ACCESS_KEY_ID -e S3_SECRET_ACCESS_KEY >> .env.production
-```
+It works best to build the backend stack first. The backend infrastructure is managed in [endgameviable-infrastructure](https://github.com/endgameviable/endgameviable-infrastructure). In short:
 
-Essentially it puts selected environment variables from the build environment into the runtime environment. Otherwise the access tokens will not be available to the server-side app and it won't know how to connect to anything at runtime. See https://docs.aws.amazon.com/amplify/latest/userguide/ssr-environment-variables.html
-
-It took a LONG time to figure that out so don't forget it! (More below.)
+`./createstack.sh` to create a CloudFormation stack of resources required to build content data files for the Next.js build. The Amplify build will read outputs from that stack into environment variables for setup.
 
 ### AWS Amplify Setup
 
@@ -48,7 +44,7 @@ I wanted to setup everything as infrastructure-as-code so you could just press a
 
 So you have to create an AWS Amplify app manually in the console.
 
-Apparently you also have to create an Amplify service account manually in the Console. I tried to get it to use an account made in a CloudFormation template but it wouldn't ever let me select it.
+Set the Amplify service account to the one created in the backend stack. It has permissions to all the right resources.
 
 ### Build Settings
 
@@ -63,29 +59,20 @@ Amazon Linux:2023 is relatively new build image that is required in order to bui
 
 ### Environment Variables
 
-As far as I know, these have to be set manually in the AWS Amplify Console. Try as I might, I can't find a way to set these up programmatically.
-
-Well, now that I think about it, I suppose it's possible to insert these into the buildspec, but that would probably be pretty ugly.
+As far as I know, these have to be set manually in the AWS Amplify Console.
 
 - EGV_RUNTIME_ACCESS_KEY_ID
 - EGV_RUNTIME_SECRET_ACCESS_KEY
-  - Access token and secret for an account that has access to resources from the server-side runtime. These are required mainly so that the api can access DynamoDB tables. Couldn't find any other way to get credentials to the runtime. Create an IAM user with S3ReadOnly, DynamoReadOnly, and SQS message send permissions, then create access tokens and set them here.
-- EGV_RESOURCE_STATE_TABLE
-- EGV_RESOURCE_SEARCH_TABLE
-- EGV_RESOURCE_JSON_BUCKET
-- EGV_RESOURCE_EVENT_QUEUE
-  - Names of resources managed by Amplify and CloudFormation so they have long, weird names. Find them in the AWS Console and paste them in. Wish I didn't have to do this.
+  - Access token and secret for an account that has access to resources from the server-side runtime. These are required mainly so that the api can access DynamoDB tables. Couldn't find any other way to get credentials to the runtime. Create an IAM user with S3ReadOnly, DynamoReadOnly, and SQS message send permissions, then create access tokens and set them here. At some future date I want to update the CloudFormation template to make this user. Then all you'll have to do is export the tokens.
 - EGV_USER_MASTODON_API_TOKEN
   - Get this by querying the Mastodon API of your ActivityPub server instance. (I use GoToSocial, actually, not Mastodon.)
 - EGV_USER_COMMENTBOX
   - A CommentBox api key. If not specified, no CommentBox is rendered.
-
-### Pushing Backend Changes
-
-Sometimes I have to change the backend configuration of resources (add tables, update the build pipeline, etc.). Those changes are made in the backend custom CloudFormation template `/amplify/backend/custom/endgameviable2024resources/endgameviable2024resources-cloudformation-template.json`. Good luck. It's the yucky json kind of template, not the friendly yaml kind.
-
-After making a change\, run `amplify push` to reprovision aws resources.
-
+- EGV_RESOURCE_STATE_TABLE
+- EGV_RESOURCE_SEARCH_TABLE
+- EGV_RESOURCE_JSON_BUCKET
+- EGV_RESOURCE_EVENT_QUEUE
+  - Names of resources managed by Amplify and CloudFormation so they have long, weird names. These no longer need to be set manually. They are read from the CloudFormation outputs and populated during the Amplify frontend build.
 
 
 
