@@ -23,28 +23,41 @@ export async function GET(request: Request) {
     console.log(filter);
 
     // Query for matching entries
-    const searchResults: PageContent[] = await searchEntries(filter);
-    const elapsed = performance.now() - startTime;
+    try {
+        const searchResults: PageContent[] = await searchEntries(filter);
+        const elapsed = performance.now() - startTime;
 
-    const returnedResults = searchResults.slice(0, PAGE_SIZE);
+        const returnedResults = searchResults.slice(0, PAGE_SIZE);
 
-    const summary = new TextType(
-        `Search returned ${searchResults.length} results in ${elapsed.toFixed(
-            2,
-        )}ms. ${
-            searchResults.length - returnedResults.length
-        } results omitted.`,
-    );
-    returnedResults.push({
-        route: '/search',
-        timestamp: Date.now(),
-        title: 'Search Statistics',
-        summary: summary,
-        article: summary,
-    });
+        const summary = new TextType(
+            `Search returned ${searchResults.length} results in ${elapsed.toFixed(
+                2,
+            )}ms. ${
+                searchResults.length - returnedResults.length
+            } results omitted.`,
+        );
+        returnedResults.push({
+            route: '/search',
+            timestamp: Date.now(),
+            title: 'Search Statistics',
+            summary: summary,
+            article: summary,
+        });
 
-    console.log(
-        `returning ${searchResults.length} entries queried in ${elapsed}ms`,
-    );
-    return Response.json(returnedResults);
+        console.log(
+            `returning ${searchResults.length} entries queried in ${elapsed}ms`,
+        );
+        return Response.json(returnedResults);
+    } catch (error) {
+        // TODO: Remove this obviously
+        // It's just that I can't find any server-side runtime logs
+        // to debug problems in Amplify
+        return Response.json([{
+            route: '/search',
+            timestamp: Date.now(),
+            title: 'Server-Side Search Error',
+            summary: error,
+            article: error,
+        }])
+    }
 }
