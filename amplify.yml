@@ -11,9 +11,9 @@ frontend:
         - export EGV_RESOURCE_SEARCH_TABLE=$(aws cloudformation describe-stacks --stack-name endgameviable2024-resources --output text | grep SearchTable | awk '{print $NF}')
         - export EGV_RESOURCE_STATE_TABLE=$(aws cloudformation describe-stacks --stack-name endgameviable2024-resources --output text | grep StateTable | awk '{print $NF}')
         - mkdir -p content
-        - aws s3 cp s3://${EGV_RESOURCE_JSON_BUCKET}/_allcontent.zip .
-        - unzip _allcontent.zip content
-        - rm _allcontent.zip
+        - aws s3 cp s3://${EGV_RESOURCE_JSON_BUCKET}/_alldata.zip .
+        - unzip _alldata.zip content
+        - rm _alldata.zip
     build:
       commands:
         - node -v
