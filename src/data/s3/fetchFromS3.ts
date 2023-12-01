@@ -7,7 +7,7 @@ import { canonicalizePath } from '@/site/utilities';
 import { safeParseDateMillis } from '@/types/dates';
 import { TextType } from '@/types/contentText';
 
-interface HugoJsonPage {
+export interface HugoJsonPage {
     date?: string; // format: ISO 8601 yyyy-mm-ddThh:mm:ss-zzzz
     title?: string;
     summary?: string;
