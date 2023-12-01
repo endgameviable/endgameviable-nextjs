@@ -4,6 +4,7 @@ import { useState } from 'react';
 import FilterForm from '@/components/apiForm';
 import ContentList from '@/components/server/contentList';
 
+// Rudimentary search page
 export default function Page() {
     const [filteredData, setFilteredData] = useState<any[]>([]);
 

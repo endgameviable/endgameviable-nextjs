@@ -20,6 +20,7 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
+    // TODO: rel links should be in config/
     return (
         <html lang="en" className={`${roboto.variable}`}>
             <head>

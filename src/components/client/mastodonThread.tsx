@@ -4,6 +4,7 @@ import { Mention } from '@/data/interfaces/mention';
 import { publicSiteUrl } from '@/site/utilities';
 import { useState, useEffect } from 'react';
 
+// Client-side component to query the api for ActivityPub mentions
 export default function MastodonThreadLayout({ route }: { route: string }) {
     const url = publicSiteUrl(route);
     const initial: Mention[] = [];

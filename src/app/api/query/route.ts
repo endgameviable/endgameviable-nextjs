@@ -5,11 +5,7 @@ import { safeStringify } from '@/types/strings';
 import { TextType } from '@/types/contentText';
 import { searchEntries } from '@/site/search';
 
-// TODO: Search isn't functional yet.
-// Originally this scanned all the content,
-// but it seems less feasible to scan a whole S3 bucket.
-// I have tentative plans to try an AWS ElasticSearch.
-
+// Search API route
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const textFilter = safeStringify(searchParams.get('text'));

@@ -9,7 +9,7 @@ import {
 } from '@config/resourceConfig';
 
 // TODO: Someday might need to turn this into a paged interface.
-// If e.g. there are hundreds or thousands of mentions.
+// If e.g. there are hundreds or thousands of mentions (har).
 
 async function lookupUrl(url: string): Promise<any> {
     const command = new GetItemCommand({
@@ -55,15 +55,16 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const url = safeStringify(searchParams.get('url'));
 
-    // Lookup url in endgameviable-post-notifications
+    // Lookup url in the metadata linking table.
+    // The table holds links from urls to metadata.
     let mentions: Mention[] = [];
     const item = await lookupUrl(url);
     if (item) {
         const instanceName = item.activityPubInstance.S;
         const statusId = item.activityPubStatusID.S;
         if (instanceName && statusId) {
-            // Call mastodon api on the status ID found there
-            // Return list of context status results
+            // If we have a link to an ActivityPub status ID,
+            // call Mastodon api to fetch related statuses.
             mentions = await getThread(instanceName, statusId);
         }
     }

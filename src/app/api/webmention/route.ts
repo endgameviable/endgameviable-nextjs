@@ -4,6 +4,7 @@ import { sqsClient } from '@config/resourceConfig';
 import { siteConfig } from '@config/siteConfig';
 import { randomUUID } from 'crypto';
 
+// Creates a 400 error page response with a message
 function error400(message: string): Response {
     console.log(message);
     return new Response(message, {
@@ -11,6 +12,7 @@ function error400(message: string): Response {
     });
 }
 
+// Incoming webmention endpoint
 export async function POST(request: Request) {
     let data: FormData;
     // Very basic validations
@@ -40,7 +42,7 @@ export async function POST(request: Request) {
     if (source === target) {
         return error400('Source cannot equal target');
     }
-    // Queue webmention processing
+    // Send a message to an event queue for actual processing
     const success = await sendMessage(sqsClient, {
         eventType: 'webmention',
         eventID: randomUUID(), // todo: don't need
@@ -56,5 +58,5 @@ export async function POST(request: Request) {
             status: 202,
         });
     }
-    return Response.error();
+    return error400('Unable to queue webmention for processing');
 }
