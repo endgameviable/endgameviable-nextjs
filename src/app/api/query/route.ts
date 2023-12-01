@@ -49,15 +49,12 @@ export async function GET(request: Request) {
         );
         return Response.json(returnedResults);
     } catch (error) {
-        // TODO: Remove this obviously
-        // It's just that I can't find any server-side runtime logs
-        // to debug problems in Amplify
         return Response.json([{
             route: '/search',
             timestamp: Date.now(),
             title: 'Server-Side Search Error',
-            summary: error,
-            article: error,
+            summary: new TextType('An error occurred at runtime while trying to access search resources'),
+            article: new TextType('An error occurred at runtime while trying to access search resources'),
         }])
     }
 }
