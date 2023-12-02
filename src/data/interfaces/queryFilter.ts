@@ -3,9 +3,9 @@ import { safeTextSearch } from '@/types/strings';
 
 // A standard set of filters for querying entries
 export default interface EntryQueryParams {
-  routeStartsWith: string;
-  contains: string;
-};
+    routeStartsWith: string;
+    contains: string;
+}
 
 // A constant to match all entries
 export const MATCH_ALL_ENTRIES: EntryQueryParams = {
@@ -26,8 +26,8 @@ export function entryMatchesFilter(
     if (filter.contains !== '') {
         if (
             !safeTextSearch(entry.title, filter.contains) &&
-      !safeTextSearch(entry.summary, filter.contains) &&
-      !safeTextSearch(entry.article, filter.contains)
+            !safeTextSearch(entry.summary, filter.contains) &&
+            !safeTextSearch(entry.article, filter.contains)
         )
             return false;
     }

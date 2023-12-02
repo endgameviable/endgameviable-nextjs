@@ -26,9 +26,9 @@ export async function GET(request: Request) {
         const returnedResults = searchResults.slice(0, PAGE_SIZE);
 
         const summary = new TextType(
-            `Search returned ${searchResults.length} results in ${elapsed.toFixed(
-                2,
-            )}ms. ${
+            `Search returned ${
+                searchResults.length
+            } results in ${elapsed.toFixed(2)}ms. ${
                 searchResults.length - returnedResults.length
             } results omitted.`,
         );
@@ -45,12 +45,18 @@ export async function GET(request: Request) {
         );
         return Response.json(returnedResults);
     } catch (error) {
-        return Response.json([{
-            route: '/search',
-            timestamp: Date.now(),
-            title: 'Server-Side Search Error',
-            summary: new TextType('An error occurred at runtime while trying to access search resources'),
-            article: new TextType('An error occurred at runtime while trying to access search resources'),
-        }])
+        return Response.json([
+            {
+                route: '/search',
+                timestamp: Date.now(),
+                title: 'Server-Side Search Error',
+                summary: new TextType(
+                    'An error occurred at runtime while trying to access search resources',
+                ),
+                article: new TextType(
+                    'An error occurred at runtime while trying to access search resources',
+                ),
+            },
+        ]);
     }
 }

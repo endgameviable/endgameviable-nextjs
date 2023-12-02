@@ -2,7 +2,10 @@ import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 import { QueueEvent } from './event';
 import { sqsEventQueueName } from '@config/resourceConfig';
 
-export async function sendMessage(sqsClient: SQSClient, payload: QueueEvent): Promise<boolean> {
+export async function sendMessage(
+    sqsClient: SQSClient,
+    payload: QueueEvent,
+): Promise<boolean> {
     const command = new SendMessageCommand({
         QueueUrl: sqsEventQueueName,
         MessageBody: JSON.stringify(payload),
