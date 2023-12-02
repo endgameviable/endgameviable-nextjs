@@ -21,13 +21,13 @@ export enum ENV {
 }
 
 const definedVariables: EnvVars = {
+    [ENV.COMMENTBOX_APPID]: {
+        name: 'NEXT_PUBLIC_COMMENTBOX_APPID', 
+        defaultValue: "",
+    },
     [ENV.MASTODON_TOKEN]: { 
         name: 'EGV_USER_MASTODON_API_TOKEN', 
         defaultValue: undefined,
-    },
-    [ENV.COMMENTBOX_APPID]: {
-        name: 'EGV_USER_COMMENTBOX_APPID', 
-        defaultValue: "",
     },
     [ENV.METADATA_TABLE]: {
         name: 'EGV_RESOURCE_STATE_TABLE',
@@ -49,6 +49,8 @@ const definedVariables: EnvVars = {
 
 // Get environment variables in a safer way.
 // Throws an error if a variable doesn't exist and there's no default.
+// Do not call this from client-side components.
+// Use process.env.NEXT_PUBLIC_* instead.
 export function getEnv(name: ENV): string {
     const config = definedVariables[name];
     const value = process.env[config.name];
