@@ -35,7 +35,7 @@ export async function searchEntriesLocal(
             })
         );
         // Primitive concurrency limiting.
-        if (promises.length > 250) {
+        if (promises.length > 100) {
             await Promise.all(promises);
             while (promises.length > 0) promises.pop();
         }
