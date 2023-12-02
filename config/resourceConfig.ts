@@ -67,7 +67,3 @@ export const sqsClient = new SQSClient({
   region: process.env.AWS_REGION,
   credentials: fromNodeProviderChain(),
 });
-
-// Read json data content from local files in /content directory
-// Could also be getContentAtRouteS3
-export const getContentAtRoute = getContentAtRouteLocal;
