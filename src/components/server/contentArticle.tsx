@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Image from 'next/image';
 import PageContent, { renderArticleAsHTML } from '@/data/interfaces/content';
 import EntryDateTime from './dateTime';
@@ -32,9 +31,9 @@ export default function ContentArticle({ entry }: { entry: PageContent }) {
             <article>
                 <header>
                     <h1>
-                        <Link href={entry.route.replace(/\/index\.json$/, '')}>
+                        <a href={entry.route.replace(/\/index\.json$/, '')}>
                             {entry.title}
-                        </Link>
+                        </a>
                     </h1>
                     <p>
                         <EntryDateTime timestamp={entry.timestamp} />

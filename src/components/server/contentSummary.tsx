@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import PageContent, {
     renderArticleAsHTML,
     renderSummaryAsHTML,
@@ -23,9 +22,9 @@ export default function ContentSummary({
             <article>
                 <header>
                     <h2>
-                        <Link href={entry.route.replace(/\/index\.json$/, '')}>
+                        <a href={entry.route.replace(/\/index\.json$/, '')}>
                             {entry.title}
-                        </Link>
+                        </a>
                     </h2>
                     <p>
                         <EntryDateTime timestamp={entry.timestamp} />

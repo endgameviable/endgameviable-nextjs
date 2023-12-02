@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import PageContent, { renderArticleAsHTML } from '@/data/interfaces/content';
 import EntryDateTime from './dateTime';
 import { canonicalizePath } from '@/site/utilities';
@@ -10,9 +9,9 @@ export default function ContentMicropost({ entry }: { entry: PageContent }) {
             <article>
                 <header>
                     <p>
-                        <Link href={canonicalizePath(entry.route)}>
+                        <a href={canonicalizePath(entry.route)}>
                             <EntryDateTime timestamp={entry.timestamp} />
-                        </Link>
+                        </a>
                     </p>
                 </header>
                 <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
