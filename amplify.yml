@@ -16,7 +16,6 @@ frontend:
     build:
       commands:
         - node -v
-        - ls
         - 'echo "using bucket: $EGV_RESOURCE_JSON_BUCKET"'
         - 'echo "using table: $EGV_RESOURCE_SEARCH_TABLE"'
         - "env | grep -e '^EGV_USER_' -e '^EGV_RESOURCE_' >> .env.production"
