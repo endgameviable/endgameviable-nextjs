@@ -45,6 +45,7 @@ export async function GET(request: Request) {
         );
         return Response.json(returnedResults);
     } catch (error) {
+        console.log(error);
         return Response.json([
             {
                 route: '/search',
