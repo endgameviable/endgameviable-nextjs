@@ -23,7 +23,7 @@
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.0",
     "micromark": "^4.0.0",
-    "next": "14.0.1",
+    "next": "^14.0.3",
     "react": "^18",
     "react-dom": "^18"
   },

@@ -3,12 +3,14 @@ import { promises as fs } from 'fs';
 import PageContent from '../interfaces/content';
 import EntryQueryParams from '../interfaces/queryFilter';
 import { HugoJsonPage, jsonToEntry } from '../s3/fetchFromS3';
+import { getFileConcurrency } from '@config/resourceConfig';
 
 export async function searchEntriesLocal(
     params: EntryQueryParams,
 ): Promise<PageContent[]> {
     console.log(`local search starting`);
 
+    const concurrency = getFileConcurrency();
     const files = await walkDirectory(
         path.join(process.cwd(), 'content'), 
         '', 
@@ -35,7 +37,7 @@ export async function searchEntriesLocal(
             })
         );
         // Primitive concurrency limiting.
-        if (promises.length > 100) {
+        if (promises.length > concurrency) {
             await Promise.all(promises);
             while (promises.length > 0) promises.pop();
         }

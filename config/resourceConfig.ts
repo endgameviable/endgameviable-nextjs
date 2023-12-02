@@ -5,7 +5,7 @@ import { S3Client } from '@aws-sdk/client-s3';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { SQSClient } from "@aws-sdk/client-sqs";
 import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
-import { getContentAtRouteLocal } from '@/data/local/fetchFromLocal';
+import { getEnv, ENV } from './env';
 
 // As of now, for this to work in Amplify SSR environment,
 // this requires getting access token and secret from env vars
@@ -13,11 +13,9 @@ import { getContentAtRouteLocal } from '@/data/local/fetchFromLocal';
 // See https://github.com/aws-amplify/amplify-hosting/issues/3205
 
 // Mastodon API credentials
-export const mastodonApiToken = safeStringify(process.env.EGV_USER_MASTODON_API_TOKEN);
+export const mastodonApiToken = getEnv(ENV.MASTODON_TOKEN);
 
-// TODO: Need to get these resource names from env vars.
-// So we support CloudFormation resource management.
-// (CloudFormation creates semi-random names for resources).
+export const commentBoxAppID = getEnv(ENV.COMMENTBOX_APPID);
 
 // DynamoDB table which maps post urls to e.g. activityPub status IDs
 // This lets us link posts to notifications so that we can track
@@ -27,18 +25,18 @@ export const mastodonApiToken = safeStringify(process.env.EGV_USER_MASTODON_API_
 // then adds an entry to the table, which is then picked up
 // by the client-side component that renders mentions.
 // TODO: rename to 'metadata' table
-export const notificationTableName = safeStringify(process.env.EGV_RESOURCE_STATE_TABLE);
+export const notificationTableName = getEnv(ENV.METADATA_TABLE);
 
 // A DynamoDB table name containing searchable post data.
 // This drives the search api.
-export const searchContentTableName = safeStringify(process.env.EGV_RESOURCE_SEARCH_TABLE);
+export const searchContentTableName = getEnv(ENV.SEARCH_TABLE);
 
 // An S3 bucket which contains json content data.
 // Essentially it's a static version of a web site,
 // except every page is json instead of html.
 // This content is built with the Hugo project endgameviable-json.
 // Every checkin of new content triggers a rebuild of the s3 bucket.
-export const contentBucketName = safeStringify(process.env.EGV_RESOURCE_JSON_BUCKET);
+export const contentBucketName = getEnv(ENV.JSON_BUCKET);
 
 // An SQS queue endpoint where site events are sent
 // for processing. e.g. webmentions.
@@ -67,3 +65,7 @@ export const sqsClient = new SQSClient({
   region: process.env.AWS_REGION,
   credentials: fromNodeProviderChain(),
 });
+
+export function getFileConcurrency(): number {
+  return Number.parseFloat(getEnv(ENV.CONCURRENCY));
+}

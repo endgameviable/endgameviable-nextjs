@@ -6,6 +6,7 @@ import MastodonThreadLayout from '../client/mastodonThread';
 import { canonicalizePath } from '@/site/utilities';
 import { safeStringify } from '@/types/strings';
 import CommentBoxLayout from '../client/commentBox';
+import { commentBoxAppID } from '@config/resourceConfig';
 
 export default function ContentArticle({ entry }: { entry: PageContent }) {
     const htmlContent = renderArticleAsHTML(entry);
@@ -23,7 +24,7 @@ export default function ContentArticle({ entry }: { entry: PageContent }) {
     }
 
     let commentBoxComponent = <></>;
-    if (process.env.EGV_USER_COMMENTBOX_APPID)
+    if (commentBoxAppID !== "")
         commentBoxComponent = <CommentBoxLayout />;
 
     return (

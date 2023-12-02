@@ -2,13 +2,11 @@
 
 import { useEffect } from 'react';
 import commentBox from 'commentbox.io';
-
-// Hopefully detected at build time
-const appId = process.env.EGV_USER_COMMENTBOX_APPID;
+import { commentBoxAppID } from '@config/resourceConfig';
 
 export default function CommentBoxLayout() {
     useEffect(() => {
-        commentBox(appId);
+        commentBox(commentBoxAppID);
     }, []);
     return (
         <>
