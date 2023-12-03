@@ -13,7 +13,7 @@ export async function getContentAtRouteS3(
 ): Promise<PageContent> {
     const key = path.join(route.join('/'), 'index.json');
     try {
-        const data = await getContentObject(key);
+        const data: HugoJsonPage = await getContentObject(key);
         if (data.children && data.children.length > 0) {
             // List page
             const children = hugoToPageList(data.children);
@@ -34,7 +34,7 @@ export async function getContentAtRouteS3(
     }
 }
 
-export async function getContentObject(key: string): Promise<HugoJsonPage> {
+export async function getContentObject(key: string): Promise<any> {
     const contentBucketName = getEnv(ENV.JSON_BUCKET);
     const command = new GetObjectCommand({
         Bucket: contentBucketName,
