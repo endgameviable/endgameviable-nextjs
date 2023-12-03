@@ -1,9 +1,10 @@
-import PageContent from '../interfaces/content';
+import { PageContent } from '../interfaces/content';
 import EntryQueryParams from '../interfaces/queryFilter';
 import { ScanCommand } from '@aws-sdk/client-dynamodb';
 import { dynamoClient, searchContentTableName } from '@config/resourceConfig';
 import { getS } from './fetchFromDynamo';
-import { getContentObject, jsonToEntry } from '../s3/fetchFromS3';
+import { getContentObject } from '../s3/fetchFromS3';
+import { hugoToPage } from '@/types/page';
 
 export async function searchEntriesDynamo(
     params: EntryQueryParams,
@@ -29,16 +30,6 @@ export async function searchEntriesDynamo(
                     promises.push(readEntry(key));
                 }
             }
-            // const entries: Entry[] = response.Items.map((item) => ({
-            //     type: 'page',
-            //     timestamp: safeParseDateMillis(getS(item.pageDate)),
-            //     route: safeStringify(getS(item.pagePath)),
-            //     summary: new TextType(getS(item.pageSummary), 'text/plain'),
-            //     article: new TextType(getS(item.pageContentHtml), 'text/html'),
-            //     title: getS(item.pageTitle),
-            //     image: getS(item.pageImage),
-            // }));
-            // children.push(...entries);
         }
         lastKey = response.LastEvaluatedKey;
     } while (lastKey);
@@ -54,5 +45,5 @@ export async function searchEntriesDynamo(
 
 async function readEntry(key: string): Promise<PageContent> {
     const json = await getContentObject(key);
-    return jsonToEntry(json);
+    return hugoToPage(json);
 }

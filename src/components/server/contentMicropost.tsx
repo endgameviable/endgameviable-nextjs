@@ -1,4 +1,4 @@
-import PageContent, { renderArticleAsHTML } from '@/data/interfaces/content';
+import { PageContent, renderArticleAsHTML } from '@/data/interfaces/content';
 import EntryDateTime from './dateTime';
 import { canonicalizePath } from '@/site/utilities';
 

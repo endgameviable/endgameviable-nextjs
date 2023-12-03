@@ -1,10 +1,10 @@
 import { JSX } from 'react';
-import PageContent from '@/data/interfaces/content';
+import { PageContent } from '@/data/interfaces/content';
+import { safeStringify } from '@/types/strings';
+import { getContentAtRoute } from '@/site/getContent';
 import ContentList from '@/components/server/contentList';
 import ContentArticle from '@/components/server/contentArticle';
 import ContentMicropost from '@/components/server/contentMicropost';
-import { safeStringify } from '@/types/strings';
-import { getContentAtRoute } from '@/site/getContent';
 
 // Detect which view component to use to render
 // the given json page data.

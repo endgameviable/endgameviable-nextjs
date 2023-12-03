@@ -6,7 +6,7 @@ export type PageContentType = 'post' | 'micropost' | undefined;
 // Presumably one of a list of entries,
 // which can be sorted by date.
 // TODO: add basic string metadata key/value pairs
-export default interface PageContent {
+export interface PageContent {
     type?: PageContentType;
     timestamp: number; // UTC milliseconds from unix epoch
     route: string; // route to the content entry, essentially a unique identifier

@@ -1,4 +1,4 @@
-import PageContent from '@/data/interfaces/content';
+import { PageContent } from '@/data/interfaces/content';
 import { getContentAtRouteLocal } from '@/data/local/fetchFromLocal';
 //import { getContentAtRouteS3 } from '@/data/s3/fetchFromS3';
 

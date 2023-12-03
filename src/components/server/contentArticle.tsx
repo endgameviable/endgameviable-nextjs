@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import PageContent, { renderArticleAsHTML } from '@/data/interfaces/content';
-import EntryDateTime from './dateTime';
-import MastodonThreadLayout from '../client/mastodonThread';
+import { PageContent, renderArticleAsHTML } from '@/data/interfaces/content';
 import { canonicalizePath } from '@/site/utilities';
 import { safeStringify } from '@/types/strings';
-import CommentBoxLayout from '../client/commentBox';
 import { commentBoxAppID } from '@config/resourceConfig';
+import EntryDateTime from './dateTime';
+import MastodonThreadLayout from '../client/mastodonThread';
+import CommentBoxLayout from '../client/commentBox';
 
 export default function ContentArticle({ entry }: { entry: PageContent }) {
     const htmlContent = renderArticleAsHTML(entry);

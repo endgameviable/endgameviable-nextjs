@@ -1,4 +1,4 @@
-import PageContent from '@/data/interfaces/content';
+import { PageContent } from '@/data/interfaces/content';
 import ContentSummary from './contentSummary';
 import ContentMicropost from './contentMicropost';
 

@@ -1,9 +1,10 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import PageContent from '../interfaces/content';
+import { PageContent } from '../interfaces/content';
 import EntryQueryParams from '../interfaces/queryFilter';
-import { HugoJsonPage, jsonToEntry } from '../s3/fetchFromS3';
 import { getFileConcurrency } from '@config/resourceConfig';
+import { hugoToPage } from '@/types/page';
+import { HugoJsonPage } from '../interfaces/hugo';
 
 export async function searchEntriesLocal(
     params: EntryQueryParams,
@@ -32,7 +33,7 @@ export async function searchEntriesLocal(
                     data.summary?.toLowerCase(),
                 ].join(' ');
                 if (searchable.includes(params.contains.toLowerCase())) {
-                    matches.push(jsonToEntry(data));
+                    matches.push(hugoToPage(data));
                 }
             })
         );

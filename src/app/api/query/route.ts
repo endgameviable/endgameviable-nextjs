@@ -1,4 +1,4 @@
-import PageContent from '@/data/interfaces/content';
+import { PageContent } from '@/data/interfaces/content';
 import EntryQueryParams from '@/data/interfaces/queryFilter';
 import { PAGE_SIZE } from '@config/siteConfig';
 import { safeStringify } from '@/types/strings';

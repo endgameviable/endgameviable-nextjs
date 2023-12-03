@@ -1,4 +1,4 @@
-import PageContent from '@/data/interfaces/content';
+import { PageContent } from '@/data/interfaces/content';
 import EntryQueryParams from '@/data/interfaces/queryFilter';
 import { searchEntriesDynamo } from '@/data/dynamo/searchDynamo';
 //import { searchEntriesLocal } from '@/data/local/searchLocal';

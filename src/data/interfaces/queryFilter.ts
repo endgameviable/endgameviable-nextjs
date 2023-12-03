@@ -1,4 +1,4 @@
-import PageContent from './content';
+import { PageContent } from './content';
 import { safeTextSearch } from '@/types/strings';
 
 // A standard set of filters for querying entries

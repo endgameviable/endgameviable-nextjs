@@ -1,7 +1,8 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import PageContent from '@/data/interfaces/content';
-import { HugoJsonPage, jsonToEntries, jsonToEntry } from '../s3/fetchFromS3';
+import { PageContent } from '@/data/interfaces/content';
+import { HugoJsonPage } from '../interfaces/hugo';
+import { hugoToPage, hugoToPageList } from '@/types/page';
 
 // TODO: Ever heard of classes? OOP? Yeah, do that.
 // Make a provider class and implementations for S3, Dynamo, and local.
@@ -20,10 +21,10 @@ export const getContentAtRouteLocal = async (
     const data: HugoJsonPage = JSON.parse(body);
     if (data.children && data.children.length > 0) {
         // List page
-        const children = jsonToEntries(data.children);
-        return jsonToEntry(data, children);
+        const children = hugoToPageList(data.children);
+        return hugoToPage(data, children);
     } else {
         // Single page
-        return jsonToEntry(data, []);
+        return hugoToPage(data, []);
     }
 };
