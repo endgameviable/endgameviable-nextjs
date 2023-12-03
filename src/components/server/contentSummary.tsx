@@ -1,4 +1,5 @@
-import { PageContent,
+import {
+    PageContent,
     renderArticleAsHTML,
     renderSummaryAsHTML,
 } from '@/data/interfaces/content';

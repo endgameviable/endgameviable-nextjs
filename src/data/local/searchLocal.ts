@@ -13,9 +13,10 @@ export async function searchEntriesLocal(
 
     const concurrency = getFileConcurrency();
     const files = await walkDirectory(
-        path.join(process.cwd(), 'content'), 
-        '', 
-        '.json');
+        path.join(process.cwd(), 'content'),
+        '',
+        '.json',
+    );
     console.log(`local search found ${files.length} files`);
 
     // There's a limit to the number of files we can open
@@ -35,7 +36,7 @@ export async function searchEntriesLocal(
                 if (searchable.includes(params.contains.toLowerCase())) {
                     matches.push(hugoToPage(data));
                 }
-            })
+            }),
         );
         // Primitive concurrency limiting.
         if (promises.length > concurrency) {
@@ -65,27 +66,26 @@ async function walkDirectory(
     dirRoot: string,
     dirPath: string,
     fileExt: string,
-  ): Promise<string[]> {
+): Promise<string[]> {
     const dirs: string[] = [];
     const files: string[] = [];
-  
+
     async function traverse(dirRoot: string, currentDir: string) {
-      dirs.push(currentDir);
-      const items = await fs.readdir(path.join(dirRoot, currentDir));
-  
-      for (const item of items) {
-        const itemPath = path.join(currentDir, item);
-        const itemStats = await fs.stat(path.join(dirRoot, itemPath));
-  
-        if (itemStats.isDirectory()) {
-          await traverse(dirRoot, itemPath);
-        } else if (itemStats.isFile() && item.endsWith(fileExt)) {
-          files.push(path.join(dirRoot, currentDir, item));
+        dirs.push(currentDir);
+        const items = await fs.readdir(path.join(dirRoot, currentDir));
+
+        for (const item of items) {
+            const itemPath = path.join(currentDir, item);
+            const itemStats = await fs.stat(path.join(dirRoot, itemPath));
+
+            if (itemStats.isDirectory()) {
+                await traverse(dirRoot, itemPath);
+            } else if (itemStats.isFile() && item.endsWith(fileExt)) {
+                files.push(path.join(dirRoot, currentDir, item));
+            }
         }
-      }
     }
-  
+
     await traverse(dirRoot, dirPath);
     return files;
-  }
-  
+}

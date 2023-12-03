@@ -23,8 +23,7 @@ export default function ContentArticle({ entry }: { entry: PageContent }) {
     }
 
     let commentBoxComponent = <></>;
-    if (commentBoxAppID !== "")
-        commentBoxComponent = <CommentBoxLayout />;
+    if (commentBoxAppID !== '') commentBoxComponent = <CommentBoxLayout />;
 
     return (
         <>
