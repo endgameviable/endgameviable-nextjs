@@ -1,6 +1,6 @@
 import { sendMessage } from '@/data/sqs/send';
 import { safeStringify } from '@/types/strings';
-import { sqsClient } from '@config/resourceConfig';
+import { sqsClient } from '@config/awsSQSClient';
 import { siteConfig } from '@config/siteConfig';
 import { randomUUID } from 'crypto';
 

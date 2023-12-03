@@ -17,6 +17,7 @@ export enum ENV {
     METADATA_TABLE,
     SEARCH_TABLE,
     JSON_BUCKET,
+    EVENT_QUEUE,
     CONCURRENCY,
 }
 
@@ -39,6 +40,10 @@ const definedVariables: EnvVars = {
     },
     [ENV.JSON_BUCKET]: {
         name: 'EGV_RESOURCE_JSON_BUCKET',
+        defaultValue: undefined,
+    },
+    [ENV.EVENT_QUEUE]: {
+        name: 'EGV_RESOURCE_EVENT_QUEUE',
         defaultValue: undefined,
     },
     [ENV.CONCURRENCY]: {

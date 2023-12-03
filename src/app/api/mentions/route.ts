@@ -2,16 +2,14 @@ import { Mention } from '@/data/interfaces/mention';
 import { ensureHttps } from '@/site/utilities';
 import { safeStringify } from '@/types/strings';
 import { GetItemCommand } from '@aws-sdk/client-dynamodb';
-import {
-    dynamoClient,
-    notificationTableName,
-    mastodonApiToken,
-} from '@config/resourceConfig';
+import { dynamoClient } from '@config/awsDynamoClient';
+import { ENV, getEnv } from '@config/env';
 
 // TODO: Someday might need to turn this into a paged interface.
 // If e.g. there are hundreds or thousands of mentions (har).
 
 async function lookupUrl(url: string): Promise<any> {
+    const notificationTableName = getEnv(ENV.METADATA_TABLE);
     const command = new GetItemCommand({
         TableName: notificationTableName,
         Key: {
@@ -23,6 +21,7 @@ async function lookupUrl(url: string): Promise<any> {
 
 async function getThread(instance?: string, id?: string): Promise<Mention[]> {
     if (!instance || !id) return [];
+    const mastodonApiToken = getEnv(ENV.MASTODON_TOKEN);
     const mentions: Mention[] = [];
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${mastodonApiToken}`);

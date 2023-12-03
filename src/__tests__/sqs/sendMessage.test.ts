@@ -3,7 +3,7 @@ import 'aws-sdk-client-mock-jest';
 import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 import { QueueEvent } from '@/data/sqs/event';
 import { sendMessage } from '@/data/sqs/send';
-import { sqsEventQueueName } from '@config/resourceConfig';
+import { ENV, getEnv } from '@config/env';
 
 const sqsMock = mockClient(SQSClient);
 
@@ -19,6 +19,9 @@ it('mocks sendMessage', async () => {
             target: 'target',
         },
     };
+
+    process.env.EGV_RESOURCE_EVENT_QUEUE = "anyName";
+    const sqsEventQueueName = getEnv(ENV.EVENT_QUEUE);
 
     const client = new SQSClient({});
     const result = await sendMessage(client, message);

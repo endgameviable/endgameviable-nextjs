@@ -1,11 +1,12 @@
 import path from 'path';
 import { PageContent } from '../interfaces/content';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
-import { s3Client, contentBucketName } from '@config/resourceConfig';
 import { canonicalizePath } from '@/site/utilities';
 import { TextType } from '@/types/contentText';
 import { HugoJsonPage } from '../interfaces/hugo';
 import { hugoToPage, hugoToPageList } from '@/types/page';
+import { s3Client } from '@config/awsS3Client';
+import { ENV, getEnv } from '@config/env';
 
 export async function getContentAtRouteS3(
     route: string[],
@@ -34,6 +35,7 @@ export async function getContentAtRouteS3(
 }
 
 export async function getContentObject(key: string): Promise<HugoJsonPage> {
+    const contentBucketName = getEnv(ENV.JSON_BUCKET);
     const command = new GetObjectCommand({
         Bucket: contentBucketName,
         Key: key,

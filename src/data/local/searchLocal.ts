@@ -2,7 +2,7 @@ import path from 'path';
 import { promises as fs } from 'fs';
 import { PageContent } from '../interfaces/content';
 import EntryQueryParams from '../interfaces/queryFilter';
-import { getFileConcurrency } from '@config/resourceConfig';
+import { getFileConcurrency } from '@config/serverConfig';
 import { hugoToPage } from '@/types/page';
 import { HugoJsonPage } from '../interfaces/hugo';
 

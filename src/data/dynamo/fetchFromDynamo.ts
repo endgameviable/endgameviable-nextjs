@@ -5,10 +5,10 @@ import {
     GetItemCommand,
     ScanCommand,
 } from '@aws-sdk/client-dynamodb';
-import { dynamoClient } from '@config/resourceConfig';
 import { PageContent, ERROR_ENTRY } from '../interfaces/content';
 import { safeParseDateMillis } from '@/types/dates';
 import { TextType } from '@/types/contentText';
+import { dynamoClient } from '@config/awsDynamoClient';
 
 export async function getContentAtRouteDynamo(
     route: string[],

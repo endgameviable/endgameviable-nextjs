@@ -1,14 +1,16 @@
 import { PageContent } from '../interfaces/content';
 import EntryQueryParams from '../interfaces/queryFilter';
 import { ScanCommand } from '@aws-sdk/client-dynamodb';
-import { dynamoClient, searchContentTableName } from '@config/resourceConfig';
 import { getS } from './fetchFromDynamo';
 import { getContentObject } from '../s3/fetchFromS3';
 import { hugoToPage } from '@/types/page';
+import { dynamoClient } from '@config/awsDynamoClient';
+import { ENV, getEnv } from '@config/env';
 
 export async function searchEntriesDynamo(
     params: EntryQueryParams,
 ): Promise<PageContent[]> {
+    const searchContentTableName = getEnv(ENV.SEARCH_TABLE);
     console.log(`scanning ${searchContentTableName} for search parameters`);
     let lastKey: any = undefined;
     // const children: Entry[] = [];
