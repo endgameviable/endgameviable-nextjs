@@ -4,11 +4,12 @@ frontend:
     preBuild:
       commands:
         - node -v
-        - npm ci
-        - export EGV_RESOURCE_EVENT_QUEUE=$(aws cloudformation describe-stacks --stack-name endgameviable2024-resources --output text | grep EventQueue | awk '{print $NF}')
-        - export EGV_RESOURCE_JSON_BUCKET=$(aws cloudformation describe-stacks --stack-name endgameviable2024-resources --output text | grep JSONBucket | awk '{print $NF}')
-        - export EGV_RESOURCE_SEARCH_TABLE=$(aws cloudformation describe-stacks --stack-name endgameviable2024-resources --output text | grep SearchTable | awk '{print $NF}')
-        - export EGV_RESOURCE_STATE_TABLE=$(aws cloudformation describe-stacks --stack-name endgameviable2024-resources --output text | grep StateTable | awk '{print $NF}')
+        - npm c
+        - [ -z $EGV_RESOURCE_STACK ]
+        - export EGV_RESOURCE_EVENT_QUEUE=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-resources --output text | grep EventQueue | awk '{print $NF}')
+        - export EGV_RESOURCE_JSON_BUCKET=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-resources --output text | grep JSONBucket | awk '{print $NF}')
+        - export EGV_RESOURCE_SEARCH_TABLE=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-resources --output text | grep SearchTable | awk '{print $NF}')
+        - export EGV_RESOURCE_STATE_TABLE=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-resources --output text | grep StateTable | awk '{print $NF}')
         - mkdir -p content
         - aws s3 cp s3://${EGV_RESOURCE_JSON_BUCKET}/_content.zip .
         - unzip -q _content.zip -d content
