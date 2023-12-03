@@ -10,9 +10,13 @@ frontend:
         - node -v
         - npm ci
         - export EGV_RESOURCE_EVENT_QUEUE=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-resource --output text | grep EventQueue | awk '{print $NF}')
+        - env | grep EGV_RESOURCE_EVENT_QUEUE
         - export EGV_RESOURCE_STATE_TABLE=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-resource --output text | grep StateTable | awk '{print $NF}')
+        - env | grep EGV_RESOURCE_STATE_TABLE
         - export EGV_RESOURCE_JSON_BUCKET=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-build --output text | grep JSONBucket | awk '{print $NF}')
+        - env | grep EGV_RESOURCE_SEARCH_TABLE
         - export EGV_RESOURCE_SEARCH_TABLE=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-build --output text | grep SearchTable | awk '{print $NF}')
+        - env | grep EGV_RESOURCE_SEARCH_TABLE
         - mkdir -p content
         - aws s3 cp s3://${EGV_RESOURCE_JSON_BUCKET}/_content.zip .
         - unzip -q _content.zip -d content
@@ -20,8 +24,6 @@ frontend:
     build:
       commands:
         - node -v
-        - 'echo "using bucket: $EGV_RESOURCE_JSON_BUCKET"'
-        - 'echo "using table: $EGV_RESOURCE_SEARCH_TABLE"'
         - "env | grep -e '^EGV_USER_' -e '^EGV_RESOURCE_' >> .env.production"
         # To work in Amplify hosting, have to set access and token
         # from an IAM user for runtime environment to access resources.
