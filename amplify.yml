@@ -5,7 +5,7 @@ frontend:
       commands:
         - node -v
         - npm c
-        - [ -z $EGV_RESOURCE_STACK ]
+        - '[ -z $EGV_RESOURCE_STACK ]'
         - export EGV_RESOURCE_EVENT_QUEUE=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-resources --output text | grep EventQueue | awk '{print $NF}')
         - export EGV_RESOURCE_JSON_BUCKET=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-resources --output text | grep JSONBucket | awk '{print $NF}')
         - export EGV_RESOURCE_SEARCH_TABLE=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-resources --output text | grep SearchTable | awk '{print $NF}')
