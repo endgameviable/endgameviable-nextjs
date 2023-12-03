@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import FilterForm from '@/components/apiForm';
+import FilterForm from '@/components/client/searchForm';
 import ContentList from '@/components/server/contentList';
 
 // Rudimentary search page

@@ -10,7 +10,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ onSubmit }) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        // TODO: how do I display "searching..." on the client???
         try {
             const response = await fetch(
                 `/api/query?source=movies&text=${filterValue}`,
