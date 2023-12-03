@@ -20,7 +20,7 @@ it('mocks sendMessage', async () => {
         },
     };
 
-    //process.env.EGV_RESOURCE_EVENT_QUEUE = 'anyName';
+    process.env.EGV_RESOURCE_EVENT_QUEUE = 'anyName';
     const sqsEventQueueName = getEnv(ENV.EVENT_QUEUE);
 
     const client = new SQSClient({});
