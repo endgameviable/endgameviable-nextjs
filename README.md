@@ -1,8 +1,10 @@
-This is the Next.js application that I'm experimenting with as an engine for my Endgame Viable blog site.
+This is a Next.js web application that I'm experimenting with as an engine for my Endgame Viable blog site.
 
 It's a hybrid static/dynamic blog platform, but the goal is to keep the content completely separate from the blog repo.
 
-The project, however, expects to find content at build time in a local content directory. The content directory is populated as part of a backend build process using [a Hugo template](https://github.com/endgameviable/endgameviable-json-theme) that renders Markdown content into JSON data files instead of HTML.
+However, content may be incorporated at build time in a local content directory. It also supports fetching content from an S3 bucket.
+
+The content is populated with json data as part of a backend build process using [a Hugo template](https://github.com/endgameviable/endgameviable-json-theme) that renders Markdown content into JSON data files instead of HTML.
 
 I also want to support content from other sources like YAML files, but that's a process that's handled elsewhere. This project renders whatever JSON data it finds in the local content directory.
 
