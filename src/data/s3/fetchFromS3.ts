@@ -1,24 +1,11 @@
 import path from 'path';
-import PageContent from '../interfaces/content';
-import { safeStringify } from '@/types/strings';
+import { PageContent } from '../interfaces/content';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { s3Client, contentBucketName } from '@config/resourceConfig';
 import { canonicalizePath } from '@/site/utilities';
-import { safeParseDateMillis } from '@/types/dates';
 import { TextType } from '@/types/contentText';
-
-export interface HugoJsonPage {
-    date?: string; // format: ISO 8601 yyyy-mm-ddThh:mm:ss-zzzz
-    title?: string;
-    summary?: string;
-    content?: string;
-    plain?: string;
-    link?: string;
-    type?: string;
-    alternates?: string[];
-    images?: string[];
-    children?: HugoJsonPage[];
-}
+import { HugoJsonPage } from '../interfaces/hugo';
+import { hugoToPage, hugoToPageList } from '@/types/page';
 
 export async function getContentAtRouteS3(
     route: string[],
@@ -28,11 +15,11 @@ export async function getContentAtRouteS3(
         const data = await getContentObject(key);
         if (data.children && data.children.length > 0) {
             // List page
-            const children = jsonToEntries(data.children);
-            return jsonToEntry(data, children);
+            const children = hugoToPageList(data.children);
+            return hugoToPage(data, children);
         } else {
             // Single page
-            return jsonToEntry(data, []);
+            return hugoToPage(data, []);
         }
     } catch (error) {
         console.log(error);
@@ -57,34 +44,4 @@ export async function getContentObject(key: string): Promise<HugoJsonPage> {
         return JSON.parse(s);
     }
     return {};
-}
-
-// Convert the json returned from S3 endpoints to an Entry
-export function jsonToEntry(
-    json: HugoJsonPage,
-    children: PageContent[] = [],
-): PageContent {
-    let image: string | undefined = undefined;
-    if (json.images) {
-        image = json.images[0];
-    }
-    return {
-        timestamp: safeParseDateMillis(safeStringify(json.date)),
-        route: canonicalizePath(safeStringify(json.link)),
-        summary: new TextType(safeStringify(json.summary), 'text/plain'),
-        article: new TextType(safeStringify(json.content), 'text/html'),
-        title: json.title,
-        type: json.type?.toLowerCase() === 'micropost' ? 'micropost' : 'post',
-        image: image,
-        children: children,
-    };
-}
-
-export function jsonToEntries(dataPages: HugoJsonPage[]): PageContent[] {
-    const entries: PageContent[] = [];
-    for (const jsonPage of dataPages) {
-        const entry = jsonToEntry(jsonPage, []);
-        entries.push(entry);
-    }
-    return entries;
 }
