@@ -3,9 +3,12 @@ frontend:
   phases:
     preBuild:
       commands:
-        - node -v
-        - npm c
         - env | grep EGV_RESOURCE_STACK
+        - env | grep -q EGV_RUNTIME_ACCESS_KEY_ID
+        - env | grep -q EGV_RUNTIME_SECRET_ACCESS_KEY
+        - env | grep -q EGV_USER_MASTODON_API_TOKEN
+        - node -v
+        - npm ci
         - export EGV_RESOURCE_EVENT_QUEUE=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-resources --output text | grep EventQueue | awk '{print $NF}')
         - export EGV_RESOURCE_JSON_BUCKET=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-resources --output text | grep JSONBucket | awk '{print $NF}')
         - export EGV_RESOURCE_SEARCH_TABLE=$(aws cloudformation describe-stacks --stack-name $EGV_RESOURCE_STACK-resources --output text | grep SearchTable | awk '{print $NF}')
