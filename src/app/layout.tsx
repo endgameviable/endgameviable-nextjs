@@ -1,7 +1,8 @@
 import { Roboto_Mono } from 'next/font/google';
 import type { Metadata } from 'next';
-import './globals.css';
 import { siteConfig } from '@config/siteConfig';
+import './globals.css';
+import './syntax.css';
 
 const roboto = Roboto_Mono({
     variable: '--font-roboto-mono',
@@ -20,19 +21,12 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    // TODO: rel links should be in config/
     return (
         <html lang="en" className={`${roboto.variable}`}>
             <head>
-                <link
-                    rel="me"
-                    href="https://gts.endgameviable.com/@ultrviolet"
-                />
-                <link rel="me" href="https://github.com/endgameviable" />
-                <link
-                    rel="webmention"
-                    href="https://webmention.io/beta.endgameviable.com/webmention"
-                />
+                {siteConfig.links.map((x) => {
+                    return <link key="" rel={x.rel} href={x.href} />;
+                })}
             </head>
             <body>{children}</body>
         </html>
