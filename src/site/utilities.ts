@@ -1,14 +1,18 @@
 import { siteConfig } from '@config/siteConfig';
 
+export function linkWithDomain(hostname: string, path: string): string {
+    return 'https://' + hostname + canonicalizePath(path);
+}
+
 // Host and path to this site
 export function thisSiteUrl(relUrl: string): string {
-    return siteConfig.siteUrl + canonicalizePath(relUrl);
+    return siteConfig.homePage + canonicalizePath(relUrl);
 }
 
 // Generate a link to an existing public site based on the route.
 // Used when developing new site in parallel with an old one.
 export function publicSiteUrl(relUrl: string): string {
-    return siteConfig.routeHostName + canonicalizePath(relUrl);
+    return linkWithDomain(siteConfig.canonicalHostName, relUrl);
 }
 
 export function ensureHttps(url: string): string {

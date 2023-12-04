@@ -6,7 +6,7 @@ import {
 import { PAGE_SIZE, siteConfig } from '@config/siteConfig';
 import { safeStringify } from '@/types/strings';
 import { getAllLatestPosts } from './getAllLatestPosts';
-import { publicSiteUrl, thisSiteUrl } from './utilities';
+import { linkWithDomain, thisSiteUrl } from './utilities';
 
 export async function generateFeed(): Promise<Feed> {
     const entries = await getAllLatestPosts();
@@ -14,24 +14,27 @@ export async function generateFeed(): Promise<Feed> {
     const feed = new Feed({
         title: siteConfig.siteName,
         description: `RSS feed for ${siteConfig.siteName}`,
-        id: siteConfig.siteUrl,
-        link: siteConfig.siteUrl,
+        id: siteConfig.homePage,
+        link: siteConfig.homePage,
         feedLinks: {
-            json: `${siteConfig.siteUrl}/index.json`,
-            rss: `${siteConfig.siteUrl}/index.xml`,
+            json: linkWithDomain(siteConfig.siteHost, '/index.json'),
+            rss: linkWithDomain(siteConfig.siteHost, '/index.xml'),
         },
         updated: new Date(),
         copyright: 'Copyright', // TODO
     });
+    const feedStartingTimestamp = Date.parse(siteConfig.feedBeginsAt);
     entries.slice(0, PAGE_SIZE).map((entry) => {
-        feed.addItem({
-            date: new Date(entry.timestamp),
-            title: safeStringify(entry.title, 'Untitled'),
-            id: thisSiteUrl(entry.route),
-            link: publicSiteUrl(entry.route),
-            description: renderSummaryAsHTML(entry),
-            content: renderArticleAsHTML(entry),
-        });
+        if (entry.timestamp >= feedStartingTimestamp) {
+            feed.addItem({
+                date: new Date(entry.timestamp),
+                title: safeStringify(entry.title, 'Untitled'),
+                id: thisSiteUrl(entry.route),
+                link: linkWithDomain(siteConfig.siteHost, entry.route),
+                description: renderSummaryAsHTML(entry),
+                content: renderArticleAsHTML(entry),
+            });
+        }
     });
     return feed;
 }

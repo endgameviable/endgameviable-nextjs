@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: ['/api/', '/search/'],
         },
-        sitemap: siteConfig.siteUrl + '/sitemap.xml',
+        sitemap: siteConfig.homePage + '/sitemap.xml',
     };
 }
