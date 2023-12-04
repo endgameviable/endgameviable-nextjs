@@ -10,20 +10,25 @@ export function hugoToPage(
     json: HugoJsonPage,
     children: PageContent[] = [],
 ): PageContent {
+    try {
     let image: string | undefined = undefined;
-    if (json.images) {
-        image = json.images[0];
+    if (json.metadata && json.metadata.images) {
+        image = json.metadata.images[0];
     }
     return {
         timestamp: safeParseDateMillis(safeStringify(json.date)),
         route: canonicalizePath(safeStringify(json.link)),
-        summary: new TextType(safeStringify(json.summary), 'text/plain'),
+        summary: new TextType(safeStringify(json.metadata?.summary), 'text/plain'),
         article: new TextType(safeStringify(json.content), 'text/html'),
-        title: json.title,
-        type: json.type?.toLowerCase() === 'micropost' ? 'micropost' : 'post',
+        title: json.metadata?.title,
+        type: json.metadata?.type?.toLowerCase() === 'micropost' ? 'micropost' : 'post',
         image: image,
         children: children,
     };
+    } catch (error) {
+        console.log("error in", JSON.stringify(json));
+        throw error;
+    }
 }
 
 export function hugoToPageList(dataPages: HugoJsonPage[]): PageContent[] {

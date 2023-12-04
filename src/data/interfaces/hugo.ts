@@ -1,12 +1,16 @@
 export interface HugoJsonPage {
-    date?: string; // format: ISO 8601 yyyy-mm-ddThh:mm:ss-zzzz
-    title?: string;
-    summary?: string;
+    metadata?: {
+        title?: string;
+        summary?: string;
+        type?: string;
+        images?: string[];
+        alternates?: string[];
+        tags?: string[];
+        categories?: string[];
+    }
+    date: string; // format: ISO 8601 yyyy-mm-ddThh:mm:ss-zzzz
+    link: string;
     content?: string;
     plain?: string;
-    link?: string;
-    type?: string;
-    alternates?: string[];
-    images?: string[];
     children?: HugoJsonPage[];
 }

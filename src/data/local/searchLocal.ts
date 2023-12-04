@@ -29,9 +29,9 @@ export async function searchEntriesLocal(
         promises.push(
             readLocalJSON(file).then((data) => {
                 const searchable = [
-                    data.title?.toLowerCase(),
+                    data.metadata?.title?.toLowerCase(),
+                    data.metadata?.summary?.toLowerCase(),
                     data.plain?.toLowerCase(),
-                    data.summary?.toLowerCase(),
                 ].join(' ');
                 if (searchable.includes(params.contains.toLowerCase())) {
                     matches.push(hugoToPage(data));
