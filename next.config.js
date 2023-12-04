@@ -1,6 +1,6 @@
+/** @type {import('next').NextConfig} */
 const fs = require('fs').promises;
 
-/** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
         remotePatterns: [
