@@ -18,7 +18,7 @@ export function hugoToPage(
     return {
         timestamp: safeParseDateMillis(safeStringify(json.date)),
         route: canonicalizePath(safeStringify(json.link)),
-        summary: new TextType(safeStringify(json.metadata?.summary), 'text/plain'),
+        summary: new TextType(safeStringify(json.summary), 'text/plain'),
         article: new TextType(safeStringify(json.content), 'text/html'),
         title: json.metadata?.title,
         type: json.metadata?.type?.toLowerCase() === 'micropost' ? 'micropost' : 'post',

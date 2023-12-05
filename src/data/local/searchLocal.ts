@@ -30,7 +30,7 @@ export async function searchEntriesLocal(
             readLocalJSON(file).then((data) => {
                 const searchable = [
                     data.metadata?.title?.toLowerCase(),
-                    data.metadata?.summary?.toLowerCase(),
+                    data.summary?.toLowerCase(),
                     data.plain?.toLowerCase(),
                 ].join(' ');
                 if (searchable.includes(params.contains.toLowerCase())) {
