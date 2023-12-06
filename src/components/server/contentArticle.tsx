@@ -18,6 +18,7 @@ export default function ContentArticle({ entry }: { entry: PageContent }) {
                 alt="{entry.title}"
                 width={1024}
                 height={1024}
+                priority={true}
             />
         );
     }
