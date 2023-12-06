@@ -1,9 +1,10 @@
 import { Mention } from '@/data/interfaces/mention';
-import { ensureHttps } from '@/site/utilities';
+import { ensureHttps, ensureTrailingSlash } from '@/site/utilities';
 import { safeStringify } from '@/types/strings';
 import { GetItemCommand } from '@aws-sdk/client-dynamodb';
 import { dynamoClient } from '@config/awsDynamoClient';
 import { ENV, getEnv } from '@config/env';
+import * as cheerio from 'cheerio';
 
 // TODO: Someday might need to turn this into a paged interface.
 // If e.g. there are hundreds or thousands of mentions (har).
@@ -19,27 +20,39 @@ async function lookupUrl(url: string): Promise<any> {
     return dynamoClient.send(command).then((data) => data.Item);
 }
 
-async function getThread(instance?: string, id?: string): Promise<Mention[]> {
-    if (!instance || !id) return [];
+async function authorizedGet(apiUrl: string): Promise<any> {
     const mastodonApiToken = getEnv(ENV.MASTODON_TOKEN);
-    const mentions: Mention[] = [];
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${mastodonApiToken}`);
-    instance = ensureHttps(instance);
-    const apiUrl = `${instance}/api/v1/statuses/${id}/context`;
     console.log(`querying ${apiUrl}`);
-    await fetch(apiUrl, { method: 'GET', headers: headers })
+    return fetch(apiUrl, { method: 'GET', headers: headers })
         .then((response) => {
             return response.json();
-        })
+        });
+}
+
+function statusToMention(status: any): Mention {
+    console.log(status);
+    const html = cheerio.load(status.content);
+    return {
+        date: safeStringify(status.created_at),
+        content: safeStringify(html.text()),
+        url: status.url,
+    };
+}
+
+async function getThread(instance?: string, id?: string): Promise<Mention[]> {
+    if (!instance || !id) return [];
+    const mentions: Mention[] = [];
+    instance = ensureHttps(instance);
+    const status = await authorizedGet(`${instance}/api/v1/statuses/${id}`);
+    if (!status) return [];
+    mentions.push(statusToMention(status));
+    await authorizedGet(`${instance}/api/v1/statuses/${id}/context`)
         .then((data) => {
             if (data.descendants) {
                 for (const status of data.descendants) {
-                    mentions.push({
-                        date: safeStringify(status.created_at),
-                        content: safeStringify(status.text),
-                        url: status.url,
-                    });
+                    mentions.push(statusToMention(status));
                 }
             }
         })
@@ -57,7 +70,11 @@ export async function GET(request: Request) {
     // Lookup url in the metadata linking table.
     // The table holds links from urls to metadata.
     let mentions: Mention[] = [];
-    const item = await lookupUrl(url);
+    let item = await lookupUrl(url);
+    if (!item) {
+        // try with a trailing slash for Hugo links
+        item = await lookupUrl(ensureTrailingSlash(url));
+    }
     if (item) {
         const instanceName = item.activityPubInstance.S;
         const statusId = item.activityPubStatusID.S;

@@ -11,7 +11,7 @@ export function thisSiteUrl(relUrl: string): string {
 
 // Generate a link to an existing public site based on the route.
 // Used when developing new site in parallel with an old one.
-export function publicSiteUrl(relUrl: string): string {
+export function canonicalSiteUrl(relUrl: string): string {
     return linkWithDomain(siteConfig.canonicalHostName, relUrl);
 }
 
