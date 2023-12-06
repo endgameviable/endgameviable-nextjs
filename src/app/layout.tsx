@@ -21,11 +21,12 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
+    let index = 1;
     return (
         <html lang="en" className={`${roboto.variable}`}>
             <head>
                 {siteConfig.links.map((x) => {
-                    return <link key="" rel={x.rel} href={x.href} />;
+                    return <link key={index++} rel={x.rel} href={x.href} />;
                 })}
             </head>
             <body>{children}</body>
